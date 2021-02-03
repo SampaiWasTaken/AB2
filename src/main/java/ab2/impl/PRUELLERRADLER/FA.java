@@ -123,7 +123,9 @@ public class FA implements ab2.FA
     @Override
     public boolean acceptsEpsilon()
     {
-        return false;
+        if (numStates == 1 && acceptingStates.contains(1))
+            return true;
+        else return false;
     }
 
     @Override

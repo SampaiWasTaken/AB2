@@ -7,8 +7,9 @@ import java.util.Set;
 public class FactoryImpl implements Factory {
 
 	@Override
-	public FATransition createTransition(int from, int to, String symbols) {
-		return null;
+	public FATransition createTransition(int from, int to, String symbols)
+	{
+		return new FATransition(from, to, symbols);
 	}
 
 	@Override
@@ -18,9 +19,7 @@ public class FactoryImpl implements Factory {
 
 	@Override
 	public ab2.FA createFA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.FATransition> transitions) {
-		FA fa = new FA(numStates, characters, acceptingStates, transitions);
-		return fa;
-		//kek
+		return new FA(numStates, characters, acceptingStates, transitions);
 	}
 
 	@Override
