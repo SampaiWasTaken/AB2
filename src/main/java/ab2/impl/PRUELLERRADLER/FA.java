@@ -1,4 +1,4 @@
-package ab2.impl.NACHNAMEN;
+package ab2.impl.PRUELLERRADLER;
 
 import ab2.FATransition;
 import ab2.IllegalCharacterException;
@@ -13,8 +13,6 @@ public class FA implements ab2.FA
     private Set<Integer> acceptingStates;
     private Set<FATransition> transitions;
 
-    //kek
-
     @Override
     public Set<Character> getSymbols()
     {
@@ -24,12 +22,14 @@ public class FA implements ab2.FA
     @Override
     public Set<Integer> getAcceptingStates()
     {
-        return null;
+        return acceptingStates;
     }
 
     @Override
     public boolean isAcceptingState(int s) throws IllegalStateException
     {
+        if (acceptingStates.contains(s))
+            return true;
         return false;
     }
 
@@ -42,7 +42,7 @@ public class FA implements ab2.FA
     @Override
     public int getNumStates()
     {
-        return 0;
+        return numStates;
     }
 
     @Override
@@ -102,6 +102,8 @@ public class FA implements ab2.FA
     @Override
     public boolean acceptsNothing()
     {
+        if (acceptingStates.isEmpty())
+            return true;
         return false;
     }
 

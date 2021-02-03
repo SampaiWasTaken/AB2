@@ -1,4 +1,4 @@
-package ab2.impl.NACHNAMEN;
+package ab2.impl.PRUELLERRADLER;
 
 import ab2.*;
 

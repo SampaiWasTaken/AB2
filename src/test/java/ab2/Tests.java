@@ -1,6 +1,6 @@
 package ab2;
 
-import ab2.impl.NACHNAMEN.FactoryImpl;
+import ab2.impl.PRUELLERRADLER.FactoryImpl;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
