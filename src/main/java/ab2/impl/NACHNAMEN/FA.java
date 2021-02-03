@@ -13,6 +13,8 @@ public class FA implements ab2.FA
     private Set<Integer> acceptingStates;
     private Set<FATransition> transitions;
 
+    //kek
+
     @Override
     public Set<Character> getSymbols()
     {
