@@ -13,6 +13,13 @@ public class FA implements ab2.FA
     private Set<Integer> acceptingStates;
     private Set<FATransition> transitions;
 
+    public FA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<FATransition> transitions) {
+        this.numStates = numStates;
+        this.characters = characters;
+        this.acceptingStates = acceptingStates;
+        this.transitions = transitions;
+    }
+
     @Override
     public Set<Character> getSymbols()
     {

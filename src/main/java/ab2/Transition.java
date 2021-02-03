@@ -1,6 +1,7 @@
 package ab2;
 
 public interface Transition {
+
 	/**
 	 * Index des Zustandes, von dem die Transition weg führt
 	 */

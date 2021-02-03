@@ -17,8 +17,9 @@ public class FactoryImpl implements Factory {
 	}
 
 	@Override
-	public FA createFA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<FATransition> transitions) {
-		return null;
+	public ab2.FA createFA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.FATransition> transitions) {
+		FA fa = new FA(numStates, characters, acceptingStates, transitions);
+		return fa;
 	}
 
 	@Override
