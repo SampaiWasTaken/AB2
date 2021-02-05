@@ -4,6 +4,7 @@ import ab2.FATransition;
 import ab2.IllegalCharacterException;
 import ab2.RSA;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class FA implements ab2.FA
@@ -11,9 +12,9 @@ public class FA implements ab2.FA
     private int numStates;
     private Set<Character> characters;
     private Set<Integer> acceptingStates;
-    private Set<FATransition> transitions;
+    private Set<ab2.impl.PRUELLERRADLER.FATransition> transitions;
 
-    public FA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<FATransition> transitions) {
+    public FA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.impl.PRUELLERRADLER.FATransition> transitions) {
         this.numStates = numStates;
         this.characters = characters;
         this.acceptingStates = acceptingStates;
@@ -97,6 +98,23 @@ public class FA implements ab2.FA
     @Override
     public RSA toRSA()
     {
+        //checks for epsilon transitions
+        boolean hasEpsisonTransitions = false;
+        for(ab2.impl.PRUELLERRADLER.FATransition trans : this.transitions){
+            if(trans.symbols().equals("")) hasEpsisonTransitions = true;
+        }
+
+        if(hasEpsisonTransitions){
+            //doing RSA convertion with Epsilon quantity
+
+
+        }else {
+            //doing simple RSA convertion without epsilon quantity
+
+
+        }
+
+
         return null;
     }
 
