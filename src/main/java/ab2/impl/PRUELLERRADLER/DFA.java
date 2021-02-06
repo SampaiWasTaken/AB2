@@ -1,6 +1,5 @@
 package ab2.impl.PRUELLERRADLER;
 
-import ab2.DFATransition;
 import ab2.FA;
 import ab2.IllegalCharacterException;
 import ab2.RSA;

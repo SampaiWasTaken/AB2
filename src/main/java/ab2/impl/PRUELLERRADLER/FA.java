@@ -22,20 +22,17 @@ public class FA implements ab2.FA
     }
 
     @Override
-    public Set<Character> getSymbols()
-    {
+    public Set<Character> getSymbols() {
         return characters;
     }
 
     @Override
-    public Set<Integer> getAcceptingStates()
-    {
+    public Set<Integer> getAcceptingStates() {
         return acceptingStates;
     }
 
     @Override
-    public boolean isAcceptingState(int s) throws IllegalStateException
-    {
+    public boolean isAcceptingState(int s) throws IllegalStateException {
         if (acceptingStates.contains(s))
             return true;
         return false;
