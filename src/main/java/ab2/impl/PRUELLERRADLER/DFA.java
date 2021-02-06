@@ -7,6 +7,23 @@ import ab2.RSA;
 import java.util.Set;
 
 public class DFA implements ab2.DFA {
+
+    private int numStates;
+    private Set<Character> characters;
+    private Set<Integer> acceptingStates;
+    private Set<DFATransition> transitions;
+    private int startingState;  //keine ahnung wie ich sonst den startedent zustand speichern soll, wenn er mal nicht 0 ist
+    private int currentState;
+
+    public DFA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<DFATransition> transitions, int startingState, int currentState) {
+        this.numStates = numStates;
+        this.characters = characters;
+        this.acceptingStates = acceptingStates;
+        this.transitions = transitions;
+        this.startingState = startingState;
+        this.currentState = currentState;
+    }
+
     @Override
     public void reset() {
 
