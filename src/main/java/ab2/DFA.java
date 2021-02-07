@@ -1,7 +1,5 @@
 package ab2;
 
-import ab2.impl.PRUELLERRADLER.DFATransition;
-
 import java.util.Set;
 
 public interface DFA extends FA {

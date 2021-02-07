@@ -1,5 +1,6 @@
 package ab2.impl.PRUELLERRADLER;
 
+import ab2.DFATransition;
 import ab2.FA;
 import ab2.IllegalCharacterException;
 
@@ -10,12 +11,12 @@ public class RSA implements ab2.RSA {
     private int numStates;
     private Set<Character> characters;
     private Set<Integer> acceptingStates;
-    private Set<DFATransition> transitions;
+    private Set<ab2.DFATransition> transitions;
     private int startingState;  //keine ahnung wie ich sonst den startedent zustand speichern soll, wenn er mal nicht 0 ist
     private int currentState;
 
 
-    public RSA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.impl.PRUELLERRADLER.DFATransition> transitions, int startingState) {
+    public RSA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.DFATransition> transitions, int startingState) {
         this.numStates = numStates;
         this.characters = characters;
         this.acceptingStates = acceptingStates;
@@ -78,13 +79,13 @@ public class RSA implements ab2.RSA {
 
         //checks if State s is in our "State table?"
         boolean stateNotFound = true;
-        for(ab2.impl.PRUELLERRADLER.DFATransition ts : transitions){
+        for(ab2.DFATransition ts : transitions){
             if(ts.to() == s || ts.from() == s)stateNotFound = false;
         }
             if(stateNotFound)throw new IllegalStateException();
 
 
-        for(ab2.impl.PRUELLERRADLER.DFATransition ts : transitions){
+        for(ab2.DFATransition ts : transitions){
             if (ts.from() == s){
                 if(ts.symbol() == c)return ts.to();
             }
@@ -123,7 +124,7 @@ public class RSA implements ab2.RSA {
     public boolean isAcceptingState(int s) throws IllegalStateException {
 
         boolean stateNotFound = true;
-        for(ab2.impl.PRUELLERRADLER.DFATransition ts : transitions){
+        for(ab2.DFATransition ts : transitions){
             if(ts.to() == s || ts.from() == s)stateNotFound = false;
         }
         if(stateNotFound)throw new IllegalStateException();

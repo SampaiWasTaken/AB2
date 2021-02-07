@@ -1,5 +1,6 @@
 package ab2.impl.PRUELLERRADLER;
 
+import ab2.DFATransition;
 import ab2.FA;
 import ab2.IllegalCharacterException;
 import ab2.RSA;
@@ -11,17 +12,16 @@ public class DFA implements ab2.DFA {
     private int numStates;
     private Set<Character> characters;
     private Set<Integer> acceptingStates;
-    private Set<DFATransition> transitions;
+    private Set<ab2.DFATransition> transitions;
     private int startingState;  //keine ahnung wie ich sonst den startedent zustand speichern soll, wenn er mal nicht 0 ist
     private int currentState;
 
-    public DFA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<DFATransition> transitions, int startingState, int currentState) {
+    public DFA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<DFATransition> transitions, int startingState) {
         this.numStates = numStates;
         this.characters = characters;
         this.acceptingStates = acceptingStates;
         this.transitions = transitions;
         this.startingState = startingState;
-        this.currentState = currentState;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class DFA implements ab2.DFA {
     }
 
     @Override
-    public Set<DFATransition> getTransitions() {
+    public Set<ab2.DFATransition> getTransitions() {
         return null;
     }
 

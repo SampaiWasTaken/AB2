@@ -3,18 +3,22 @@ package ab2.impl.PRUELLERRADLER;
 import ab2.FATransition;
 import ab2.IllegalCharacterException;
 import ab2.RSA;
+import com.sun.source.tree.Tree;
 
+import javax.print.attribute.SetOfIntegerSyntax;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class FA implements ab2.FA
 {
     private int numStates;
     private Set<Character> characters;
     private Set<Integer> acceptingStates;
-    private Set<ab2.impl.PRUELLERRADLER.FATransition> transitions;
+    private Set<ab2.FATransition> transitions;
 
-    public FA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.impl.PRUELLERRADLER.FATransition> transitions) {
+    public FA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.FATransition> transitions) {
         this.numStates = numStates;
         this.characters = characters;
         this.acceptingStates = acceptingStates;
@@ -97,7 +101,7 @@ public class FA implements ab2.FA
     {
         //checks for epsilon transitions
         boolean hasEpsisonTransitions = false;
-        for(ab2.impl.PRUELLERRADLER.FATransition trans : this.transitions){
+        for(ab2.FATransition trans : this.transitions){
             if(trans.symbols().equals("")) hasEpsisonTransitions = true;
         }
 
@@ -105,14 +109,41 @@ public class FA implements ab2.FA
             //doing RSA convertion with Epsilon quantity
 
 
+
         }else {
             //doing simple RSA convertion without epsilon quantity
+
+            Set<TransitionTable> tt = new TreeSet<>();
+
+            //startzustand hat immer index 0
+            Set<Integer> start = new TreeSet<>();
+            start.add(0);
+            tt.add(new TransitionTable(start));
+            for(TransitionTable t : tt){
+                //t.calculateSteps( zeugs );
+            }
+
+
+
 
 
         }
 
 
         return null;
+    }
+
+    //runs through each state in "currentStateQuantity" and stores the next step if the correct symbols is read
+    private Set<Integer> nextSteps(Set<Integer> currentStateQuantity, String symbol){
+        Set<Integer> result = new TreeSet<>();
+        for(FATransition tr : this.transitions){
+            for(Integer i : currentStateQuantity){
+                if(i == tr.from() && (tr.symbols().equals(symbol)||tr.symbols().equals(""))){
+                    result.add(tr.to());
+                }
+            }
+        }
+        return result;
     }
 
     @Override
