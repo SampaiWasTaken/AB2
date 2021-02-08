@@ -139,7 +139,8 @@ public class FA implements ab2.FA
             {
                 t.calculateSteps(transitions, characters);
                 ArrayList<Set<Integer>> tra = t.getNextSteps();
-                for(int i = 0; i < tra.size(); i++){
+                for (int i = 0; i < tra.size(); i++)
+                {
                     if(tra.get(i).size() != 0){
                         tt.add(new TransitionTable(tra.get(i)));
                         finaltt.add(new TransitionTable(tra.get(i)));
@@ -186,7 +187,6 @@ public class FA implements ab2.FA
 
 
 
-
         }
 
 
@@ -223,7 +223,7 @@ public class FA implements ab2.FA
         int currentState = 0;
         int charCounter = 0;
 
-        while (charCounter < word.length-1)
+        while (charCounter < word.length - 1)
         {
             for (FATransition tr : transitions)
             {
@@ -235,7 +235,7 @@ public class FA implements ab2.FA
                 }
 
             }
-            if(charCounter == 0) return false;
+            if (charCounter == 0) return false;
         }
         if (acceptingStates.contains(currentState))
             return true;
@@ -247,6 +247,14 @@ public class FA implements ab2.FA
     {
         if (acceptingStates.isEmpty())
             return true;
+
+        for (FATransition tr : transitions)
+        {
+            for (int i : acceptingStates)
+            {
+                if (tr.to() == i);
+            }
+        }
         return false;
     }
 
@@ -269,6 +277,21 @@ public class FA implements ab2.FA
     @Override
     public boolean isInfinite()
     {
+        boolean loop = false;
+        for (FATransition tr : transitions)
+        {
+            for (FATransition _tr : transitions)
+            {
+                if (tr.to() == _tr.from() && tr.from() == _tr.to())
+                    loop = true;
+            }
+            if (loop)
+            {
+
+            }
+        }
+
+
         return false;
     }
 
@@ -312,27 +335,28 @@ public class FA implements ab2.FA
 
                     if (i == 0)
                     {
-                        newTrans.add((FATransition)new ab2.impl.PRUELLERRADLER.FATransition(tr.from(), numStates, "" + tokens[i]));
+                        newTrans.add((FATransition) new ab2.impl.PRUELLERRADLER.FATransition(tr.from(), numStates, "" + tokens[i]));
                         numStates++;
                     }
-                    if (i == tokens.length-1)
+                    if (i == tokens.length - 1)
                     {
-                        newTrans.add((FATransition)new ab2.impl.PRUELLERRADLER.FATransition(numStates-1, tr.to(), "" + tokens[i]));
+                        newTrans.add((FATransition) new ab2.impl.PRUELLERRADLER.FATransition(numStates - 1, tr.to(), "" + tokens[i]));
                         numStates++;
                     }
-                    else if(i != 0)
+                    else if (i != 0)
                     {
-                        newTrans.add((FATransition) new ab2.impl.PRUELLERRADLER.FATransition(numStates-1, numStates, "" + tokens[i]));
+                        newTrans.add((FATransition) new ab2.impl.PRUELLERRADLER.FATransition(numStates - 1, numStates, "" + tokens[i]));
                         numStates++;
                     }
                 }
 
 
                 //this.transitions.remove((FATransition)tr);
-            }else {
-                newTrans.add((ab2.impl.PRUELLERRADLER.FATransition)tr);
             }
-
+            else
+            {
+                newTrans.add((ab2.impl.PRUELLERRADLER.FATransition) tr);
+            }
 
 
         }
@@ -340,4 +364,27 @@ public class FA implements ab2.FA
         this.transitions = newTrans;
     }
 
+    public boolean reaches (int from, int to)
+    {
+        int currentState = from;
+        boolean running = true;
+        boolean found = false;
+        while(running)
+        {
+            for (FATransition tr : transitions)
+            {
+                if (tr.from() == currentState)
+                {
+                    if (tr.from() == currentState && tr.to() == to)
+                    {
+                        found = true;
+                        running = false;
+                    }
+                    currentState = tr.to();
+                }
+            }
+            running = false;
+        }
+        return found;
+    }
 }
