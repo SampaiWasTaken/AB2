@@ -6,10 +6,7 @@ import ab2.RSA;
 import com.sun.source.tree.Tree;
 
 import javax.print.attribute.SetOfIntegerSyntax;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class FA implements ab2.FA
 {
@@ -186,7 +183,9 @@ public class FA implements ab2.FA
                     currentState = tr.to();
                     charCounter++;
                 }
+
             }
+            if(charCounter == 0) return false;
         }
         if (acceptingStates.contains(currentState))
             return true;
@@ -249,6 +248,9 @@ public class FA implements ab2.FA
 
     public void splitTransition()
     {
+
+        Set<ab2.FATransition> newTrans = new HashSet<>();
+
         for (FATransition tr : transitions)
         {
             if (tr.symbols().length() > 1)
@@ -257,27 +259,35 @@ public class FA implements ab2.FA
 
                 for (int i = 0; i < tokens.length; i++)
                 {
+
                     if (i == 0)
                     {
-                        transitions.add((FATransition) new ab2.impl.PRUELLERRADLER.FATransition(tr.from(), numStates, "" + tokens[i]));
+                        newTrans.add((FATransition)new ab2.impl.PRUELLERRADLER.FATransition(tr.from(), numStates, "" + tokens[i]));
                         numStates++;
                     }
                     if (i == tokens.length-1)
                     {
-                        transitions.add((FATransition)new ab2.impl.PRUELLERRADLER.FATransition(numStates-1, tr.to(), "" + tokens[i]));
+                        newTrans.add((FATransition)new ab2.impl.PRUELLERRADLER.FATransition(numStates-1, tr.to(), "" + tokens[i]));
                         numStates++;
                     }
                     else if(i != 0)
                     {
-                        transitions.add((FATransition)new ab2.impl.PRUELLERRADLER.FATransition(numStates-1, numStates, "" + tokens[i]));
+                        newTrans.add((FATransition) new ab2.impl.PRUELLERRADLER.FATransition(numStates-1, numStates, "" + tokens[i]));
                         numStates++;
                     }
                 }
-                this.transitions.remove((FATransition)tr);
+
+
+                //this.transitions.remove((FATransition)tr);
+            }else {
+                newTrans.add((ab2.impl.PRUELLERRADLER.FATransition)tr);
             }
 
 
+
         }
+
+        this.transitions = newTrans;
     }
 
 }
