@@ -3,12 +3,13 @@ package ab2.impl.PRUELLERRADLER;
 import ab2.FATransition;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class TransitionTable {
     private Set<Integer> currentState;
-    private ArrayList<Set<Integer>> nextSteps;
+    private ArrayList<Set<Integer>> nextSteps = new ArrayList<>();
 
     public TransitionTable(Set<Integer> currentState) {
         this.currentState = currentState;
@@ -33,15 +34,38 @@ public class TransitionTable {
     public void calculateSteps(Set<ab2.FATransition> transitions, Set<Character> characters){
         int j = 0;
         for(Character ch : characters){
-            nextSteps.add(new TreeSet<Integer>());
+            Set<Integer> intSet =  new HashSet<>();
+            nextSteps.add(intSet);
             for(FATransition t : transitions){
                 for(Integer i : currentState){
-                    if(t.from() == i && (t.symbols().equals(ch)||t.symbols().equals(""))){
-                        nextSteps.get(j).add(i);
+                    if(t.from() == i && (t.symbols().toLowerCase().equals(""+ch)||t.symbols().equals(""))){
+                        nextSteps.get(j).add(t.to());
                     }
                 }
             }
             j++;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TransitionTable that = (TransitionTable) o;
+        return currentState.equals(that.currentState);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(currentState);
+    }
+
+    @Override
+    public String toString() {
+        String returnString = "Current State " + currentState;
+        for(int i = 0; i < nextSteps.size(); i++){
+            returnString += " | " + nextSteps.get(i).toString();
+        }
+        return returnString;
     }
 }

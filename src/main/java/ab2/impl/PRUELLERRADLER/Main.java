@@ -27,12 +27,16 @@ public class Main
         chars.add('c');
 
         Set<Integer> accept = new TreeSet<>();
-        accept.add(0);
+        accept.add(4);
 
+        transitions.add(factory.createTransition(0, 1, "b"));
         transitions.add(factory.createTransition(0, 2, "a"));
-        transitions.add(factory.createTransition(2, 3, "a"));
-        transitions.add(factory.createTransition(3, 4, "a"));
-        transitions.add(factory.createTransition(4, 0, "aba"));
+        transitions.add(factory.createTransition(0, 3, "a"));
+        transitions.add(factory.createTransition(1, 4, "a"));
+        transitions.add(factory.createTransition(1, 2, "b"));
+        transitions.add(factory.createTransition(2, 3, "b"));
+        transitions.add(factory.createTransition(2, 4, "b"));
+        transitions.add(factory.createTransition(2, 2, "a"));
 
         FA n2 = (FA) factory.createFA(5, chars, accept, transitions);
 
@@ -48,8 +52,11 @@ public class Main
         for(FATransition t : tests2){
             System.out.println(t.from() + " : "+t.symbols() +" : "+ t.to());
         }
+        //System.out.println(n2.accepts("aaaaba"));
 
-        System.out.println(n2.accepts("aaaaba"));
+        n2.toRSA();
+
+
         
     }
 }

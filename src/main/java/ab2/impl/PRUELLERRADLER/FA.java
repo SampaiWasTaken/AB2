@@ -122,25 +122,75 @@ public class FA implements ab2.FA
         {
             //doing simple RSA convertion without epsilon quantity
 
-            Set<TransitionTable> tt = new TreeSet<>();
+            Set<TransitionTable> tt = new HashSet<>();
+            Set<TransitionTable> finaltt = new HashSet<>();
 
             //startzustand hat immer index 0
-            Set<Integer> start = new TreeSet<>();
+            Set<Integer> start = new HashSet<>();
             start.add(0);
+
+
+
+            int runtimeCounter = 0;
             tt.add(new TransitionTable(start));
+            finaltt.add(new TransitionTable(start));
+
             for (TransitionTable t : tt)
             {
                 t.calculateSteps(transitions, characters);
                 ArrayList<Set<Integer>> tra = t.getNextSteps();
                 for(int i = 0; i < tra.size(); i++){
-                    tt.add(new TransitionTable(tra.get(i)));
+                    if(tra.get(i).size() != 0){
+                        tt.add(new TransitionTable(tra.get(i)));
+                        finaltt.add(new TransitionTable(tra.get(i)));
+                    }
                 }
+
             }
+            tt.remove(new TransitionTable(start));
+
+            int j = finaltt.size();
+            Iterator it = tt.iterator();
+            while (j>0 && it.hasNext()){
+                TransitionTable currenttt = (TransitionTable) it.next();
+                currenttt.calculateSteps(transitions, characters);
+                ArrayList<Set<Integer>> tra = currenttt.getNextSteps();
+                for(int i = 0; i < tra.size(); i++){
+                    if(tra.get(i).size() != 0) {
+                        boolean alreadyInside = false;
+                        for(TransitionTable t : finaltt){
+
+                            if(t.equals(new TransitionTable(tra.get(i)))){
+                                alreadyInside = true;
+                            }
+
+                        }
+                        if(!alreadyInside){
+                            tt.add(new TransitionTable(tra.get(i)));
+                            finaltt.add(new TransitionTable(tra.get(i)));
+                            j++;
+                        }
+
+                    }
+                }
+                tt.remove(currenttt);
+                it = tt.iterator();
+                j--;
+
+
+            }
+            for(TransitionTable t : finaltt){
+                t.calculateSteps(transitions, characters);
+                System.out.println(t.toString());
+            }
+
 
 
 
         }
 
+
+        //neue endzustände Beachten
 
         return null;
     }
