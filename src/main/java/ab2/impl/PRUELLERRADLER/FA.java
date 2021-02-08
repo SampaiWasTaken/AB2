@@ -168,8 +168,26 @@ public class FA implements ab2.FA
     @Override
     public boolean accepts(String w) throws IllegalCharacterException
     {
-        char[] word = w.toCharArray();
+        if (w == "")
+            return acceptsEpsilon();
 
+        char[] word = w.toCharArray();
+        int currentState = 0;
+        int charCounter = 0;
+
+        while (charCounter < word.length)
+        {
+            for (FATransition tr : transitions)
+            {
+                if (tr.from() == currentState && tr.symbols().equals("") || tr.symbols().equals("" + word[charCounter]))
+                {
+                    currentState = tr.to();
+                    charCounter++;
+                }
+            }
+        }
+        if (acceptingStates.contains(currentState))
+            return true;
         return false;
     }
 
@@ -231,7 +249,7 @@ public class FA implements ab2.FA
     {
         for (FATransition tr : transitions)
         {
-            if (tr.symbols().length()>1)
+            if (tr.symbols().length() > 1)
             {
                 char[] tokens = tr.symbols().toCharArray();
 
