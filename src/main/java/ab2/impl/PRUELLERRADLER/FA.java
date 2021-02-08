@@ -18,7 +18,8 @@ public class FA implements ab2.FA
     private Set<Integer> acceptingStates;
     private Set<ab2.FATransition> transitions;
 
-    public FA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.FATransition> transitions) {
+    public FA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.FATransition> transitions)
+    {
         this.numStates = numStates;
         this.characters = characters;
         this.acceptingStates = acceptingStates;
@@ -26,17 +27,20 @@ public class FA implements ab2.FA
     }
 
     @Override
-    public Set<Character> getSymbols() {
+    public Set<Character> getSymbols()
+    {
         return characters;
     }
 
     @Override
-    public Set<Integer> getAcceptingStates() {
+    public Set<Integer> getAcceptingStates()
+    {
         return acceptingStates;
     }
 
     @Override
-    public boolean isAcceptingState(int s) throws IllegalStateException {
+    public boolean isAcceptingState(int s) throws IllegalStateException
+    {
         if (acceptingStates.contains(s))
             return true;
         return false;
@@ -45,7 +49,7 @@ public class FA implements ab2.FA
     @Override
     public Set<? extends FATransition> getTransitions()
     {
-        return null;
+        return transitions;
     }
 
     @Override
@@ -87,13 +91,18 @@ public class FA implements ab2.FA
     @Override
     public ab2.FA kleeneStar()
     {
-        return null;
+        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(this.transitions.size(), 0, ""));
+        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(0, 0, ""));
+        this.acceptingStates.add(transitions.size() - 1);
+        return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
     }
 
     @Override
     public ab2.FA plus()
     {
-        return null;
+        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(this.transitions.size(), 0, ""));
+        this.acceptingStates.add(transitions.size() - 1);
+        return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
     }
 
     @Override
@@ -101,16 +110,19 @@ public class FA implements ab2.FA
     {
         //checks for epsilon transitions
         boolean hasEpsisonTransitions = false;
-        for(ab2.FATransition trans : this.transitions){
-            if(trans.symbols().equals("")) hasEpsisonTransitions = true;
+        for (ab2.FATransition trans : this.transitions)
+        {
+            if (trans.symbols().equals("")) hasEpsisonTransitions = true;
         }
 
-        if(hasEpsisonTransitions){
+        if (hasEpsisonTransitions)
+        {
             //doing RSA convertion with Epsilon quantity
 
 
-
-        }else {
+        }
+        else
+        {
             //doing simple RSA convertion without epsilon quantity
 
             Set<TransitionTable> tt = new TreeSet<>();
@@ -119,13 +131,10 @@ public class FA implements ab2.FA
             Set<Integer> start = new TreeSet<>();
             start.add(0);
             tt.add(new TransitionTable(start));
-            for(TransitionTable t : tt){
+            for (TransitionTable t : tt)
+            {
                 //t.calculateSteps( zeugs );
             }
-
-
-
-
 
         }
 
@@ -134,11 +143,15 @@ public class FA implements ab2.FA
     }
 
     //runs through each state in "currentStateQuantity" and stores the next step if the correct symbols is read
-    private Set<Integer> nextSteps(Set<Integer> currentStateQuantity, String symbol){
+    private Set<Integer> nextSteps(Set<Integer> currentStateQuantity, String symbol)
+    {
         Set<Integer> result = new TreeSet<>();
-        for(FATransition tr : this.transitions){
-            for(Integer i : currentStateQuantity){
-                if(i == tr.from() && (tr.symbols().equals(symbol)||tr.symbols().equals(""))){
+        for (FATransition tr : this.transitions)
+        {
+            for (Integer i : currentStateQuantity)
+            {
+                if (i == tr.from() && (tr.symbols().equals(symbol) || tr.symbols().equals("")))
+                {
                     result.add(tr.to());
                 }
             }
@@ -149,6 +162,8 @@ public class FA implements ab2.FA
     @Override
     public boolean accepts(String w) throws IllegalCharacterException
     {
+        char[] word = w.toCharArray();
+
         return false;
     }
 
@@ -163,13 +178,15 @@ public class FA implements ab2.FA
     @Override
     public boolean acceptsEpsilonOnly()
     {
-        return false;
+        if (numStates == 1 && acceptingStates.contains(0))
+            return true;
+        else return false;
     }
 
     @Override
     public boolean acceptsEpsilon()
     {
-        if (numStates == 1 && acceptingStates.contains(1))
+        if (acceptingStates.contains(0))
             return true;
         else return false;
     }

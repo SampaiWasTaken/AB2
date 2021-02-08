@@ -8,7 +8,7 @@ public class Main
     public static void main(String[] args)
     {
 
-        Set<Integer> testSet = new TreeSet<>(); //ahh thx jetzt was i was mir das set bringt XD
+        Set<Integer> testSet = new TreeSet<>(); //ahh thx jetzt was i was mir das set bringt XD was zum fuck 9s a treeSet?????????
         testSet.add(5);
         testSet.add(5);
         testSet.add(5);
