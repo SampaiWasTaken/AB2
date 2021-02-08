@@ -106,6 +106,8 @@ public class FA implements ab2.FA
     @Override
     public RSA toRSA()
     {
+        this.splitTransition();
+
         //checks for epsilon transitions
         boolean hasEpsisonTransitions = false;
         for (ab2.FATransition trans : this.transitions)
@@ -131,8 +133,14 @@ public class FA implements ab2.FA
             tt.add(new TransitionTable(start));
             for (TransitionTable t : tt)
             {
-                //t.calculateSteps( zeugs );
+                t.calculateSteps(transitions, characters);
+                ArrayList<Set<Integer>> tra = t.getNextSteps();
+                for(int i = 0; i < tra.size(); i++){
+                    tt.add(new TransitionTable(tra.get(i)));
+                }
             }
+
+
 
         }
 
@@ -231,21 +239,24 @@ public class FA implements ab2.FA
                 {
                     if (i == 0)
                     {
-                        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(tr.from(), numStates + 1, "" + tokens[i]));
+                        transitions.add((FATransition) new ab2.impl.PRUELLERRADLER.FATransition(tr.from(), numStates, "" + tokens[i]));
                         numStates++;
                     }
-                    if (i == tokens.length)
+                    if (i == tokens.length-1)
                     {
-                        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(numStates, tr.to(), "" + tokens[i]));
+                        transitions.add((FATransition)new ab2.impl.PRUELLERRADLER.FATransition(numStates-1, tr.to(), "" + tokens[i]));
                         numStates++;
                     }
-                    else
+                    else if(i != 0)
                     {
-                        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(numStates, numStates + 1, "" + tokens[i]));
+                        transitions.add((FATransition)new ab2.impl.PRUELLERRADLER.FATransition(numStates-1, numStates, "" + tokens[i]));
                         numStates++;
                     }
                 }
+                this.transitions.remove((FATransition)tr);
             }
+
+
         }
     }
 

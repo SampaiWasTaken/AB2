@@ -1931,7 +1931,7 @@ public class Tests {
 
 	private static boolean isValidRSA(RSA r) {
 		Set<Character> symbols = r.getSymbols();
-		Set<ab2.impl.PRUELLERRADLER.DFATransition> transitions = r.getTransitions();
+		Set<DFATransition> transitions = r.getTransitions();
 
 		for (int i = 0; i < r.getNumStates(); i++) {
 			int i2 = i;
