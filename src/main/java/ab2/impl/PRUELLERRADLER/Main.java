@@ -49,7 +49,7 @@ public class Main
             System.out.println(t.from() + " : "+t.symbols() +" : "+ t.to());
         }
 
-        
+      //  System.out.println(n2.accepts("aaaaba"));
         
     }
 }
