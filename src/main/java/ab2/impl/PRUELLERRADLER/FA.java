@@ -92,8 +92,7 @@ public class FA implements ab2.FA
     public ab2.FA kleeneStar()
     {
         transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(this.transitions.size(), 0, ""));
-        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(0, 0, ""));
-        this.acceptingStates.add(transitions.size() - 1);
+        this.acceptingStates.add(0);
         return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
     }
 
@@ -101,7 +100,6 @@ public class FA implements ab2.FA
     public ab2.FA plus()
     {
         transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(this.transitions.size(), 0, ""));
-        this.acceptingStates.add(transitions.size() - 1);
         return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
     }
 
@@ -220,4 +218,35 @@ public class FA implements ab2.FA
     {
         return null;
     }
+
+    public void splitTransition()
+    {
+        for (FATransition tr : transitions)
+        {
+            if (tr.symbols().length()>1)
+            {
+                char[] tokens = tr.symbols().toCharArray();
+
+                for (int i = 0; i < tokens.length; i++)
+                {
+                    if (i == 0)
+                    {
+                        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(tr.from(), numStates + 1, "" + tokens[i]));
+                        numStates++;
+                    }
+                    if (i == tokens.length)
+                    {
+                        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(numStates, tr.to(), "" + tokens[i]));
+                        numStates++;
+                    }
+                    else
+                    {
+                        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(numStates, numStates + 1, "" + tokens[i]));
+                        numStates++;
+                    }
+                }
+            }
+        }
+    }
+
 }
