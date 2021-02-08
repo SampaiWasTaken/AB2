@@ -29,7 +29,7 @@ public class Main
         Set<Integer> accept = new TreeSet<>();
         accept.add(0);
 
-        transitions.add(factory.createTransition(1, 2, "a"));
+        transitions.add(factory.createTransition(0, 2, "a"));
         transitions.add(factory.createTransition(2, 3, "a"));
         transitions.add(factory.createTransition(3, 4, "a"));
         transitions.add(factory.createTransition(4, 0, "aba"));
@@ -49,7 +49,7 @@ public class Main
             System.out.println(t.from() + " : "+t.symbols() +" : "+ t.to());
         }
 
-      //  System.out.println(n2.accepts("aaaaba"));
+        System.out.println(n2.accepts("aaaaba"));
         
     }
 }

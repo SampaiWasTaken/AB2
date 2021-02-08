@@ -168,6 +168,7 @@ public class FA implements ab2.FA
     @Override
     public boolean accepts(String w) throws IllegalCharacterException
     {
+
         if (w == "")
             return acceptsEpsilon();
 
@@ -175,11 +176,12 @@ public class FA implements ab2.FA
         int currentState = 0;
         int charCounter = 0;
 
-        while (charCounter < word.length)
+        while (charCounter < word.length-1)
         {
             for (FATransition tr : transitions)
             {
-                if (tr.from() == currentState && tr.symbols().equals("") || tr.symbols().equals("" + word[charCounter]))
+
+                if (tr.from() == currentState && (tr.symbols().equals("") || tr.symbols().equals("" + word[charCounter])))
                 {
                     currentState = tr.to();
                     charCounter++;
