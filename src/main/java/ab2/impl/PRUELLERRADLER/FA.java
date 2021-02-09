@@ -38,6 +38,9 @@ public class FA implements ab2.FA
     @Override
     public boolean isAcceptingState(int s) throws IllegalStateException
     {
+        if (s > acceptingStates.size() - 1)
+            throw new IllegalStateException("State does not exist.");
+
         if (acceptingStates.contains(s))
             return true;
         return false;
@@ -130,7 +133,6 @@ public class FA implements ab2.FA
             start.add(0);
 
 
-
             int runtimeCounter = 0;
             tt.add(new TransitionTable(start));
             finaltt.add(new TransitionTable(start));
@@ -141,7 +143,8 @@ public class FA implements ab2.FA
                 ArrayList<Set<Integer>> tra = t.getNextSteps();
                 for (int i = 0; i < tra.size(); i++)
                 {
-                    if(tra.get(i).size() != 0){
+                    if (tra.get(i).size() != 0)
+                    {
                         tt.add(new TransitionTable(tra.get(i)));
                         finaltt.add(new TransitionTable(tra.get(i)));
                     }
@@ -152,21 +155,24 @@ public class FA implements ab2.FA
 
             int j = finaltt.size();
             Iterator it = tt.iterator();
-            while (j>0 && it.hasNext()){
+            while (j > 0 && it.hasNext())
+            {
                 TransitionTable currenttt = (TransitionTable) it.next();
                 currenttt.calculateSteps(transitions, characters);
                 ArrayList<Set<Integer>> tra = currenttt.getNextSteps();
-                for(int i = 0; i < tra.size(); i++){
-                    if(tra.get(i).size() != 0) {
+                for (int i = 0; i < tra.size(); i++)
+                {
+                    if (tra.get(i).size() != 0)
+                    {
                         boolean alreadyInside = false;
-                        for(TransitionTable t : finaltt){
+                        for (TransitionTable t : finaltt)
+                        {
 
-                            if(t.equals(new TransitionTable(tra.get(i)))){
+                            if (t.equals(new TransitionTable(tra.get(i))))
                                 alreadyInside = true;
-                            }
-
                         }
-                        if(!alreadyInside){
+                        if (!alreadyInside)
+                        {
                             tt.add(new TransitionTable(tra.get(i)));
                             finaltt.add(new TransitionTable(tra.get(i)));
                             j++;
@@ -177,21 +183,21 @@ public class FA implements ab2.FA
                 tt.remove(currenttt);
                 it = tt.iterator();
                 j--;
-
-
             }
-            for(TransitionTable t : finaltt){
+            Set<Set<Integer>> _acceptTemp = new HashSet<>();
+            ;
+            for (TransitionTable t : finaltt)
+            {
+                for (int i : acceptingStates)
+                {
+                    if (t.getCurrentState().contains(i))
+                        _acceptTemp.add(t.getCurrentState());
+                }
                 t.calculateSteps(transitions, characters);
                 System.out.println(t.toString());
             }
-
-
-
+            System.out.println(_acceptTemp.toString() + "accepting");
         }
-
-
-        //neue endzustände Beachten
-
         return null;
     }
 
@@ -215,6 +221,8 @@ public class FA implements ab2.FA
     @Override
     public boolean accepts(String w) throws IllegalCharacterException
     {
+        if (w.contains("\\.[]{}()<>*+-=!?^$|"))
+            throw new IllegalCharacterException();
 
         if (w == "")
             return acceptsEpsilon();
@@ -247,15 +255,12 @@ public class FA implements ab2.FA
     {
         if (acceptingStates.isEmpty())
             return true;
-
-        for (FATransition tr : transitions)
+        for (int i : acceptingStates)
         {
-            for (int i : acceptingStates)
-            {
-                if (tr.to() == i);
-            }
+            if (reaches(0, i))
+                return false;
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -277,6 +282,7 @@ public class FA implements ab2.FA
     @Override
     public boolean isInfinite()
     {
+        boolean infinite = false;
         boolean loop = false;
         for (FATransition tr : transitions)
         {
@@ -285,20 +291,20 @@ public class FA implements ab2.FA
                 if (tr.to() == _tr.from() && tr.from() == _tr.to())
                     loop = true;
             }
-            if (loop)
-            {
-
-            }
         }
-
-
-        return false;
+        if (loop)
+        {
+            for (int i : acceptingStates)
+                if (reaches(0, i))
+                    infinite = true;
+        }
+        return infinite;
     }
 
     @Override
     public boolean isFinite()
     {
-        return false;
+        return !isInfinite();
     }
 
     @Override
@@ -364,27 +370,25 @@ public class FA implements ab2.FA
         this.transitions = newTrans;
     }
 
-    public boolean reaches (int from, int to)
+    public boolean reaches(int from, int to)
     {
         int currentState = from;
-        boolean running = true;
         boolean found = false;
-        while(running)
+        FATransition prevState;
+        for (FATransition tr : transitions)
         {
-            for (FATransition tr : transitions)
+            if (tr.from() == currentState)
             {
-                if (tr.from() == currentState)
+                prevState = tr;
+                for (FATransition _tr : transitions)
                 {
-                    if (tr.from() == currentState && tr.to() == to)
-                    {
+                    if (currentState == _tr.from() && to == _tr.to())
                         found = true;
-                        running = false;
-                    }
-                    currentState = tr.to();
                 }
+                currentState = tr.to();
             }
-            running = false;
         }
         return found;
     }
 }
+
