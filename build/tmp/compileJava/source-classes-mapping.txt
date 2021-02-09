@@ -6,8 +6,8 @@ ab2/DFA.java
  ab2.DFA
 ab2/FA.java
  ab2.FA
-ab2/PDATransition.java
- ab2.PDATransition
+ab2/impl/PRUELLERRADLER/DFATransition.java
+ ab2.impl.PRUELLERRADLER.DFATransition
 ab2/IllegalAcceptingStateException.java
  ab2.IllegalAcceptingStateException
 ab2/IllegalCharacterException.java
@@ -22,14 +22,12 @@ ab2/PDA.java
  ab2.PDA
 ab2/FATransition.java
  ab2.FATransition
-ab2/impl/PRUELLERRADLER/TransitionTable.java
- ab2.impl.PRUELLERRADLER.TransitionTable
-ab2/impl/PRUELLERRADLER/EpsilonQuantity.java
- ab2.impl.PRUELLERRADLER.EpsilonQuantity
 ab2/impl/PRUELLERRADLER/FATransition.java
  ab2.impl.PRUELLERRADLER.FATransition
-ab2/impl/PRUELLERRADLER/DFATransition.java
- ab2.impl.PRUELLERRADLER.DFATransition
+ab2/PDATransition.java
+ ab2.PDATransition
+ab2/impl/PRUELLERRADLER/TransitionTable.java
+ ab2.impl.PRUELLERRADLER.TransitionTable
 ab2/impl/PRUELLERRADLER/Transition.java
  ab2.impl.PRUELLERRADLER.Transition
 ab2/impl/PRUELLERRADLER/FA.java
