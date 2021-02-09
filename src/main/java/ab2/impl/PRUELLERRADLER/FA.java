@@ -210,7 +210,7 @@ public class FA implements ab2.FA
                     replaceArray.set(i, replaceInt);
                 }
                 currenttt.setNextSteps(replaceArray);
-                System.out.println("RRRRRRRRRRRRRRRREEEEEEEEEEEEEEEE     "+replaceArray);
+                System.out.println("RRRRRRRRRRRRRRRREEEEEEEEEEEEEE     "+replaceArray);
                 System.out.println(currenttt);
 
                 ArrayList<Set<Integer>> tra = currenttt.getNextSteps();
