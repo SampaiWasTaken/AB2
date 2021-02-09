@@ -38,7 +38,7 @@ public class TransitionTable {
             nextSteps.add(intSet);
             for(FATransition t : transitions){
                 for(Integer i : currentState){
-                    if(t.from() == i && (t.symbols().toLowerCase().equals(""+ch)||t.symbols().equals(""))){
+                    if(t.from() == i && (t.symbols().toLowerCase().equals(""+ch))){  //||t.symbols().equals("")
                         nextSteps.get(j).add(t.to());
                     }
                 }

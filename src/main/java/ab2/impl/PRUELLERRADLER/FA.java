@@ -100,6 +100,17 @@ public class FA implements ab2.FA
         return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
     }
 
+    public static Set<Integer> getEpsilonQuant(int from, Set<FATransition> transitions){
+        Set<Integer> resultQuantity = new HashSet<>();
+        resultQuantity.add(from);
+        for(FATransition t : transitions){
+            if (t.from() == from && t.symbols().equals("")) {
+                resultQuantity.addAll(getEpsilonQuant(t.to(), transitions));
+            }
+        }
+        return resultQuantity;
+    }
+
     @Override
     public RSA toRSA()
     {
@@ -115,6 +126,258 @@ public class FA implements ab2.FA
         if (hasEpsisonTransitions)
         {
             //doing RSA convertion with Epsilon quantity
+
+            //calculating Epsilon quantity
+            Set<EpsilonQuantity> epsiQuant = new HashSet<>();
+            for(FATransition tra : transitions){
+                epsiQuant.add(new EpsilonQuantity(tra.from()));
+                epsiQuant.add(new EpsilonQuantity(tra.to()));
+            }
+
+            for (EpsilonQuantity eq : epsiQuant) {
+                    eq.setTo(getEpsilonQuant(eq.getFrom(), transitions));
+            }
+
+
+            for(EpsilonQuantity eq : epsiQuant){
+                System.out.println(eq);
+            }
+            //finished calculating epsilon quantity
+
+            Set<TransitionTable> tt = new HashSet<>();
+            Set<TransitionTable> finaltt = new HashSet<>();
+
+            //startzustand hat immer index 0
+            Set<Integer> start = new HashSet<>();
+            start.add(0);
+
+
+            int runtimeCounter = 0;
+            tt.add(new TransitionTable(start));
+            finaltt.add(new TransitionTable(start));
+
+            for (TransitionTable t : tt)
+            {
+                t.calculateSteps(transitions, characters);
+                //replace calculated steps with steps from epsilon quantity
+                ArrayList<Set<Integer>> replaceArray = t.getNextSteps();
+                for(int i = 0; i < replaceArray.size(); i++){
+                    Set<Integer> replaceInt = new HashSet<>();
+                    for(Integer y : replaceArray.get(i)){
+                        for(EpsilonQuantity eq : epsiQuant){
+                            if(y ==  eq.getFrom()){
+                                replaceInt.addAll(eq.getTo());
+                            }
+                        }
+                    }
+                    replaceArray.set(i, replaceInt);
+                }
+                t.setNextSteps(replaceArray);
+                //1rst replace done
+
+                System.out.println("----------"+t.getNextSteps());
+
+                ArrayList<Set<Integer>> tra = t.getNextSteps();
+                for(int i = 0; i < tra.size(); i++){
+                    if(tra.get(i).size() != 0){
+                        tt.add(new TransitionTable(tra.get(i)));
+                        finaltt.add(new TransitionTable(tra.get(i)));
+                    }
+                }
+
+            }
+            tt.remove(new TransitionTable(start));
+
+            System.out.println(".............." + tt);
+
+            int j = finaltt.size();
+            Iterator it = tt.iterator();
+            while (j>0 && it.hasNext()){
+                TransitionTable currenttt = (TransitionTable) it.next();
+                currenttt.calculateSteps(transitions, characters);
+                //System.out.println("##########!!!!!" + currenttt);
+
+                ArrayList<Set<Integer>> replaceArray = currenttt.getNextSteps();
+                for(int i = 0; i < replaceArray.size(); i++){
+                    Set<Integer> replaceInt = new HashSet<>();
+                    for(Integer y : replaceArray.get(i)){
+                        for(EpsilonQuantity eq : epsiQuant){
+                            if(y ==  eq.getFrom()){
+                                replaceInt.addAll(eq.getTo());
+                            }
+                        }
+                    }
+                    replaceArray.set(i, replaceInt);
+                }
+                currenttt.setNextSteps(replaceArray);
+                System.out.println("RRRRRRRRRRRRRRRREEEEEEEEEEEEEEEE     "+replaceArray);
+                System.out.println(currenttt);
+
+                ArrayList<Set<Integer>> tra = currenttt.getNextSteps();
+                for(int i = 0; i < tra.size(); i++){
+                    if(tra.get(i).size() != 0) {
+                        boolean alreadyInside = false;
+                        for(TransitionTable t : finaltt){
+
+                            if(t.equals(new TransitionTable(tra.get(i)))){
+                                alreadyInside = true;
+                            }
+
+                        }
+                        if(!alreadyInside){
+                            tt.add(new TransitionTable(tra.get(i)));
+                            finaltt.add(new TransitionTable(tra.get(i)));
+                            j++;
+                        }
+
+                    }
+                }
+                tt.remove(currenttt);
+                it = tt.iterator();
+                j--;
+
+
+            }
+
+            ArrayList<TransitionTable> FinalTransitionTable = new ArrayList<>();
+
+            for(TransitionTable t : finaltt){
+                t.calculateSteps(transitions, characters);
+                FinalTransitionTable.add(t);
+                System.out.println(t.toString());
+            }
+
+            //checks if a "FRESSZUSTAND" is needed
+            boolean fresszustand = false;
+            for(TransitionTable t : FinalTransitionTable){
+                if(!fresszustand){
+                    ArrayList<Set<Integer>> nextStates = t.getNextSteps();
+                    for(Set<Integer> singleStateNextStates : nextStates){
+                        if (singleStateNextStates.size() == 0) fresszustand = true;
+                    }
+                }
+            }
+
+            Set<Integer> finalacceptedStates = new HashSet<>();
+            //remap states
+            ArrayList<TransitionTable> newFinalTT = new ArrayList<>();
+            int stateNumber = 1;
+            //in this for() i add the currentStates with a new number to a new TransitionTable
+            for(int i = 0; i < FinalTransitionTable.size(); i++){
+                Set<Integer> zeroSet = new HashSet<>();
+                zeroSet.add(0);
+                if(FinalTransitionTable.get(i).getCurrentState().equals(zeroSet)){
+                    newFinalTT.add(new TransitionTable(zeroSet));
+                    for(Integer acptdState : acceptingStates){
+                        if(FinalTransitionTable.get(i).getCurrentState().contains(acptdState)){
+                            System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " + "[0]");
+                            finalacceptedStates.add(0);
+                        }
+
+                    }
+                }else {
+                    //keine ahnung wie gerade sonst ein set erstellen
+                    Set<Integer> numberSet = new HashSet<>();
+                    numberSet.add(stateNumber);
+                    newFinalTT.add(new TransitionTable(numberSet));
+                    for(Integer acptdState : acceptingStates){
+                        if(FinalTransitionTable.get(i).getCurrentState().contains(acptdState)){
+                            System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " +numberSet);
+                            finalacceptedStates.add(stateNumber);
+                        }
+
+                    }
+
+                    stateNumber++;
+                }
+            }
+
+            //now i add the nextSteps with the correct new number
+            for(int i = 0; i < FinalTransitionTable.size(); i++){
+                ArrayList<Set<Integer>> nextStepsArray = FinalTransitionTable.get(i).getNextSteps();
+
+                ArrayList<Set<Integer>> finalNextStep = new ArrayList<>();
+                int charCounter = 0;
+                for(Character cha : characters){
+
+                    for(int y = 0; y < FinalTransitionTable.size(); y++) {
+                        Set<Integer> emptySet = new HashSet<>();
+                        if(nextStepsArray.get(charCounter).equals(emptySet)){
+
+                            finalNextStep.add(emptySet);
+                            y=FinalTransitionTable.size();
+
+                        }else {
+
+                            if (FinalTransitionTable.get(y).getCurrentState().equals(nextStepsArray.get(charCounter))) {
+                                Set<Integer> addSet = newFinalTT.get(y).getCurrentState();
+                                finalNextStep.add(addSet);
+                            }
+
+                        }
+                    }
+                    charCounter++;
+                }
+                newFinalTT.get(i).setNextSteps(finalNextStep);
+
+            }
+
+            System.out.println("TEST");
+            for(TransitionTable t : newFinalTT){
+                System.out.println(t);
+            }
+
+
+
+            System.out.println("size FinalTransitionTable : " + FinalTransitionTable.size());
+            //creating RSA
+            Set<ab2.DFATransition> finalRsaTransitions = new HashSet<>();
+            if(fresszustand){
+                for(Character cha : characters){
+                    finalRsaTransitions.add(new DFATransition(FinalTransitionTable.size(), FinalTransitionTable.size(), cha));
+                }
+            }
+
+            for(TransitionTable t : newFinalTT){
+                int i = 0;
+                for(Character ch : characters){
+                    if(i>=characters.size()-1) i=0;
+                    ArrayList<Set<Integer>> nextStates = t.getNextSteps();
+                    System.out.println("####################################");
+                    System.out.println(t);
+                    if(nextStates.get(i).size() != 0){
+                        Iterator toIter = nextStates.get(i).iterator();
+                        Iterator fromIter = t.getCurrentState().iterator();
+                        finalRsaTransitions.add(new DFATransition((Integer) fromIter.next(), (Integer)toIter.next(), ch));
+
+                    }else {
+                        Iterator fromIter = t.getCurrentState().iterator();
+                        finalRsaTransitions.add(new DFATransition((Integer) fromIter.next(), FinalTransitionTable.size(), ch));
+                    }
+                    i++;
+                }
+            }
+
+            //neue transitions und enzusteande sind fertig.
+            if(fresszustand) {
+                return new ab2.impl.PRUELLERRADLER.RSA(FinalTransitionTable.size() + 1, characters, finalacceptedStates, finalRsaTransitions);
+            }else {
+                return new ab2.impl.PRUELLERRADLER.RSA(FinalTransitionTable.size(), characters, finalacceptedStates, finalRsaTransitions);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         }
@@ -179,20 +442,135 @@ public class FA implements ab2.FA
 
 
             }
+
+            ArrayList<TransitionTable> FinalTransitionTable = new ArrayList<>();
+
             for(TransitionTable t : finaltt){
                 t.calculateSteps(transitions, characters);
+                FinalTransitionTable.add(t);
                 System.out.println(t.toString());
             }
 
+            //checks if a "FRESSZUSTAND" is needed
+            boolean fresszustand = false;
+            for(TransitionTable t : FinalTransitionTable){
+                if(!fresszustand){
+                    ArrayList<Set<Integer>> nextStates = t.getNextSteps();
+                    for(Set<Integer> singleStateNextStates : nextStates){
+                        if (singleStateNextStates.size() == 0) fresszustand = true;
+                    }
+                }
+            }
 
+            Set<Integer> finalacceptedStates = new HashSet<>();
+            //remap states
+            ArrayList<TransitionTable> newFinalTT = new ArrayList<>();
+            int stateNumber = 1;
+            //in this for() i add the currentStates with a new number to a new TransitionTable
+            for(int i = 0; i < FinalTransitionTable.size(); i++){
+                Set<Integer> zeroSet = new HashSet<>();
+                zeroSet.add(0);
+                if(FinalTransitionTable.get(i).getCurrentState().equals(zeroSet)){
+                    newFinalTT.add(new TransitionTable(zeroSet));
+                    for(Integer acptdState : acceptingStates){
+                        if(FinalTransitionTable.get(i).getCurrentState().contains(acptdState)){
+                            System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " + "[0]");
+                            finalacceptedStates.add(0);
+                        }
+
+                    }
+                }else {
+                    //keine ahnung wie gerade sonst ein set erstellen
+                    Set<Integer> numberSet = new HashSet<>();
+                    numberSet.add(stateNumber);
+                    newFinalTT.add(new TransitionTable(numberSet));
+                    for(Integer acptdState : acceptingStates){
+                        if(FinalTransitionTable.get(i).getCurrentState().contains(acptdState)){
+                            System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " +numberSet);
+                            finalacceptedStates.add(stateNumber);
+                        }
+
+                    }
+
+                    stateNumber++;
+                }
+            }
+
+            //now i add the nextSteps with the correct new number
+            for(int i = 0; i < FinalTransitionTable.size(); i++){
+                ArrayList<Set<Integer>> nextStepsArray = FinalTransitionTable.get(i).getNextSteps();
+
+                ArrayList<Set<Integer>> finalNextStep = new ArrayList<>();
+                int charCounter = 0;
+                for(Character cha : characters){
+
+                    for(int y = 0; y < FinalTransitionTable.size(); y++) {
+                        Set<Integer> emptySet = new HashSet<>();
+                        if(nextStepsArray.get(charCounter).equals(emptySet)){
+
+                            finalNextStep.add(emptySet);
+                            y=FinalTransitionTable.size();
+
+                      }else {
+
+                            if (FinalTransitionTable.get(y).getCurrentState().equals(nextStepsArray.get(charCounter))) {
+                                Set<Integer> addSet = newFinalTT.get(y).getCurrentState();
+                                finalNextStep.add(addSet);
+                            }
+
+                        }
+                    }
+                    charCounter++;
+                }
+                newFinalTT.get(i).setNextSteps(finalNextStep);
+
+            }
+
+            System.out.println("TEST");
+            for(TransitionTable t : newFinalTT){
+                System.out.println(t);
+            }
+
+
+
+            System.out.println("size FinalTransitionTable : " + FinalTransitionTable.size());
+            //creating RSA
+            Set<ab2.DFATransition> finalRsaTransitions = new HashSet<>();
+            if(fresszustand){
+                for(Character cha : characters){
+                    finalRsaTransitions.add(new DFATransition(FinalTransitionTable.size(), FinalTransitionTable.size(), cha));
+                }
+            }
+
+            for(TransitionTable t : newFinalTT){
+                int i = 0;
+                for(Character ch : characters){
+                    if(i>=3) i=0;
+                    ArrayList<Set<Integer>> nextStates = t.getNextSteps();
+                    if(nextStates.get(i).size() != 0){
+                            Iterator toIter = nextStates.get(i).iterator();
+                            Iterator fromIter = t.getCurrentState().iterator();
+                            finalRsaTransitions.add(new DFATransition((Integer) fromIter.next(), (Integer)toIter.next(), ch));
+
+                    }else {
+                        Iterator fromIter = t.getCurrentState().iterator();
+                        finalRsaTransitions.add(new DFATransition((Integer) fromIter.next(), FinalTransitionTable.size(), ch));
+                    }
+                    i++;
+                }
+            }
+
+            //neue transitions und enzusteande sind fertig.
+            if(fresszustand) {
+                return new ab2.impl.PRUELLERRADLER.RSA(FinalTransitionTable.size() + 1, characters, finalacceptedStates, finalRsaTransitions);
+            }else {
+                return new ab2.impl.PRUELLERRADLER.RSA(FinalTransitionTable.size(), characters, finalacceptedStates, finalRsaTransitions);
+            }
 
 
         }
 
 
-        //neue endzustände Beachten
-
-        return null;
     }
 
     //runs through each state in "currentStateQuantity" and stores the next step if the correct symbols is read

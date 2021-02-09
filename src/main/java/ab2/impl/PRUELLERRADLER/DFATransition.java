@@ -27,8 +27,17 @@ public class DFATransition implements ab2.DFATransition {
         return to;
     }
 
+    @Override
+    public String toString() {
+        return "DFATransition{" +
+                "from=" + from +
+                ", to=" + to +
+                ", symbol=" + symbol +
+                '}';
+    }
 
     public String symbols() { //jo gibts halt bei DFA nicht mehr...
         return null;
     }
 }
+

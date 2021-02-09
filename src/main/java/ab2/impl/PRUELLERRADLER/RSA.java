@@ -16,12 +16,12 @@ public class RSA implements ab2.RSA {
     private int currentState;
 
 
-    public RSA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.DFATransition> transitions, int startingState) {
+    public RSA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<ab2.DFATransition> transitions) {
         this.numStates = numStates;
         this.characters = characters;
         this.acceptingStates = acceptingStates;
         this.transitions = transitions;
-        this.startingState = startingState;
+        this.startingState = 0;
         this.currentState = startingState;
     }
 
@@ -233,6 +233,17 @@ public class RSA implements ab2.RSA {
     @Override
     public boolean equalTo(FA b) {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        String returnString = "RSA: \n numStates=" + numStates +"\ncharacters=" + characters + "\nacceptingStates=" + acceptingStates +
+                "\nstartingState=" + startingState +
+                "\ncurrentState=" + currentState + "\n Transitions:";
+        for(DFATransition t : transitions){
+            returnString += "\n"+t;
+        }
+                        return returnString;
     }
 
     @Override
