@@ -262,6 +262,8 @@ public class FA implements ab2.FA
     @Override
     public boolean acceptsNothing()
     {
+        if (acceptsEpsilon())
+            return false;
         boolean accepting = false;
         if (acceptingStates.isEmpty())
             return true;
@@ -280,29 +282,30 @@ public class FA implements ab2.FA
     @Override
     public boolean acceptsEpsilonOnly()
     {
+        if (!acceptsEpsilon())
+            return false;
         if (acceptsNothing())
             return false;
-        if (acceptsEpsilon())
+
+        for (int i : acceptingStates)
         {
-            for (int i : acceptingStates)
+            if (i != 0)
             {
-                if (i != 0)
+                if (reaches(0, i))
                 {
-                    if (reaches(0, i))
-                    {
-                        return false;
-                    }
-                }
-            }
-            for (char c : getSymbols())
-            {
-                for (FATransition tr : transitions)
-                {
-                    if (tr.equals(new ab2.impl.PRUELLERRADLER.FATransition(0, 0, "a")))
-                        return false;
+                    return false;
                 }
             }
         }
+        for (char c : getSymbols())
+        {
+            for (FATransition tr : transitions)
+            {
+                if (tr.equals(new ab2.impl.PRUELLERRADLER.FATransition(0, 0, "a")))
+                    return false;
+            }
+        }
+
         return true;
     }
 
@@ -418,10 +421,6 @@ public class FA implements ab2.FA
         int currentState = from;
         boolean found = false;
         FATransition prevState;
-        if (transitions.size() == 1)
-        {
-
-        }
         for (FATransition tr : transitions)
         {
             if (tr.from() == currentState)
@@ -431,6 +430,7 @@ public class FA implements ab2.FA
                 {
                     if (currentState == _tr.from() && to == _tr.to())
                         found = true;
+                    currentState = _tr.to();
                 }
                 currentState = tr.to();
             }

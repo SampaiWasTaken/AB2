@@ -24,12 +24,22 @@ public class Main
         chars.add('c');
 
         Set<Integer> accept = new TreeSet<>();
-        accept.add(2);
+        accept.add(4);
+        accept.add(3);
 
-        transitions.add(factory.createTransition(1, 2, "a"));
+        transitions.add(factory.createTransition(0, 1, "a"));
+        transitions.add(factory.createTransition(0, 2, "b"));
+        transitions.add(factory.createTransition(1, 4, "b"));
+        transitions.add(factory.createTransition(2, 2, "b"));
+        transitions.add(factory.createTransition(2, 1, "a"));
         transitions.add(factory.createTransition(2, 3, "a"));
-        transitions.add(factory.createTransition(3, 4, "a"));
-        transitions.add(factory.createTransition(4, 0, "a"));
+        transitions.add(factory.createTransition(4, 2, "b"));
+        transitions.add(factory.createTransition(4, 3, "a"));
+
+        transitions.add(factory.createTransition(1, 0, ""));
+        transitions.add(factory.createTransition(4, 0, ""));
+        transitions.add(factory.createTransition(3, 1, ""));
+        transitions.add(factory.createTransition(4, 2, ""));
 
         FA n2 = (FA) factory.createFA(5, chars, accept, transitions);
 
@@ -62,11 +72,10 @@ public class Main
     /*
         System.out.println(n2.reaches(0, 2));
         System.out.println(n2.isInfinite());
-        System.out.println(n2.acceptsNothing());
         */
+        System.out.println(n2.reaches(0,3));
+        System.out.println(n2.reaches(0,4));
 
-        boolean test = n3.acceptsEpsilonOnly();
-        System.out.println(test + " AUTOMAT 3 FUCKING EPSILON ONLY");
     }
 
 }
