@@ -5,6 +5,12 @@ public class Transition implements ab2.Transition
     private int from;
     private int to;
 
+    public Transition(int from, int to)
+    {
+        this.from = from;
+        this.to = to;
+    }
+
     @Override
     public int from()
     {

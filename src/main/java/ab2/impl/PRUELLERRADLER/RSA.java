@@ -5,6 +5,7 @@ import ab2.FA;
 import ab2.FATransition;
 import ab2.IllegalCharacterException;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class RSA implements ab2.RSA
@@ -193,17 +194,30 @@ public class RSA implements ab2.RSA
     }
 
     @Override
-    public FA kleeneStar()
+    public ab2.FA kleeneStar()
     {
-        return null;
+        Set<ab2.FATransition> _transitions = new HashSet<>();
+        for (int i : acceptingStates)
+        {
+            _transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
+            numStates++;
+        }
+        this.acceptingStates.add(0);
+        return new ab2.impl.PRUELLERRADLER.FA(this.numStates, this.characters, this.acceptingStates, _transitions);
     }
 
     @Override
-    public FA plus()
+    public ab2.FA plus()
     {
-        return null;
-    }
+        Set<ab2.FATransition> _transitions = new HashSet<>();
+        for (int i : acceptingStates)
+        {
+            _transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
+            numStates++;
+        }
 
+        return new ab2.impl.PRUELLERRADLER.FA(this.numStates, this.characters, this.acceptingStates, _transitions);
+    }
 
     //rsa to rsa? na echt nit XD
     @Override
@@ -252,9 +266,9 @@ public class RSA implements ab2.RSA
         for (int i : acceptingStates)
         {
             if (reaches(0, i))
-                return false;
+                return true;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -266,10 +280,15 @@ public class RSA implements ab2.RSA
     }
 
     @Override
-    public boolean acceptsEpsilonOnly() {
-        if (numStates == 1 && acceptingStates.contains(0))
-            return true;
-        else return false;
+    public boolean acceptsEpsilonOnly()
+    {
+        if (acceptingStates.contains(0))
+            for (int i = 0; i < numStates; i++)
+            {
+                if (!reaches(0, i))
+                    return true;
+            }
+        return false;
     }
 
     @Override

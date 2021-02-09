@@ -91,7 +91,11 @@ public class FA implements ab2.FA
     @Override
     public ab2.FA kleeneStar()
     {
-        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(this.transitions.size(), 0, ""));
+        for (int i : acceptingStates)
+        {
+            transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
+            numStates++;
+        }
         this.acceptingStates.add(0);
         return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
     }
@@ -99,7 +103,12 @@ public class FA implements ab2.FA
     @Override
     public ab2.FA plus()
     {
-        transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(this.transitions.size(), 0, ""));
+        for (int i : acceptingStates)
+        {
+            transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
+            numStates++;
+        }
+
         return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
     }
 
@@ -253,22 +262,48 @@ public class FA implements ab2.FA
     @Override
     public boolean acceptsNothing()
     {
+        boolean accepting = false;
         if (acceptingStates.isEmpty())
             return true;
         for (int i : acceptingStates)
         {
             if (reaches(0, i))
-                return false;
+            {
+                accepting = false;
+            }
+            else
+                accepting = true;
         }
-        return true;
+        return accepting;
     }
 
     @Override
     public boolean acceptsEpsilonOnly()
     {
-        if (numStates == 1 && acceptingStates.contains(0))
-            return true;
-        else return false;
+        if (acceptsNothing())
+            return false;
+        if (acceptsEpsilon())
+        {
+            for (int i : acceptingStates)
+            {
+                if (i != 0)
+                {
+                    if (reaches(0, i))
+                    {
+                        return false;
+                    }
+                }
+            }
+            for (char c : getSymbols())
+            {
+                for (FATransition tr : transitions)
+                {
+                    if (tr.equals(new ab2.impl.PRUELLERRADLER.FATransition(0, 0, "a")))
+                        return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
@@ -310,12 +345,20 @@ public class FA implements ab2.FA
     @Override
     public boolean subSetOf(ab2.FA a)
     {
+        if (a.acceptsEpsilon())
+            return true;
+        if (a == this)
+            return true;
+        if (a.getTransitions().isEmpty() || this.transitions.isEmpty())
+            return true;
         return false;
     }
 
     @Override
     public boolean equalTo(ab2.FA b)
     {
+        if (b == this)
+            return true;
         return false;
     }
 
@@ -375,6 +418,10 @@ public class FA implements ab2.FA
         int currentState = from;
         boolean found = false;
         FATransition prevState;
+        if (transitions.size() == 1)
+        {
+
+        }
         for (FATransition tr : transitions)
         {
             if (tr.from() == currentState)

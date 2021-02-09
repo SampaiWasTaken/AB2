@@ -1,5 +1,7 @@
 package ab2.impl.PRUELLERRADLER;
 
+import java.util.Objects;
+
 public class FATransition implements ab2.FATransition
 {
     private int from;
@@ -29,5 +31,22 @@ public class FATransition implements ab2.FATransition
     public int to()
     {
         return to;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FATransition that = (FATransition) o;
+        return from == that.from &&
+                to == that.to &&
+                Objects.equals(symbols, that.symbols);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(from, to, symbols);
     }
 }

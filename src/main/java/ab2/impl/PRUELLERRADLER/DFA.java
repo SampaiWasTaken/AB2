@@ -6,6 +6,7 @@ import ab2.FATransition;
 import ab2.IllegalCharacterException;
 import ab2.RSA;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class DFA implements ab2.DFA {
@@ -107,13 +108,29 @@ public class DFA implements ab2.DFA {
     }
 
     @Override
-    public FA kleeneStar() {
-        return null;
+    public ab2.FA kleeneStar()
+    {
+        Set<ab2.FATransition> _transitions = new HashSet<>();
+        for (int i : acceptingStates)
+        {
+            _transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
+            numStates++;
+        }
+        this.acceptingStates.add(0);
+        return new ab2.impl.PRUELLERRADLER.FA(this.numStates, this.characters, this.acceptingStates, _transitions);
     }
 
     @Override
-    public FA plus() {
-        return null;
+    public ab2.FA plus()
+    {
+        Set<ab2.FATransition> _transitions = new HashSet<>();
+        for (int i : acceptingStates)
+        {
+            _transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
+            numStates++;
+        }
+
+        return new ab2.impl.PRUELLERRADLER.FA(this.numStates, this.characters, this.acceptingStates, _transitions);
     }
 
     @Override
@@ -159,9 +176,9 @@ public class DFA implements ab2.DFA {
         for (int i : acceptingStates)
         {
             if (reaches(0, i))
-                return false;
+                return true;
         }
-        return true;
+        return false;
     }
 
     @Override
