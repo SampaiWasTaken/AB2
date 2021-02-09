@@ -2,6 +2,7 @@ package ab2.impl.PRUELLERRADLER;
 
 import ab2.FATransition;
 import ab2.Factory;
+import ab2.RSA;
 
 import java.util.*;
 
@@ -21,7 +22,7 @@ public class Main
         Set<Character> chars = new HashSet<>();
         chars.add('a');
         chars.add('b');
-        chars.add('c');
+        //chars.add('c');
 
         Set<Integer> accept = new TreeSet<>();
         accept.add(4);
@@ -36,10 +37,13 @@ public class Main
         transitions.add(factory.createTransition(4, 2, "b"));
         transitions.add(factory.createTransition(4, 3, "a"));
 
+
         transitions.add(factory.createTransition(1, 0, ""));
         transitions.add(factory.createTransition(4, 0, ""));
         transitions.add(factory.createTransition(3, 1, ""));
         transitions.add(factory.createTransition(4, 2, ""));
+
+
 
         FA n2 = (FA) factory.createFA(5, chars, accept, transitions);
 
@@ -68,13 +72,26 @@ public class Main
         }
         //System.out.println(n2.accepts("aaaaba"));
         //System.out.println(n2.reaches(0,1));
-        n2.toRSA();
+        RSA testRSA = n2.toRSA();
+        System.out.println(testRSA);
+
+        System.out.println("RSA EQUAL = "+testRSA.equalTo(n2));
+
     /*
         System.out.println(n2.reaches(0, 2));
         System.out.println(n2.isInfinite());
         */
         System.out.println(n2.reaches(0,3));
         System.out.println(n2.reaches(0,4));
+
+        Set<Integer> accepts = new TreeSet<>();
+
+        FA n1 = new FA(1, chars, accepts, Collections.emptySet());
+        RSA testRSA2 = n1.toRSA();
+        System.out.println("testRSA2   "+testRSA2);
+
+
+
 
     }
 
