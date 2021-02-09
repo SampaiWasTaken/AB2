@@ -35,7 +35,7 @@ public class FactoryImpl implements Factory
     @Override
     public DFA createDFA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<DFATransition> transitions)
     {
-        return new ab2.impl.PRUELLERRADLER.DFA(numStates, characters, acceptingStates, transitions, 0);
+        return new ab2.impl.PRUELLERRADLER.DFA(numStates, characters, acceptingStates, transitions);
     }
 
     @Override
