@@ -790,7 +790,7 @@ public class FA implements ab2.FA
     {
         if (b == this)
             return true;
-        return true;
+        return false;
     }
 
     @Override
