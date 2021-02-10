@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ab2.Tests" tests="27" skipped="0" failures="25" errors="0" timestamp="2021-02-10T10:44:29" hostname="DESKTOP-J1J732D" time="0.135">
+<testsuite name="ab2.Tests" tests="27" skipped="0" failures="25" errors="0" timestamp="2021-02-10T10:55:07" hostname="DESKTOP-J1J732D" time="0.171">
   <properties/>
-  <testcase name="Minimization_MultipleCharacter()" classname="ab2.Tests" time="0.035">
+  <testcase name="Minimization_MultipleCharacter()" classname="ab2.Tests" time="0.036">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.Minimization_MultipleCharacter(Tests.java:1755)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -187,7 +187,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="Minimization_SingleCharacter()" classname="ab2.Tests" time="0.023">
+  <testcase name="Minimization_SingleCharacter()" classname="ab2.Tests" time="0.025">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.Minimization_SingleCharacter(Tests.java:1713)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -280,7 +280,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="NFA_Equals()" classname="ab2.Tests" time="0.005">
+  <testcase name="NFA_Equals()" classname="ab2.Tests" time="0.006">
     <failure message="org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
 	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:40)
@@ -377,7 +377,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="NFA_Language()" classname="ab2.Tests" time="0.002">
+  <testcase name="NFA_Language()" classname="ab2.Tests" time="0.001">
     <failure message="org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
 	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:40)
@@ -475,7 +475,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="NFA_Operations_Complement()" classname="ab2.Tests" time="0.002">
+  <testcase name="NFA_Operations_Complement()" classname="ab2.Tests" time="0.001">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.NFA_Operations_Complement(Tests.java:1397)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -568,7 +568,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="NFA_Operations_Concat()" classname="ab2.Tests" time="0.002">
+  <testcase name="NFA_Operations_Concat()" classname="ab2.Tests" time="0.001">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.NFA_Operations_Concat(Tests.java:825)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -661,7 +661,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="NFA_Operations_Intersection()" classname="ab2.Tests" time="0.001">
+  <testcase name="NFA_Operations_Intersection()" classname="ab2.Tests" time="0.002">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.NFA_Operations_Intersection(Tests.java:460)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -754,7 +754,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="NFA_Operations_Minus()" classname="ab2.Tests" time="0.001">
+  <testcase name="NFA_Operations_Minus()" classname="ab2.Tests" time="0.003">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.NFA_Operations_Minus(Tests.java:642)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -847,7 +847,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="NFA_Operations_Plus()" classname="ab2.Tests" time="0.001">
+  <testcase name="NFA_Operations_Plus()" classname="ab2.Tests" time="0.004">
     <failure message="org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;null&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;null&gt;
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
 	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
@@ -1131,7 +1131,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="NFA_Properties()" classname="ab2.Tests" time="0.002"/>
+  <testcase name="NFA_Properties()" classname="ab2.Tests" time="0.013"/>
   <testcase name="NFA_Subset()" classname="ab2.Tests" time="0.002">
     <failure message="org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
@@ -1229,7 +1229,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="PatternMatching_DotAndStar_Count()" classname="ab2.Tests" time="0.003">
+  <testcase name="PatternMatching_DotAndStar_Count()" classname="ab2.Tests" time="0.002">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.testPatternMatcher(Tests.java:1925)
 	at ab2.Tests.PatternMatching_DotAndStar_Count(Tests.java:1906)
@@ -1323,7 +1323,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="PatternMatching_Dot_Count()" classname="ab2.Tests" time="0.004">
+  <testcase name="PatternMatching_Dot_Count()" classname="ab2.Tests" time="0.005">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.testPatternMatcher(Tests.java:1925)
 	at ab2.Tests.PatternMatching_Dot_Count(Tests.java:1880)
@@ -1511,7 +1511,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="PatternMatching_Star_Count()" classname="ab2.Tests" time="0.001">
+  <testcase name="PatternMatching_Star_Count()" classname="ab2.Tests" time="0.002">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.testPatternMatcher(Tests.java:1925)
 	at ab2.Tests.PatternMatching_Star_Count(Tests.java:1892)
@@ -1605,7 +1605,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="testCFGToPDA1()" classname="ab2.Tests" time="0.001">
+  <testcase name="testCFGToPDA1()" classname="ab2.Tests" time="0.003">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.testCFGToPDA1(Tests.java:2495)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -1698,7 +1698,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="testCFGToPDA2()" classname="ab2.Tests" time="0.001">
+  <testcase name="testCFGToPDA2()" classname="ab2.Tests" time="0.006">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.testCFGToPDA2(Tests.java:2520)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -1791,7 +1791,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="testPDAAccepts1()" classname="ab2.Tests" time="0.001">
+  <testcase name="testPDAAccepts1()" classname="ab2.Tests" time="0.002">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.testPDAAccepts1(Tests.java:2263)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -1884,7 +1884,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="testPDAAppend1()" classname="ab2.Tests" time="0.004">
+  <testcase name="testPDAAppend1()" classname="ab2.Tests" time="0.002">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.testPDAAppend1(Tests.java:2412)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -2070,7 +2070,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="testPDAUnion1()" classname="ab2.Tests" time="0.002">
+  <testcase name="testPDAUnion1()" classname="ab2.Tests" time="0.001">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.Tests.testPDAUnion1(Tests.java:2327)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -2163,7 +2163,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:830)
 </failure>
   </testcase>
-  <testcase name="toRSA()" classname="ab2.Tests" time="0.018"/>
+  <testcase name="toRSA()" classname="ab2.Tests" time="0.022"/>
   <testcase name="toRSA_Language()" classname="ab2.Tests" time="0.001">
     <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
 	at ab2.impl.PRUELLERRADLER.RSA.accepts(RSA.java:247)
@@ -2652,6 +2652,66 @@ Current State [25] | [23] | [25] | [8]
 Current State [25] | [23] | [25] | [8]
 ####################################
 Current State [25] | [23] | [25] | [8]
+[from: 0 | to: 0 | with: a]
+[from: 0 | to: 0 | with: a]
+[from: 0 | to: 0 | with: a]
+[from: 0 | to: 0 | with: a]
+[from: 0 | to: 1 | with: ]
+[from: 0 | to: 0 | with: a]
+[from: 0 | to: 1 | with: ]
+[from: 0 | to: 0 | with: a]
+[from: 0 | to: 1 | with: ]
+[from: 0 | to: 1 | with: ]
+[from: 0 | to: 0 | with: a]
+[from: 0 | to: 1 | with: ]
+[from: 0 | to: 0 | with: a]
+[from: 0 | to: 1 | with: ]
+[from: 0 | to: 1 | with: b]
+[from: 1 | to: 2 | with: b]
+[from: 2 | to: 2 | with: a]
+[from: 2 | to: 4 | with: b]
+[from: 0 | to: 1 | with: b]
+[from: 1 | to: 2 | with: b]
+[from: 2 | to: 2 | with: a]
+[from: 2 | to: 4 | with: b]
+[from: 0 | to: 1 | with: b]
+[from: 1 | to: 2 | with: b]
+[from: 2 | to: 2 | with: a]
+[from: 2 | to: 4 | with: b]
+[from: 0 | to: 1 | with: a]
+[from: 1 | to: 4 | with: b]
+[from: 4 | to: 3 | with: a]
+[from: 0 | to: 1 | with: a]
+[from: 1 | to: 4 | with: b]
+[from: 0 | to: 1 | with: a]
+[from: 1 | to: 4 | with: b]
+[from: 4 | to: 3 | with: a]
+[from: 0 | to: 1 | with: a]
+[from: 1 | to: 4 | with: b]
+[from: 0 | to: 1 | with: a]
+[from: 1 | to: 4 | with: b]
+[from: 4 | to: 3 | with: a]
+[from: 0 | to: 1 | with: a]
+[from: 1 | to: 4 | with: b]
+[from: 0 | to: 1 | with: b]
+[from: 1 | to: 1 | with: b]
+[from: 1 | to: 6 | with: ]
+[from: 6 | to: 7 | with: b]
+[from: 0 | to: 1 | with: b]
+[from: 1 | to: 1 | with: b]
+[from: 1 | to: 6 | with: ]
+[from: 6 | to: 7 | with: b]
+[from: 0 | to: 1 | with: b]
+[from: 1 | to: 1 | with: b]
+[from: 1 | to: 6 | with: ]
+[from: 6 | to: 7 | with: b]
+[from: 0 | to: 1 | with: abc]
+[from: 0 | to: 1 | with: abc]
+[from: 0 | to: 1 | with: abc]
+[from: 0 | to: 1 | with: abc]
+[from: 0 | to: 1 | with: abc]
+[from: 0 | to: 1 | with: abc]
+[from: 0 | to: 1 | with: abc]
 [0, 1] --> [1]
 [0, 1] --> [1]
 [1] --> [2]

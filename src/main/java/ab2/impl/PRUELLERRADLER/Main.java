@@ -11,7 +11,6 @@ public class Main
     public static void main(String[] args)
     {
 
-
         Factory factory = new FactoryImpl();
 
         Set<FATransition> transitions = new HashSet<>();
@@ -45,9 +44,10 @@ public class Main
 
 
 
-        FA n2 = (FA) factory.createFA(5, chars, accept, transitions);
+        FA n1 = (FA) factory.createFA(5, chars, accept, transitions);
 
-
+        System.out.println(n1.reaches(0, 7, 0, false, 0));
+        /*
         Set<Integer> accept3 = new TreeSet<>();
         accept3.add(0);
 
@@ -77,10 +77,10 @@ public class Main
 
         System.out.println("RSA EQUAL = "+testRSA.equalTo(n2));
 
-    /*
+
         System.out.println(n2.reaches(0, 2));
         System.out.println(n2.isInfinite());
-        */
+
         System.out.println("reach");
         System.out.println(n2.reaches(0,3, 0, false, 0));
         System.out.println(n2.reaches(0,4, 0, false, 0));
@@ -136,7 +136,8 @@ public class Main
 
         ab2.FA n6 = new FA(2, chars, accept6, transitions6);
         n6.toRSA();
-
+*/
     }
+
 
 }
