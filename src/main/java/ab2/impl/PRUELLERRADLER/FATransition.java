@@ -49,4 +49,13 @@ public class FATransition implements ab2.FATransition
     {
         return Objects.hash(from, to, symbols);
     }
+
+    @Override
+    public String toString() {
+        return "FATransition{" +
+                "from=" + from +
+                ", to=" + to +
+                ", symbols='" + symbols + '\'' +
+                '}';
+    }
 }

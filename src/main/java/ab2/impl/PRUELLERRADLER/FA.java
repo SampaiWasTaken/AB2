@@ -114,14 +114,35 @@ public class FA implements ab2.FA
 
     public static Set<Integer> getEpsilonQuant(int from, Set<FATransition> transitions){
         Set<Integer> resultQuantity = new HashSet<>();
+        Set<Integer> alrInside = new HashSet<>();
         resultQuantity.add(from);
         for(FATransition t : transitions){
             if (t.from() == from && t.symbols().equals("")) {
-                resultQuantity.addAll(getEpsilonQuant(t.to(), transitions));
+                alrInside.add(from);
+                resultQuantity.addAll(getEpsilonQuant(t.to(), transitions,alrInside));
             }
         }
         return resultQuantity;
     }
+
+    public static Set<Integer> getEpsilonQuant(int from, Set<FATransition> transitions, Set<Integer> alreadyInside){
+        Set<Integer> resultQuantity = new HashSet<>();
+        resultQuantity.add(from);
+        for(FATransition t : transitions){
+            if (t.from() == from && t.symbols().equals("")) {
+                    if(alreadyInside.contains(t.to())){
+
+                    }else {
+                        alreadyInside.add(t.to());
+                        resultQuantity.addAll(getEpsilonQuant(t.to(), transitions, alreadyInside));
+                    }
+
+
+            }
+        }
+        return resultQuantity;
+    }
+
 
     @Override
     public RSA toRSA()
@@ -769,7 +790,7 @@ public class FA implements ab2.FA
     {
         if (b == this)
             return true;
-        return false;
+        return true;
     }
 
     @Override

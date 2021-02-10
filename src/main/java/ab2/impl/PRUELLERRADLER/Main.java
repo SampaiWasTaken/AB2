@@ -91,7 +91,50 @@ public class Main
         System.out.println("testRSA2   "+testRSA2);
 
 
+        Set<Integer> accept33 = new TreeSet<>();
+        accept.add(0);
 
+        //n3
+        Set<FATransition> transitions33 = new HashSet<>();
+        transitions3.add(factory.createTransition(0, 0, "a"));
+        ab2.FA n33 = new FA(1, chars, accept33, transitions33);
+        n33.toRSA();
+
+        //n4
+        Set<Integer> accept4 = new TreeSet<>();
+        accept.add(0);
+        Set<FATransition> transitions4 = new HashSet<>();
+        transitions4.add(factory.createTransition(0, 0, "a"));
+        transitions4.add(factory.createTransition(0, 0, "b"));
+        ab2.FA n4 = new FA(5, chars, accept, transitions4);
+        n4.toRSA();
+
+        //n5
+        Set<Integer> accept5 = new TreeSet<>();
+        accept.add(0);
+        accept.add(1);
+        Set<FATransition> transitions5 = new HashSet<>();
+        transitions5.add(factory.createTransition(0, 0, "a"));
+        transitions5.add(factory.createTransition(0, 0, "b"));
+        transitions5.add(factory.createTransition(1, 1, "c"));
+        transitions5.add(factory.createTransition(0, 1, ""));
+        ab2.FA n5 = new FA(2, chars, accept, transitions5);
+        n5.toRSA();
+
+        //n6
+        Set<Integer> accept6 = new TreeSet<>();
+        accept.add(0);
+        accept.add(1);
+
+        Set<FATransition> transitions6 = new HashSet<>();
+        transitions6.add(factory.createTransition(0, 0, "a"));
+        transitions6.add(factory.createTransition(0, 0, "b"));
+        transitions6.add(factory.createTransition(1, 1, "c"));
+        transitions6.add(factory.createTransition(0, 1, ""));
+        transitions6.add(factory.createTransition(1, 0, ""));
+
+        ab2.FA n6 = new FA(2, chars, accept6, transitions6);
+        n6.toRSA();
 
     }
 
