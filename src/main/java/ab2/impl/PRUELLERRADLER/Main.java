@@ -81,8 +81,9 @@ public class Main
         System.out.println(n2.reaches(0, 2));
         System.out.println(n2.isInfinite());
         */
-        System.out.println(n2.reaches(0,3));
-        System.out.println(n2.reaches(0,4));
+        System.out.println("reach");
+        System.out.println(n2.reaches(0,3, 0, false, 0));
+        System.out.println(n2.reaches(0,4, 0, false, 0));
 
         Set<Integer> accepts = new TreeSet<>();
 

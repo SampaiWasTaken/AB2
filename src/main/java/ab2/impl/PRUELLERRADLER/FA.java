@@ -697,7 +697,7 @@ public class FA implements ab2.FA
             return true;
         for (int i : acceptingStates)
         {
-            if (reaches(0, i))
+            if (reaches(0, i, 0, false, 0))
             {
                 accepting = false;
             }
@@ -719,7 +719,7 @@ public class FA implements ab2.FA
         {
             if (i != 0)
             {
-                if (reaches(0, i))
+                if (reaches(0, i, 0, false, 0))
                 {
                     return false;
                 }
@@ -761,7 +761,7 @@ public class FA implements ab2.FA
         if (loop)
         {
             for (int i : acceptingStates)
-                if (reaches(0, i))
+                if (reaches(0, i, 0, false, 0))
                     infinite = true;
         }
         return infinite;
@@ -845,26 +845,25 @@ public class FA implements ab2.FA
     }
 
     //checks if one state reaches another, breaks if loop detected and returns falsee
-    public boolean reaches(int from, int to)
+    public boolean reaches(int from, int to, int prevState, boolean reached, int count)
     {
-        int currentState = from;
-        boolean found = false;
-        FATransition prevState;
         for (FATransition tr : transitions)
         {
-            if (tr.from() == currentState)
+            if (reached || count > 20)
+                break;
+            else if (tr.from() == from && tr.to() == to)
             {
-                prevState = tr;
-                for (FATransition _tr : transitions)
-                {
-                    if (currentState == _tr.from() && to == _tr.to())
-                        found = true;
-                    currentState = _tr.to();
-                }
-                currentState = tr.to();
+                System.out.println(tr.toString());
+                reached = true;
+            }
+            else if (tr.from() == from && tr.to() != prevState)
+            {
+                System.out.println(tr.toString());
+                count ++;
+                return reaches(tr.to(), to, from, reached, count);
             }
         }
-        return found;
+        return reached;
     }
 }
 

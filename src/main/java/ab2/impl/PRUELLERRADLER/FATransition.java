@@ -51,11 +51,8 @@ public class FATransition implements ab2.FATransition
     }
 
     @Override
-    public String toString() {
-        return "FATransition{" +
-                "from=" + from +
-                ", to=" + to +
-                ", symbols='" + symbols + '\'' +
-                '}';
+    public String toString()
+    {
+        return "[from: " + from + " | to: " + to + " | with: " + symbols +  "]";
     }
 }
