@@ -777,6 +777,7 @@ public class FA implements ab2.FA
         this.transitions = newTrans;
     }
 
+    //checks if one state reaches another, breaks if loop detected and returns false
     public boolean reaches(int from, int to)
     {
         int currentState = from;
