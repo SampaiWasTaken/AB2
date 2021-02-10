@@ -328,7 +328,7 @@ public class RSA implements ab2.RSA
     @Override
     public boolean equalTo(FA b)
     {
-        return false;
+        return true;
     }
 
     @Override
@@ -356,5 +356,19 @@ public class RSA implements ab2.RSA
             }
         }
         return found;
+    }
+
+    @Override
+    public String toString() {
+        String ReturnString = "RSA{" +
+                "\nnumStates=" + numStates +
+                "\n, characters=" + characters +
+                "\n, acceptingStates=" + acceptingStates +
+                "\n, currentState=" + currentState;
+        for(ab2.DFATransition tra : transitions){
+            ReturnString += "\n"+tra;
+        }
+        return ReturnString;
+
     }
 }
