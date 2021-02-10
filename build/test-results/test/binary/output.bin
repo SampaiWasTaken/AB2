@@ -293,66 +293,6 @@
 (Current State [25] | [23] | [25] | [8]
 &####################################
 (Current State [25] | [23] | [25] | [8]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 2 | with: b]
-[from: 2 | to: 2 | with: a]
-[from: 2 | to: 4 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 2 | with: b]
-[from: 2 | to: 2 | with: a]
-[from: 2 | to: 4 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 2 | with: b]
-[from: 2 | to: 2 | with: a]
-[from: 2 | to: 4 | with: b]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 4 | to: 3 | with: a]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 4 | to: 3 | with: a]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 4 | to: 3 | with: a]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 1 | with: b]
-[from: 1 | to: 6 | with: ]
-[from: 6 | to: 7 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 1 | with: b]
-[from: 1 | to: 6 | with: ]
-[from: 6 | to: 7 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 1 | with: b]
-[from: 1 | to: 6 | with: ]
-[from: 6 | to: 7 | with: b]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
 [0, 1] --> [1]
 [0, 1] --> [1]
 [1] --> [2]
@@ -648,4 +588,4 @@
 #Current State [0] | [3] | [] | []
 &####################################
 #Current State [0] | [3] | [] | []
- Erreichte Punkte: 2
+ Erreichte Punkte: 1
