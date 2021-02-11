@@ -30,6 +30,30 @@ public class RSA implements ab2.RSA
     public ab2.RSA minimize()
     {
 
+        Set<Set<Integer>> minimizeTable = new HashSet<>(); // so nit
+
+        //getting all the states that aren't accepting states
+        Set<Integer> notAcceptingStates = new HashSet<>();
+        for(ab2.DFATransition trans : transitions){
+            for(Integer acceptingState : acceptingStates){
+                if(trans.from() != acceptingState){
+                    notAcceptingStates.add(trans.from());
+                }
+            }
+        }
+
+        //ceating the quantity with tuples of accapting and not accapting states
+        Set<Set<Integer>> allCombinations = new HashSet<>();
+        for(Integer i : notAcceptingStates){
+            for(Integer j : notAcceptingStates){
+                Set<Integer> combination = new HashSet<>();
+                combination.add(i);
+                combination.add(j);
+                allCombinations.add(combination);
+            }
+        }
+
+
 
 
         return null;

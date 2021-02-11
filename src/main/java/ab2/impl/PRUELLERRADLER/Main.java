@@ -21,7 +21,7 @@ public class Main
         Set<Character> chars = new HashSet<>();
         chars.add('a');
         chars.add('b');
-        //chars.add('c');
+        chars.add('c');
 
         Set<Integer> accept = new TreeSet<>();
         accept.add(4);
@@ -44,9 +44,9 @@ public class Main
 
 
 
-        FA n1 = (FA) factory.createFA(5, chars, accept, transitions);
+        //FA n2 = (FA) factory.createFA(5, chars, accept, transitions);
 
-        System.out.println(n1.reaches(0, 7, 0, false, 0));
+        //System.out.println(n1.reaches(0, 7, 0, false, 0));
         /*
         Set<Integer> accept3 = new TreeSet<>();
         accept3.add(0);
@@ -122,10 +122,12 @@ public class Main
         ab2.FA n5 = new FA(2, chars, accept, transitions5);
         n5.toRSA();
 
+         */
+
         //n6
         Set<Integer> accept6 = new TreeSet<>();
-        accept.add(0);
-        accept.add(1);
+        accept6.add(0);
+        accept6.add(1);
 
         Set<FATransition> transitions6 = new HashSet<>();
         transitions6.add(factory.createTransition(0, 0, "a"));
@@ -135,8 +137,11 @@ public class Main
         transitions6.add(factory.createTransition(1, 0, ""));
 
         ab2.FA n6 = new FA(2, chars, accept6, transitions6);
-        n6.toRSA();
-*/
+        RSA RSAn6 = n6.toRSA();
+        System.out.println(RSAn6);
+
+
+
     }
 
 
