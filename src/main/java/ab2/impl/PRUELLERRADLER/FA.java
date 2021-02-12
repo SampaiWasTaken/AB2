@@ -422,11 +422,6 @@ public class FA implements ab2.FA
            // System.out.println("size FinalTransitionTable : " + FinalTransitionTable.size());
             //creating RSA
             Set<ab2.DFATransition> finalRsaTransitions = new HashSet<>();
-            if(fresszustand){
-                for(Character cha : characters){
-                    finalRsaTransitions.add(new DFATransition(FinalTransitionTable.size(), FinalTransitionTable.size(), cha));
-                }
-            }
 
             for(TransitionTable t : newFinalTT){
                 int i = 0;
@@ -454,6 +449,19 @@ public class FA implements ab2.FA
 
 
                     i++;
+                }
+            }
+
+            //adding fresszustand;
+            fresszustand = false;
+            for(ab2.DFATransition trans: finalRsaTransitions){
+                if(trans.to() == FinalTransitionTable.size()){
+                    fresszustand=true;
+                }
+            }
+            if(fresszustand){
+                for(Character cha : characters){
+                    finalRsaTransitions.add(new DFATransition(FinalTransitionTable.size(), FinalTransitionTable.size(), cha));
                 }
             }
 
@@ -693,11 +701,10 @@ public class FA implements ab2.FA
         {
             for (FATransition tr : transitions)
             {
+                    if (tr.from() == currentState && (tr.symbols().equals("") || tr.symbols().equals("" + word[charCounter]))) {
+                        currentState = tr.to();
+                        charCounter++;
 
-                if (tr.from() == currentState && (tr.symbols().equals("") || tr.symbols().equals("" + word[charCounter])))
-                {
-                    currentState = tr.to();
-                    charCounter++;
                 }
 
             }
@@ -750,7 +757,7 @@ public class FA implements ab2.FA
         {
             for (FATransition tr : transitions)
             {
-                if (tr.equals(new ab2.impl.PRUELLERRADLER.FATransition(0, 0, "a")))
+                if (tr.equals(new ab2.impl.PRUELLERRADLER.FATransition(0, 0, ""+c)))
                     return false;
             }
         }
