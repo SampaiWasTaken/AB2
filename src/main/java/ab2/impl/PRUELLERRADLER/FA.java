@@ -172,9 +172,10 @@ public class FA implements ab2.FA
             }
 
 
-            //for(EpsilonQuantity eq : epsiQuant){
-             //  System.out.println(eq);
-           // }
+            for(EpsilonQuantity eq : epsiQuant){
+               System.out.println(eq);
+            }
+
             //finished calculating epsilon quantity
 
             Set<TransitionTable> tt = new HashSet<>();
@@ -192,6 +193,16 @@ public class FA implements ab2.FA
             for (TransitionTable t : tt)
             {
                 t.calculateSteps(transitions, characters);
+                ArrayList<Set<Integer>> errorCorrection = t.getNextSteps();
+                for(Set<Integer> i : errorCorrection){ //das is neu
+                    if(i.size() == 0){
+                        for(FATransition trans : transitions){
+                            if(t.getCurrentState().contains(trans.from()) && trans.symbols() == ""){
+                                i.add(trans.to());
+                            }
+                        }
+                    }
+                }
                 //replace calculated steps with steps from epsilon quantity
                 ArrayList<Set<Integer>> replaceArray = t.getNextSteps();
                 for(int i = 0; i < replaceArray.size(); i++){
@@ -225,17 +236,27 @@ public class FA implements ab2.FA
                 }
 
             }
-           // System.out.println(",,,,,,,,"+tt);
+            //System.out.println(",,,,,,,,"+tt);
             tt.remove(new TransitionTable(start));
 
-           // System.out.println(".............." + tt);
+            //System.out.println(".............." + tt);
 
             int j = finaltt.size();
             Iterator it = tt.iterator();
             while (j>0 && it.hasNext()){
                 TransitionTable currenttt = (TransitionTable) it.next();
                 currenttt.calculateSteps(transitions, characters);
-               // System.out.println("##########!!!!!" + currenttt);
+                ArrayList<Set<Integer>> errorCorrection = currenttt.getNextSteps();
+                for(Set<Integer> i : errorCorrection){ //das is neu
+                    if(i.size() == 0){
+                        for(FATransition trans : transitions){
+                            if(currenttt.getCurrentState().contains(trans.from()) && trans.symbols() == ""){
+                                i.add(trans.to());
+                            }
+                        }
+                    }
+                }
+                System.out.println("##########!!!!!" + currenttt);
 
                 ArrayList<Set<Integer>> replaceArray = currenttt.getNextSteps();
                 for(int i = 0; i < replaceArray.size(); i++){
@@ -326,9 +347,9 @@ public class FA implements ab2.FA
                 if(FinalTransitionTable.get(i).getCurrentState().equals(zeroSet)){
                     newFinalTT.add(new TransitionTable(zeroSet));
                     for(Integer acptdState : acceptingStates){
-                        System.out.println("acptdState   " + acptdState);
+                       // System.out.println("acptdState   " + acptdState);
                         if(FinalTransitionTable.get(i).getCurrentState().contains(acptdState)){
-                            System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " + "[0]");
+                           // System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " + "[0]");
                             finalacceptedStates.add(0);
                         }
 
@@ -340,7 +361,7 @@ public class FA implements ab2.FA
                     newFinalTT.add(new TransitionTable(numberSet));
                     for(Integer acptdState : acceptingStates){
                         if(FinalTransitionTable.get(i).getCurrentState().contains(acptdState)){
-                           System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " +numberSet);
+                          // System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " +numberSet);
                             finalacceptedStates.add(stateNumber);
                         }
 
@@ -401,19 +422,14 @@ public class FA implements ab2.FA
            // System.out.println("size FinalTransitionTable : " + FinalTransitionTable.size());
             //creating RSA
             Set<ab2.DFATransition> finalRsaTransitions = new HashSet<>();
-            if(fresszustand){
-                for(Character cha : characters){
-                    finalRsaTransitions.add(new DFATransition(FinalTransitionTable.size(), FinalTransitionTable.size(), cha));
-                }
-            }
 
             for(TransitionTable t : newFinalTT){
                 int i = 0;
                 for(Character ch : characters){
                     if(i>=characters.size()) i=0;
                     ArrayList<Set<Integer>> nextStates = t.getNextSteps();
-                    System.out.println("####################################");
-                    System.out.println(t);
+                   // System.out.println("####################################");
+                   // System.out.println(t);
 
                     //AHHAAHHAHAHHAH HIEEER IST DER FEHLER BEIM EINFÜGEN AHAHAHAHAHA FIXED!!!!!!!!!!
 
@@ -433,6 +449,19 @@ public class FA implements ab2.FA
 
 
                     i++;
+                }
+            }
+
+            //adding fresszustand;
+            fresszustand = false;
+            for(ab2.DFATransition trans: finalRsaTransitions){
+                if(trans.to() == FinalTransitionTable.size()){
+                    fresszustand=true;
+                }
+            }
+            if(fresszustand){
+                for(Character cha : characters){
+                    finalRsaTransitions.add(new DFATransition(FinalTransitionTable.size(), FinalTransitionTable.size(), cha));
                 }
             }
 
@@ -672,11 +701,10 @@ public class FA implements ab2.FA
         {
             for (FATransition tr : transitions)
             {
+                    if (tr.from() == currentState && (tr.symbols().equals("") || tr.symbols().equals("" + word[charCounter]))) {
+                        currentState = tr.to();
+                        charCounter++;
 
-                if (tr.from() == currentState && (tr.symbols().equals("") || tr.symbols().equals("" + word[charCounter])))
-                {
-                    currentState = tr.to();
-                    charCounter++;
                 }
 
             }
@@ -729,7 +757,7 @@ public class FA implements ab2.FA
         {
             for (FATransition tr : transitions)
             {
-                if (tr.equals(new ab2.impl.PRUELLERRADLER.FATransition(0, 0, "a")))
+                if (tr.equals(new ab2.impl.PRUELLERRADLER.FATransition(0, 0, ""+c)))
                     return false;
             }
         }

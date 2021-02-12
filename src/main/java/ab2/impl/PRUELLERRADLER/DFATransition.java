@@ -1,5 +1,7 @@
 package ab2.impl.PRUELLERRADLER;
 
+import java.util.Objects;
+
 public class DFATransition implements ab2.DFATransition
 {
     private int from;
@@ -37,12 +39,27 @@ public class DFATransition implements ab2.DFATransition
                 "from=" + from +
                 ", to=" + to +
                 ", symbol=" + symbol +
-                '}';
+                '}'+"\n";
     }
 
     public String symbols()
     { //jo gibts halt bei DFA nicht mehr...
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DFATransition that = (DFATransition) o;
+        return from == that.from &&
+                to == that.to &&
+                symbol == that.symbol;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(from, to, symbol);
     }
 }
 
