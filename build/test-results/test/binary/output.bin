@@ -550,14 +550,6 @@
 (, DFATransition{from=3, to=4, symbol=a}
 ]
 ?################################### final number of states: 5
-&DFATransition{from=0, to=4, symbol=b}
-
-&DFATransition{from=4, to=4, symbol=a}
-
-&DFATransition{from=4, to=4, symbol=b}
-
-&DFATransition{from=4, to=4, symbol=c}
-
 accapting states []
 not accapting states [0, 1]
 
@@ -8858,398 +8850,6 @@
 *, DFATransition{from=20, to=22, symbol=b}
 ]
 @################################### final number of states: 24
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=a}
-
-&DFATransition{from=1, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=c}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=a}
-
-&DFATransition{from=1, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=c}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=2, symbol=c}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=2, symbol=c}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=2, symbol=c}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=b}
-
-&DFATransition{from=2, to=2, symbol=a}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=b}
-
-&DFATransition{from=2, to=2, symbol=a}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=b}
-
-&DFATransition{from=2, to=2, symbol=a}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=6, symbol=a}
-
-&DFATransition{from=6, to=6, symbol=a}
-
-&DFATransition{from=6, to=6, symbol=b}
-
-&DFATransition{from=6, to=6, symbol=c}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=b}
-
-&DFATransition{from=2, to=2, symbol=a}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=b}
-
-&DFATransition{from=2, to=2, symbol=a}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=6, symbol=a}
-
-&DFATransition{from=6, to=6, symbol=a}
-
-&DFATransition{from=6, to=6, symbol=b}
-
-&DFATransition{from=6, to=6, symbol=c}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=7, symbol=b}
-
-&DFATransition{from=7, to=4, symbol=a}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=7, symbol=b}
-
-&DFATransition{from=7, to=4, symbol=a}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=7, symbol=b}
-
-&DFATransition{from=7, to=4, symbol=a}
-
-&DFATransition{from=4, to=5, symbol=b}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=7, symbol=b}
-
-&DFATransition{from=7, to=4, symbol=a}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=7, symbol=b}
-
-&DFATransition{from=7, to=4, symbol=a}
-
-&DFATransition{from=4, to=5, symbol=b}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=5, symbol=a}
-
-&DFATransition{from=5, to=1, symbol=a}
-
-&DFATransition{from=1, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-'DFATransition{from=0, to=26, symbol=c}
-
-(DFATransition{from=26, to=26, symbol=a}
-
-(DFATransition{from=26, to=26, symbol=b}
-
-(DFATransition{from=26, to=26, symbol=c}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=5, symbol=a}
-
-&DFATransition{from=5, to=1, symbol=a}
-
-&DFATransition{from=1, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-'DFATransition{from=0, to=26, symbol=c}
-
-(DFATransition{from=26, to=26, symbol=a}
-
-(DFATransition{from=26, to=26, symbol=b}
-
-(DFATransition{from=26, to=26, symbol=c}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=5, symbol=a}
-
-&DFATransition{from=5, to=1, symbol=a}
-
-&DFATransition{from=1, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-'DFATransition{from=0, to=26, symbol=c}
-
-(DFATransition{from=26, to=26, symbol=a}
-
-(DFATransition{from=26, to=26, symbol=b}
-
-(DFATransition{from=26, to=26, symbol=c}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=5, symbol=a}
-
-&DFATransition{from=5, to=1, symbol=a}
-
-&DFATransition{from=1, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-'DFATransition{from=0, to=26, symbol=c}
-
-(DFATransition{from=26, to=26, symbol=a}
-
-(DFATransition{from=26, to=26, symbol=b}
-
-(DFATransition{from=26, to=26, symbol=c}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=5, symbol=a}
-
-&DFATransition{from=5, to=1, symbol=a}
-
-&DFATransition{from=1, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-'DFATransition{from=0, to=26, symbol=c}
-
-(DFATransition{from=26, to=26, symbol=a}
-
-(DFATransition{from=26, to=26, symbol=b}
-
-(DFATransition{from=26, to=26, symbol=c}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=5, symbol=a}
-
-&DFATransition{from=5, to=1, symbol=a}
-
-&DFATransition{from=1, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-'DFATransition{from=0, to=26, symbol=c}
-
-(DFATransition{from=26, to=26, symbol=a}
-
-(DFATransition{from=26, to=26, symbol=b}
-
-(DFATransition{from=26, to=26, symbol=c}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=5, symbol=a}
-
-&DFATransition{from=5, to=1, symbol=a}
-
-&DFATransition{from=1, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-'DFATransition{from=0, to=26, symbol=c}
-
-(DFATransition{from=26, to=26, symbol=a}
-
-(DFATransition{from=26, to=26, symbol=b}
-
-(DFATransition{from=26, to=26, symbol=c}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=5, symbol=a}
-
-&DFATransition{from=5, to=1, symbol=a}
-
-&DFATransition{from=1, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-'DFATransition{from=0, to=26, symbol=c}
-
-(DFATransition{from=26, to=26, symbol=a}
-
-(DFATransition{from=26, to=26, symbol=b}
-
-(DFATransition{from=26, to=26, symbol=c}
-
-&DFATransition{from=0, to=7, symbol=b}
-
-&DFATransition{from=7, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=5, symbol=a}
-
-&DFATransition{from=5, to=1, symbol=a}
-
-&DFATransition{from=1, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-'DFATransition{from=0, to=26, symbol=c}
-
-(DFATransition{from=26, to=26, symbol=a}
-
-(DFATransition{from=26, to=26, symbol=b}
-
-(DFATransition{from=26, to=26, symbol=c}
-
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 2 | with: b]
-[from: 2 | to: 2 | with: a]
-[from: 2 | to: 4 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 2 | with: b]
-[from: 2 | to: 2 | with: a]
-[from: 2 | to: 4 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 2 | with: b]
-[from: 2 | to: 2 | with: a]
-[from: 2 | to: 4 | with: b]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 4 | to: 3 | with: a]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 4 | to: 3 | with: a]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 4 | to: 3 | with: a]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 1 | with: b]
-[from: 1 | to: 6 | with: ]
-[from: 6 | to: 7 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 1 | with: b]
-[from: 1 | to: 6 | with: ]
-[from: 6 | to: 7 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 1 | with: b]
-[from: 1 | to: 6 | with: ]
-[from: 6 | to: 7 | with: b]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
 EpsilonQuantity{1-->[1]}
 EpsilonQuantity{0-->[0, 1]}
 7##########!!!!!Current State [0, 1] | [0] | [0] | [1]
@@ -9315,169 +8915,13 @@
 8##########!!!!!Current State [2, 5] | [] | [1, 3] | []
 =##########!!!!!Current State [0, 1, 3] | [2, 5] | [0] | [1]
 :##########!!!!!Current State [0, 1] | [2, 5] | [0] | [0]
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=a}
-
-&DFATransition{from=1, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=c}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=a}
-
-&DFATransition{from=1, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=c}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
-&DFATransition{from=0, to=0, symbol=a}
-
 EpsilonQuantity{1-->[1]}
 EpsilonQuantity{0-->[0, 1]}
 7##########!!!!!Current State [0, 1] | [0] | [0] | [1]
 2##########!!!!!Current State [1] | [] | [] | [1]
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=a}
-
-&DFATransition{from=1, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=3, symbol=a}
-
-&DFATransition{from=3, to=3, symbol=b}
-
-&DFATransition{from=3, to=3, symbol=c}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=a}
-
-&DFATransition{from=1, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=c}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=a}
-
-&DFATransition{from=1, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=c}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=3, symbol=a}
-
-&DFATransition{from=3, to=3, symbol=b}
-
-&DFATransition{from=3, to=3, symbol=c}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=a}
-
-&DFATransition{from=1, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=c}
-
 EpsilonQuantity{1-->[0, 1]}
 EpsilonQuantity{0-->[0, 1]}
 7##########!!!!!Current State [0, 1] | [0] | [0] | [1]
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=a}
-
-&DFATransition{from=1, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=c}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=a}
-
-&DFATransition{from=1, to=1, symbol=b}
-
-&DFATransition{from=1, to=1, symbol=c}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=b}
-
-&DFATransition{from=2, to=2, symbol=a}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=b}
-
-&DFATransition{from=2, to=2, symbol=a}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=b}
-
-&DFATransition{from=2, to=2, symbol=a}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=6, symbol=a}
-
-&DFATransition{from=6, to=6, symbol=a}
-
-&DFATransition{from=6, to=6, symbol=b}
-
-&DFATransition{from=6, to=6, symbol=c}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=b}
-
-&DFATransition{from=2, to=2, symbol=a}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=0, to=1, symbol=b}
-
-&DFATransition{from=1, to=2, symbol=b}
-
-&DFATransition{from=2, to=2, symbol=a}
-
-&DFATransition{from=2, to=3, symbol=b}
-
-&DFATransition{from=3, to=6, symbol=a}
-
-&DFATransition{from=6, to=6, symbol=a}
-
-&DFATransition{from=6, to=6, symbol=b}
-
-&DFATransition{from=6, to=6, symbol=c}
-
 EpsilonQuantity{1-->[0, 1]}
 EpsilonQuantity{0-->[0]}
  EpsilonQuantity{4-->[0, 2, 4]}
@@ -9488,20 +8932,52 @@
 @##########!!!!!Current State [0, 1, 3] | [1] | [2, 4] | [0, 1]
 @##########!!!!!Current State [0, 2, 4] | [1, 3] | [2] | [0, 2]
 9##########!!!!!Current State [0, 2] | [1, 3] | [2] | []
-&DFATransition{from=0, to=6, symbol=c}
-
-&DFATransition{from=6, to=6, symbol=a}
-
-&DFATransition{from=6, to=6, symbol=b}
-
-&DFATransition{from=6, to=6, symbol=c}
-
-&DFATransition{from=0, to=6, symbol=c}
-
-&DFATransition{from=6, to=6, symbol=a}
-
-&DFATransition{from=6, to=6, symbol=b}
-
-&DFATransition{from=6, to=6, symbol=c}
-
- Erreichte Punkte: 3
+EpsilonQuantity{1-->[1, 6]}
+EpsilonQuantity{0-->[0]}
+EpsilonQuantity{7-->[3, 7]}
+EpsilonQuantity{6-->[6]}
+EpsilonQuantity{5-->[5]}
+EpsilonQuantity{4-->[4]}
+EpsilonQuantity{3-->[3]}
+EpsilonQuantity{2-->[2, 4]}
+=##########!!!!!Current State [1, 6] | [2, 3] | [1, 7] | [4]
+L##########!!!!!Current State [1, 3, 6, 7] | [0, 2, 3, 7] | [1, 4, 7] | [4]
+3##########!!!!!Current State [4] | [2] | [5] | []
+R##########!!!!!Current State [1, 3, 4, 6, 7] | [0, 2, 3, 7] | [1, 4, 5, 7] | [4]
+4##########!!!!!Current State [5] | [6] | [1] | [3]
+3##########!!!!!Current State [3] | [0] | [4] | []
+=##########!!!!!Current State [2, 4] | [2, 3] | [1, 5] | [6]
+3##########!!!!!Current State [6] | [3] | [7] | []
+F##########!!!!!Current State [2, 3, 4] | [0, 2, 3] | [1, 4, 5] | [6]
+I##########!!!!!Current State [0, 2, 3, 4] | [0, 2, 3] | [1, 4, 5] | [6]
+[##########!!!!!Current State [1, 3, 4, 5, 6, 7] | [0, 2, 3, 6, 7] | [1, 4, 5, 7] | [3, 4]
+U##########!!!!!Current State [0, 2, 3, 4, 6, 7] | [0, 2, 3, 7] | [1, 4, 5, 7] | [6]
+<##########!!!!!Current State [3, 4] | [0, 2] | [4, 5] | []
+C##########!!!!!Current State [0, 2, 4] | [0, 2, 3] | [1, 5] | [6]
+=##########!!!!!Current State [4, 5] | [2, 6] | [1, 5] | [3]
+=##########!!!!!Current State [3, 7] | [0, 7] | [4, 7] | [3]
+C##########!!!!!Current State [0, 3, 7] | [0, 7] | [1, 4, 7] | [3]
+F##########!!!!!Current State [1, 5, 6] | [2, 3, 6] | [1, 7] | [3, 4]
+C##########!!!!!Current State [2, 4, 6] | [2, 3] | [1, 5, 7] | [6]
+U##########!!!!!Current State [1, 3, 5, 6, 7] | [0, 2, 3, 6, 7] | [1, 4, 7] | [3, 4]
+F##########!!!!!Current State [3, 4, 7] | [0, 2, 7] | [4, 5, 7] | [3]
+O##########!!!!!Current State [3, 4, 5, 7] | [0, 2, 6, 7] | [1, 4, 5, 7] | [3]
+L##########!!!!!Current State [2, 3, 4, 6] | [0, 2, 3] | [1, 4, 5, 7] | [6]
+R##########!!!!!Current State [0, 2, 3, 4, 7] | [0, 2, 3, 7] | [1, 4, 5, 7] | [6]
+L##########!!!!!Current State [1, 4, 5, 6] | [2, 3, 6] | [1, 5, 7] | [3, 4]
+EpsilonQuantity{1-->[0, 1]}
+EpsilonQuantity{0-->[0]}
+EpsilonQuantity{3-->[3]}
+EpsilonQuantity{2-->[2]}
+2##########!!!!!Current State [2] | [] | [3] | []
+2##########!!!!!Current State [3] | [] | [] | [1]
+7##########!!!!!Current State [0, 1] | [2] | [0] | [0]
+EpsilonQuantity{1-->[0, 1]}
+EpsilonQuantity{0-->[0]}
+EpsilonQuantity{5-->[5]}
+EpsilonQuantity{3-->[3]}
+EpsilonQuantity{2-->[2]}
+8##########!!!!!Current State [2, 5] | [] | [1, 3] | []
+=##########!!!!!Current State [0, 1, 3] | [2, 5] | [0] | [1]
+:##########!!!!!Current State [0, 1] | [2, 5] | [0] | [0]
+ Erreichte Punkte: 5

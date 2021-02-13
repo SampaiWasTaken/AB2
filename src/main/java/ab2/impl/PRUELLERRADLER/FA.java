@@ -725,7 +725,7 @@ public class FA implements ab2.FA
             return true;
         for (int i : acceptingStates)
         {
-            if (reaches(0, i, 0, false, 0))
+            if (reaches(0, i, new HashSet<>(), false, 0))
             {
                 accepting = false;
             }
@@ -747,7 +747,7 @@ public class FA implements ab2.FA
         {
             if (i != 0)
             {
-                if (reaches(0, i, 0, false, 0))
+                if (reaches(0, i, new HashSet<>(), false, 0))
                 {
                     return false;
                 }
@@ -789,7 +789,7 @@ public class FA implements ab2.FA
         if (loop)
         {
             for (int i : acceptingStates)
-                if (reaches(0, i, 0, false, 0))
+                if (reaches(0, i, new HashSet<>(), false, 0))
                     infinite = true;
         }
         return infinite;
@@ -873,25 +873,30 @@ public class FA implements ab2.FA
     }
 
     //checks if one state reaches another, breaks if loop detected and returns falsee
-    public boolean reaches(int from, int to, int prevState, boolean reached, int count)
+    public boolean reaches(int from, int to, Set<FATransition> prevState, boolean reached, int count)
     {
+        Set<FATransition> copiedTransitions = new HashSet<>();
+        for(FATransition tra : prevState){
+            copiedTransitions.add(tra);
+        }
         for (FATransition tr : transitions)
         {
-            if (reached || count > 20)
+            if (reached)
                 break;
             else if (tr.from() == from && tr.to() == to)
             {
-                System.out.println(tr.toString());
+                //System.out.println(tr.toString());
                 reached = true;
             }
-            else if (tr.from() == from && tr.to() != prevState)
+            else if (tr.from() == from && !copiedTransitions.contains(tr))
             {
-                System.out.println(tr.toString());
+                //System.out.println(tr.toString());
                 count ++;
-                return reaches(tr.to(), to, from, reached, count);
+                copiedTransitions.add(tr);
+                reached = reaches(tr.to(), to, copiedTransitions, reached, count);
             }
         }
-        return reached;
+        return false || reached;
     }
 }
 

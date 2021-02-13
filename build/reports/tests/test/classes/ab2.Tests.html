@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">24</div>
+<div class="counter">22</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.283s</div>
+<div class="counter">0.871s</div>
 <p>duration</p>
 </div>
 </td>
@@ -51,7 +51,7 @@
 </td>
 <td>
 <div class="infoBox failures" id="successRate">
-<div class="percent">11%</div>
+<div class="percent">18%</div>
 <p>successful</p>
 </div>
 </td>
@@ -76,12 +76,12 @@
 <a name="Minimization_MultipleCharacter()"></a>
 <h3 class="failures">Minimization_MultipleCharacter()</h3>
 <span class="code">
-<pre>org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
+<pre>org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
-	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:40)
-	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:35)
-	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:210)
-	at ab2.Tests.testPropertiesNFA10(Tests.java:2020)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:40)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:162)
+	at ab2.Tests.testPropertiesNFA10(Tests.java:2023)
 	at ab2.Tests.Minimization_MultipleCharacter(Tests.java:1765)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -180,108 +180,6 @@
 <span class="code">
 <pre>java.lang.NullPointerException
 	at ab2.Tests.Minimization_Operations(Tests.java:1775)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)
-	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:205)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:201)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1507)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1507)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
-	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)
-	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)
-	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)
-	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
-	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
-	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at com.sun.proxy.$Proxy2.stop(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.stop(TestWorker.java:133)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)
-	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)
-	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:414)
-	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
-	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)
-	at java.base/java.lang.Thread.run(Thread.java:830)
-</pre>
-</span>
-</div>
-<div class="test">
-<a name="Minimization_SingleCharacter()"></a>
-<h3 class="failures">Minimization_SingleCharacter()</h3>
-<span class="code">
-<pre>org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
-	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:40)
-	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:35)
-	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:210)
-	at ab2.Tests.testPropertiesNFA9(Tests.java:2012)
-	at ab2.Tests.Minimization_SingleCharacter(Tests.java:1743)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2336,108 +2234,6 @@
 </pre>
 </span>
 </div>
-<div class="test">
-<a name="toRSA_Properties()"></a>
-<h3 class="failures">toRSA_Properties()</h3>
-<span class="code">
-<pre>org.opentest4j.AssertionFailedError: expected: &lt;false&gt; but was: &lt;true&gt;
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
-	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:40)
-	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:35)
-	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:210)
-	at ab2.Tests.testPropertiesNFA8(Tests.java:2004)
-	at ab2.Tests.toRSA_Properties(Tests.java:1672)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)
-	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
-	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
-	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
-	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:205)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:201)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
-	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1507)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1507)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
-	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)
-	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)
-	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)
-	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)
-	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
-	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
-	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at com.sun.proxy.$Proxy2.stop(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.stop(TestWorker.java:133)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)
-	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)
-	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:414)
-	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
-	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)
-	at java.base/java.lang.Thread.run(Thread.java:830)
-</pre>
-</span>
-</div>
 </div>
 <div id="tab1" class="tab">
 <h2>Tests</h2>
@@ -2451,27 +2247,27 @@
 </thead>
 <tr>
 <td class="failures">Minimization_MultipleCharacter()</td>
-<td class="failures">0.086s</td>
+<td class="failures">0.057s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
 <td class="failures">Minimization_Operations()</td>
-<td class="failures">0.003s</td>
+<td class="failures">0.001s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
-<td class="failures">Minimization_SingleCharacter()</td>
-<td class="failures">0.134s</td>
-<td class="failures">failed</td>
+<td class="success">Minimization_SingleCharacter()</td>
+<td class="success">0.260s</td>
+<td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">NFA_Equals()</td>
-<td class="success">0.002s</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="failures">NFA_Language()</td>
-<td class="failures">0.003s</td>
+<td class="failures">0.002s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
@@ -2481,12 +2277,12 @@
 </tr>
 <tr>
 <td class="failures">NFA_Operations_Concat()</td>
-<td class="failures">0.001s</td>
+<td class="failures">0.002s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
 <td class="failures">NFA_Operations_Intersection()</td>
-<td class="failures">0.001s</td>
+<td class="failures">0.002s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
@@ -2496,7 +2292,7 @@
 </tr>
 <tr>
 <td class="failures">NFA_Operations_Plus()</td>
-<td class="failures">0.002s</td>
+<td class="failures">0.003s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
@@ -2511,7 +2307,7 @@
 </tr>
 <tr>
 <td class="success">NFA_Properties()</td>
-<td class="success">0.006s</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -2521,7 +2317,7 @@
 </tr>
 <tr>
 <td class="failures">PatternMatching_DotAndStar_Count()</td>
-<td class="failures">0.002s</td>
+<td class="failures">0.003s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
@@ -2536,37 +2332,37 @@
 </tr>
 <tr>
 <td class="failures">PatternMatching_Star_Count()</td>
-<td class="failures">0.002s</td>
+<td class="failures">0.001s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
 <td class="failures">testCFGToPDA1()</td>
-<td class="failures">0.001s</td>
-<td class="failures">failed</td>
-</tr>
-<tr>
-<td class="failures">testCFGToPDA2()</td>
-<td class="failures">0.001s</td>
-<td class="failures">failed</td>
-</tr>
-<tr>
-<td class="failures">testPDAAccepts1()</td>
-<td class="failures">0.001s</td>
-<td class="failures">failed</td>
-</tr>
-<tr>
-<td class="failures">testPDAAppend1()</td>
-<td class="failures">0.001s</td>
-<td class="failures">failed</td>
-</tr>
-<tr>
-<td class="failures">testPDADet()</td>
 <td class="failures">0.003s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
-<td class="failures">testPDAUnion1()</td>
+<td class="failures">testCFGToPDA2()</td>
 <td class="failures">0.002s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">testPDAAccepts1()</td>
+<td class="failures">0.002s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">testPDAAppend1()</td>
+<td class="failures">0.002s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">testPDADet()</td>
+<td class="failures">0.001s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">testPDAUnion1()</td>
+<td class="failures">0.001s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
@@ -2576,13 +2372,13 @@
 </tr>
 <tr>
 <td class="success">toRSA_Language()</td>
-<td class="success">0.010s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="failures">toRSA_Properties()</td>
-<td class="failures">0.003s</td>
-<td class="failures">failed</td>
+<td class="success">toRSA_Properties()</td>
+<td class="success">0.496s</td>
+<td class="success">passed</td>
 </tr>
 </table>
 </div>
@@ -3141,14 +2937,6 @@ finalAcceptingStates[1, 2]
 , DFATransition{from=3, to=4, symbol=a}
 ]
 ################################### final number of states: 5
-DFATransition{from=0, to=4, symbol=b}
-
-DFATransition{from=4, to=4, symbol=a}
-
-DFATransition{from=4, to=4, symbol=b}
-
-DFATransition{from=4, to=4, symbol=c}
-
 accapting states []
 not accapting states [0, 1]
 [[0, 1]]
@@ -11447,398 +11235,6 @@ finalAcceptingStates[16, 20, 21, 22, 24, 25, 28, 12, 13]
 , DFATransition{from=20, to=22, symbol=b}
 ]
 ################################### final number of states: 24
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=a}
-
-DFATransition{from=1, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=c}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=a}
-
-DFATransition{from=1, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=c}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=2, symbol=c}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=2, symbol=c}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=2, symbol=c}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=b}
-
-DFATransition{from=2, to=2, symbol=a}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=b}
-
-DFATransition{from=2, to=2, symbol=a}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=b}
-
-DFATransition{from=2, to=2, symbol=a}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=6, symbol=a}
-
-DFATransition{from=6, to=6, symbol=a}
-
-DFATransition{from=6, to=6, symbol=b}
-
-DFATransition{from=6, to=6, symbol=c}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=b}
-
-DFATransition{from=2, to=2, symbol=a}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=b}
-
-DFATransition{from=2, to=2, symbol=a}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=6, symbol=a}
-
-DFATransition{from=6, to=6, symbol=a}
-
-DFATransition{from=6, to=6, symbol=b}
-
-DFATransition{from=6, to=6, symbol=c}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=7, symbol=b}
-
-DFATransition{from=7, to=4, symbol=a}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=7, symbol=b}
-
-DFATransition{from=7, to=4, symbol=a}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=7, symbol=b}
-
-DFATransition{from=7, to=4, symbol=a}
-
-DFATransition{from=4, to=5, symbol=b}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=7, symbol=b}
-
-DFATransition{from=7, to=4, symbol=a}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=7, symbol=b}
-
-DFATransition{from=7, to=4, symbol=a}
-
-DFATransition{from=4, to=5, symbol=b}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=5, symbol=a}
-
-DFATransition{from=5, to=1, symbol=a}
-
-DFATransition{from=1, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=26, symbol=c}
-
-DFATransition{from=26, to=26, symbol=a}
-
-DFATransition{from=26, to=26, symbol=b}
-
-DFATransition{from=26, to=26, symbol=c}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=5, symbol=a}
-
-DFATransition{from=5, to=1, symbol=a}
-
-DFATransition{from=1, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=26, symbol=c}
-
-DFATransition{from=26, to=26, symbol=a}
-
-DFATransition{from=26, to=26, symbol=b}
-
-DFATransition{from=26, to=26, symbol=c}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=5, symbol=a}
-
-DFATransition{from=5, to=1, symbol=a}
-
-DFATransition{from=1, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=26, symbol=c}
-
-DFATransition{from=26, to=26, symbol=a}
-
-DFATransition{from=26, to=26, symbol=b}
-
-DFATransition{from=26, to=26, symbol=c}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=5, symbol=a}
-
-DFATransition{from=5, to=1, symbol=a}
-
-DFATransition{from=1, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=26, symbol=c}
-
-DFATransition{from=26, to=26, symbol=a}
-
-DFATransition{from=26, to=26, symbol=b}
-
-DFATransition{from=26, to=26, symbol=c}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=5, symbol=a}
-
-DFATransition{from=5, to=1, symbol=a}
-
-DFATransition{from=1, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=26, symbol=c}
-
-DFATransition{from=26, to=26, symbol=a}
-
-DFATransition{from=26, to=26, symbol=b}
-
-DFATransition{from=26, to=26, symbol=c}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=5, symbol=a}
-
-DFATransition{from=5, to=1, symbol=a}
-
-DFATransition{from=1, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=26, symbol=c}
-
-DFATransition{from=26, to=26, symbol=a}
-
-DFATransition{from=26, to=26, symbol=b}
-
-DFATransition{from=26, to=26, symbol=c}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=5, symbol=a}
-
-DFATransition{from=5, to=1, symbol=a}
-
-DFATransition{from=1, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=26, symbol=c}
-
-DFATransition{from=26, to=26, symbol=a}
-
-DFATransition{from=26, to=26, symbol=b}
-
-DFATransition{from=26, to=26, symbol=c}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=5, symbol=a}
-
-DFATransition{from=5, to=1, symbol=a}
-
-DFATransition{from=1, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=26, symbol=c}
-
-DFATransition{from=26, to=26, symbol=a}
-
-DFATransition{from=26, to=26, symbol=b}
-
-DFATransition{from=26, to=26, symbol=c}
-
-DFATransition{from=0, to=7, symbol=b}
-
-DFATransition{from=7, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=5, symbol=a}
-
-DFATransition{from=5, to=1, symbol=a}
-
-DFATransition{from=1, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=26, symbol=c}
-
-DFATransition{from=26, to=26, symbol=a}
-
-DFATransition{from=26, to=26, symbol=b}
-
-DFATransition{from=26, to=26, symbol=c}
-
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 0 | with: a]
-[from: 0 | to: 1 | with: ]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 2 | with: b]
-[from: 2 | to: 2 | with: a]
-[from: 2 | to: 4 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 2 | with: b]
-[from: 2 | to: 2 | with: a]
-[from: 2 | to: 4 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 2 | with: b]
-[from: 2 | to: 2 | with: a]
-[from: 2 | to: 4 | with: b]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 4 | to: 3 | with: a]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 4 | to: 3 | with: a]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 4 | to: 3 | with: a]
-[from: 0 | to: 1 | with: a]
-[from: 1 | to: 4 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 1 | with: b]
-[from: 1 | to: 6 | with: ]
-[from: 6 | to: 7 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 1 | with: b]
-[from: 1 | to: 6 | with: ]
-[from: 6 | to: 7 | with: b]
-[from: 0 | to: 1 | with: b]
-[from: 1 | to: 1 | with: b]
-[from: 1 | to: 6 | with: ]
-[from: 6 | to: 7 | with: b]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
-[from: 0 | to: 1 | with: abc]
 EpsilonQuantity{1--&gt;[1]}
 EpsilonQuantity{0--&gt;[0, 1]}
 ##########!!!!!Current State [0, 1] | [0] | [0] | [1]
@@ -11904,169 +11300,13 @@ EpsilonQuantity{2--&gt;[2]}
 ##########!!!!!Current State [2, 5] | [] | [1, 3] | []
 ##########!!!!!Current State [0, 1, 3] | [2, 5] | [0] | [1]
 ##########!!!!!Current State [0, 1] | [2, 5] | [0] | [0]
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=a}
-
-DFATransition{from=1, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=c}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=a}
-
-DFATransition{from=1, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=c}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
-DFATransition{from=0, to=0, symbol=a}
-
 EpsilonQuantity{1--&gt;[1]}
 EpsilonQuantity{0--&gt;[0, 1]}
 ##########!!!!!Current State [0, 1] | [0] | [0] | [1]
 ##########!!!!!Current State [1] | [] | [] | [1]
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=a}
-
-DFATransition{from=1, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=3, symbol=a}
-
-DFATransition{from=3, to=3, symbol=b}
-
-DFATransition{from=3, to=3, symbol=c}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=a}
-
-DFATransition{from=1, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=c}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=a}
-
-DFATransition{from=1, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=c}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=3, symbol=a}
-
-DFATransition{from=3, to=3, symbol=b}
-
-DFATransition{from=3, to=3, symbol=c}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=a}
-
-DFATransition{from=1, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=c}
-
 EpsilonQuantity{1--&gt;[0, 1]}
 EpsilonQuantity{0--&gt;[0, 1]}
 ##########!!!!!Current State [0, 1] | [0] | [0] | [1]
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=a}
-
-DFATransition{from=1, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=c}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=a}
-
-DFATransition{from=1, to=1, symbol=b}
-
-DFATransition{from=1, to=1, symbol=c}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=b}
-
-DFATransition{from=2, to=2, symbol=a}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=b}
-
-DFATransition{from=2, to=2, symbol=a}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=b}
-
-DFATransition{from=2, to=2, symbol=a}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=6, symbol=a}
-
-DFATransition{from=6, to=6, symbol=a}
-
-DFATransition{from=6, to=6, symbol=b}
-
-DFATransition{from=6, to=6, symbol=c}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=b}
-
-DFATransition{from=2, to=2, symbol=a}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=0, to=1, symbol=b}
-
-DFATransition{from=1, to=2, symbol=b}
-
-DFATransition{from=2, to=2, symbol=a}
-
-DFATransition{from=2, to=3, symbol=b}
-
-DFATransition{from=3, to=6, symbol=a}
-
-DFATransition{from=6, to=6, symbol=a}
-
-DFATransition{from=6, to=6, symbol=b}
-
-DFATransition{from=6, to=6, symbol=c}
-
 EpsilonQuantity{1--&gt;[0, 1]}
 EpsilonQuantity{0--&gt;[0]}
 EpsilonQuantity{4--&gt;[0, 2, 4]}
@@ -12077,23 +11317,55 @@ EpsilonQuantity{2--&gt;[2]}
 ##########!!!!!Current State [0, 1, 3] | [1] | [2, 4] | [0, 1]
 ##########!!!!!Current State [0, 2, 4] | [1, 3] | [2] | [0, 2]
 ##########!!!!!Current State [0, 2] | [1, 3] | [2] | []
-DFATransition{from=0, to=6, symbol=c}
-
-DFATransition{from=6, to=6, symbol=a}
-
-DFATransition{from=6, to=6, symbol=b}
-
-DFATransition{from=6, to=6, symbol=c}
-
-DFATransition{from=0, to=6, symbol=c}
-
-DFATransition{from=6, to=6, symbol=a}
-
-DFATransition{from=6, to=6, symbol=b}
-
-DFATransition{from=6, to=6, symbol=c}
-
-Erreichte Punkte: 3
+EpsilonQuantity{1--&gt;[1, 6]}
+EpsilonQuantity{0--&gt;[0]}
+EpsilonQuantity{7--&gt;[3, 7]}
+EpsilonQuantity{6--&gt;[6]}
+EpsilonQuantity{5--&gt;[5]}
+EpsilonQuantity{4--&gt;[4]}
+EpsilonQuantity{3--&gt;[3]}
+EpsilonQuantity{2--&gt;[2, 4]}
+##########!!!!!Current State [1, 6] | [2, 3] | [1, 7] | [4]
+##########!!!!!Current State [1, 3, 6, 7] | [0, 2, 3, 7] | [1, 4, 7] | [4]
+##########!!!!!Current State [4] | [2] | [5] | []
+##########!!!!!Current State [1, 3, 4, 6, 7] | [0, 2, 3, 7] | [1, 4, 5, 7] | [4]
+##########!!!!!Current State [5] | [6] | [1] | [3]
+##########!!!!!Current State [3] | [0] | [4] | []
+##########!!!!!Current State [2, 4] | [2, 3] | [1, 5] | [6]
+##########!!!!!Current State [6] | [3] | [7] | []
+##########!!!!!Current State [2, 3, 4] | [0, 2, 3] | [1, 4, 5] | [6]
+##########!!!!!Current State [0, 2, 3, 4] | [0, 2, 3] | [1, 4, 5] | [6]
+##########!!!!!Current State [1, 3, 4, 5, 6, 7] | [0, 2, 3, 6, 7] | [1, 4, 5, 7] | [3, 4]
+##########!!!!!Current State [0, 2, 3, 4, 6, 7] | [0, 2, 3, 7] | [1, 4, 5, 7] | [6]
+##########!!!!!Current State [3, 4] | [0, 2] | [4, 5] | []
+##########!!!!!Current State [0, 2, 4] | [0, 2, 3] | [1, 5] | [6]
+##########!!!!!Current State [4, 5] | [2, 6] | [1, 5] | [3]
+##########!!!!!Current State [3, 7] | [0, 7] | [4, 7] | [3]
+##########!!!!!Current State [0, 3, 7] | [0, 7] | [1, 4, 7] | [3]
+##########!!!!!Current State [1, 5, 6] | [2, 3, 6] | [1, 7] | [3, 4]
+##########!!!!!Current State [2, 4, 6] | [2, 3] | [1, 5, 7] | [6]
+##########!!!!!Current State [1, 3, 5, 6, 7] | [0, 2, 3, 6, 7] | [1, 4, 7] | [3, 4]
+##########!!!!!Current State [3, 4, 7] | [0, 2, 7] | [4, 5, 7] | [3]
+##########!!!!!Current State [3, 4, 5, 7] | [0, 2, 6, 7] | [1, 4, 5, 7] | [3]
+##########!!!!!Current State [2, 3, 4, 6] | [0, 2, 3] | [1, 4, 5, 7] | [6]
+##########!!!!!Current State [0, 2, 3, 4, 7] | [0, 2, 3, 7] | [1, 4, 5, 7] | [6]
+##########!!!!!Current State [1, 4, 5, 6] | [2, 3, 6] | [1, 5, 7] | [3, 4]
+EpsilonQuantity{1--&gt;[0, 1]}
+EpsilonQuantity{0--&gt;[0]}
+EpsilonQuantity{3--&gt;[3]}
+EpsilonQuantity{2--&gt;[2]}
+##########!!!!!Current State [2] | [] | [3] | []
+##########!!!!!Current State [3] | [] | [] | [1]
+##########!!!!!Current State [0, 1] | [2] | [0] | [0]
+EpsilonQuantity{1--&gt;[0, 1]}
+EpsilonQuantity{0--&gt;[0]}
+EpsilonQuantity{5--&gt;[5]}
+EpsilonQuantity{3--&gt;[3]}
+EpsilonQuantity{2--&gt;[2]}
+##########!!!!!Current State [2, 5] | [] | [1, 3] | []
+##########!!!!!Current State [0, 1, 3] | [2, 5] | [0] | [1]
+##########!!!!!Current State [0, 1] | [2, 5] | [0] | [0]
+Erreichte Punkte: 5
 </pre>
 </span>
 </div>
@@ -12105,7 +11377,7 @@ Erreichte Punkte: 3
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.7.1</a> at 12.02.2021, 18:16:49</p>
+<a href="http://www.gradle.org">Gradle 6.7.1</a> at 13.02.2021, 12:00:36</p>
 </div>
 </div>
 </body>

@@ -51,10 +51,10 @@ public class FactoryImpl implements Factory
     }
 
     @Override
-    public PDA createPDA(int numStates, Set<Character> inputSymbols, Set<Character> stackSymbols, Set<Integer> acceptingStates, Set<PDATransition> transitions)
-    {
+    public ab2.PDA createPDA(int numStates, Set<Character> inputSymbols, Set<Character> stackSymbols, Set<Integer> acceptingStates, Set<ab2.PDATransition> transitions) {
         return null;
     }
+
 
     @Override
     public PDA getPDAFromCFG(char startSymbol, Set<String> rules)

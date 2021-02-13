@@ -5,7 +5,6 @@ import ab2.DFATransition;
 import ab2.FA;
 import ab2.FATransition;
 import ab2.IllegalCharacterException;
-import ab2.Transition;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -662,24 +661,28 @@ public class RSA implements ab2.RSA
 
     public boolean reaches(int from, int to, Set<ab2.DFATransition> prevState, boolean reached, int count)
     {
+        Set<ab2.DFATransition> copiedTransitions = new HashSet<>();
+        for(DFATransition tra : prevState){
+            copiedTransitions.add(tra);
+        }
         for (DFATransition tr : transitions)
         {
-            if (reached || count > 200)
+            if (reached)
                 break;
             else if (tr.from() == from && tr.to() == to)
             {
-                System.out.println(tr.toString());
+                //System.out.println(tr.toString());
                 reached = true;
             }
-            else if (tr.from() == from && !prevState.contains(tr))
+            else if (tr.from() == from && !copiedTransitions.contains(tr))
             {
-                System.out.println(tr.toString());
+                //System.out.println(tr.toString());
                 count ++;
-                prevState.add(tr);
-                return reaches(tr.to(), to, prevState, reached, count);
+                copiedTransitions.add(tr);
+                reached = reaches(tr.to(), to, copiedTransitions, reached, count);
             }
         }
-        return reached;
+        return false || reached;
     }
     public boolean reaches(int from, int to)
     {
