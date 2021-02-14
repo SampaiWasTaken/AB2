@@ -49,11 +49,60 @@ public class RSA implements ab2.RSA
     }
 
      */
+    public RSA reOrderRSA_States (int startingNumber){
+        Set<TransitionRename> newNames = new HashSet<>();
+        int counter = startingNumber;
+        boolean onlyOncePerState0 = true;
+        for(DFATransition trans : transitions){
+            if(trans.from() == 0 && onlyOncePerState0){
+                newNames.add(new TransitionRename(trans.from(), counter++));
+                onlyOncePerState0 = false;
+            }
+        }
+        for(DFATransition trans : transitions){
+            if(trans.from() != 0){
+                boolean alreadyInside = false;
+                for(TransitionRename tr : newNames){
+                    if(tr.getFrom() == trans.from()) alreadyInside = true;
+
+                }
+               if(!alreadyInside) newNames.add(new TransitionRename(trans.from(), counter++));
+            }
+        }
+
+        Set<Integer> newAcceptingStates = new HashSet<>();
+        for(Integer i : acceptingStates){
+            boolean onlyOncePerState = true;
+            for(TransitionRename tr : newNames){
+                if(tr.getFrom() == i && onlyOncePerState){
+                    newAcceptingStates.add(tr.getTo());
+                    onlyOncePerState = false;
+                }
+            }
+        }
+
+        Set<DFATransition> newTransitions = new HashSet<>();
+        for(DFATransition trans : transitions){
+            int newfrom = 0;
+            int newto = 0;
+            for(TransitionRename tr : newNames){
+                if(trans.from() == tr.getFrom()){
+                    newfrom = tr.getTo();
+                }
+                if(trans.to() == tr.getFrom()){
+                    newto = tr.getTo();
+                }
+
+            }
+            newTransitions.add(new ab2.impl.PRUELLERRADLER.DFATransition(newfrom, newto, trans.symbol()));
+        }
+
+        return new RSA(this.numStates, this.characters, newAcceptingStates, newTransitions);
+    }
 
     @Override
     public ab2.RSA minimize()
     {
-
         Set<Set<Integer>> minimizeTable = new HashSet<>(); // so nit
 
         //getting all the states that aren't accepting states
@@ -90,9 +139,9 @@ public class RSA implements ab2.RSA
 
 
 
-        System.out.println("accapting states " + acceptingStates);
-        System.out.println("not accapting states "+notAcceptingStates);
-        System.out.println(allCombinations);
+       // System.out.println("accapting states " + acceptingStates);
+       // System.out.println("not accapting states "+notAcceptingStates);
+      //  System.out.println(allCombinations);
 
         Set<Set<Integer>> oldAllcombinations = new HashSet<>();
         Set<Set<Integer>> newSimplifiedTable = new HashSet<>();
@@ -113,7 +162,21 @@ public class RSA implements ab2.RSA
             }
         }
 
-        System.out.println("FFFFFFFFFFFFFFFFUUUUCK die zustände sind gleich "+newSimplifiedTable);
+      //  System.out.println("FFFFFFFFFFFFFFFFUUUUCK die zustände sind gleich "+newSimplifiedTable);
+        Set<Set<Integer>> reDoneNewSimplifiedTable = new HashSet<>();
+            for(Set<Integer> oneDoubleEntry : newSimplifiedTable){
+                Set<Integer> newSimplifiedEntry = new HashSet<>();
+                for(Set<Integer> oneDoubleEntry2 : newSimplifiedTable){
+                    for (int oneEntry : oneDoubleEntry){
+                        if(oneDoubleEntry2.contains(oneEntry)){
+                            newSimplifiedEntry.addAll(oneDoubleEntry2);
+                        }
+                    }
+                }
+                reDoneNewSimplifiedTable.add(newSimplifiedEntry);
+            }
+        newSimplifiedTable = reDoneNewSimplifiedTable;
+
 
         ArrayList<ArrayList<Set<Integer>>> newTable = new ArrayList<>();
 
@@ -125,7 +188,7 @@ public class RSA implements ab2.RSA
                 for(Integer currentStep : currentSteps){
                     for(DFATransition trans : transitions){
                         if(trans.from() == currentStep && trans.symbol() == character){
-                            System.out.println(trans);
+                           // System.out.println(trans);
                             currentChar.add(trans.to());
                         }
                     }
@@ -135,7 +198,11 @@ public class RSA implements ab2.RSA
             }
             newTable.add(tableEntry);
         }
-        System.out.println("FINAL ENTRY IN THE TABLE WHICH I NEED TO COMBINE" +newTable + newSimplifiedTable);
+       // System.out.println("FINAL ENTRY IN THE TABLE WHICH I NEED TO COMBINE" +newTable + newSimplifiedTable);
+
+     //   if(newSimplifiedTable.size() == 0){
+       //     return this;
+      //  }
 
         //calculate new State numbers
         int newStepNames = transitions.size();
@@ -152,6 +219,7 @@ public class RSA implements ab2.RSA
         Set<TransitionRename> renamedTransitions = new HashSet<>();
         for(DFATransition trans : transitions){
             boolean mustBeCombined = false;
+            boolean alreadyCombined = false;
             for(Set<Integer> leftEntry : newSimplifiedTable){
                 for(int oneEntry : leftEntry){
                     if(oneEntry == trans.from()){
@@ -159,6 +227,7 @@ public class RSA implements ab2.RSA
                     }
                 }
             }
+
             int counter = numStates;
             if(mustBeCombined){
                 int counterPlus = 0;
@@ -230,9 +299,9 @@ public class RSA implements ab2.RSA
             }
                 finalTransitions.add(new ab2.impl.PRUELLERRADLER.DFATransition(from, to, trans.symbol()));
         }
-        System.out.println(renamedTransitions);
-        System.out.println("finalAcceptingStates"+finalAcceptingStates);
-        System.out.println(finalTransitions);
+       // System.out.println(renamedTransitions);
+       // System.out.println("finalAcceptingStates"+finalAcceptingStates);
+       // System.out.println(finalTransitions);
 
         //count the different states
         Set<Integer> allStates = new HashSet<>();
@@ -241,8 +310,13 @@ public class RSA implements ab2.RSA
             allStates.add(trans.from());
         }
 
-        System.out.println("################################### final number of states: "+allStates.size());
-        return new RSA(allStates.size(), characters, finalAcceptingStates, finalTransitions);
+       // System.out.println("################################### final number of states: "+allStates.size());
+        RSA returnRSA = new RSA(allStates.size(), characters, finalAcceptingStates, finalTransitions);
+        if(this.transitions.equals(finalTransitions) && this.acceptingStates.equals(finalAcceptingStates) && this.numStates == allStates.size()){
+            return returnRSA.reOrderRSA_States(0);
+        }else {
+            return returnRSA.reOrderRSA_States(0).minimize();
+        }
 
     }
 
@@ -258,13 +332,13 @@ public class RSA implements ab2.RSA
                 for(Integer currentStep : currentSteps){
                     for(DFATransition trans : transitions){
                         if(trans.from() == currentStep && trans.symbol() == character){
-                            System.out.println(trans);
+                           // System.out.println(trans);
                             currentChar.add(trans.to());
                         }
                     }
                 }
                 tableEntry.add(currentChar);
-                System.out.println("current char"+currentChar);
+               // System.out.println("current char"+currentChar);
             }
             newTable.add(tableEntry);
         }
@@ -282,7 +356,7 @@ public class RSA implements ab2.RSA
         for(int j = 0; j<oldTableCopy.size();j++){
             ArrayList<Boolean> isNotInsideBoolean2 = new ArrayList<>();
             for (int i = 0; i<newTable.get(j).size(); i++){
-                System.out.println("dings da "+newTable.get(j));
+               // System.out.println("dings da "+newTable.get(j));
                 ArrayList<Boolean> singlePartBoolean = new ArrayList<>();
                 for(Set<Integer> mainStateLeftFirstColumn : oldTableCopy){
                         if((newTable.get(j).get(i).equals(mainStateLeftFirstColumn)) || newTable.get(j).get(i).size()==1){
@@ -451,7 +525,41 @@ public class RSA implements ab2.RSA
     @Override
     public FA union(FA a)
     {
-        return null;
+        RSA secondFA = (RSA)a.toRSA().minimize();
+        RSA firstFA = (RSA)this.minimize();
+        secondFA = secondFA.reOrderRSA_States(firstFA.getNumStates()+1);
+
+        firstFA = (RSA)firstFA.reOrderRSA_States(1);
+
+        //neue transitions
+        Set<FATransition> newTransitions = new HashSet<>();
+        for(DFATransition tra: firstFA.transitions){
+            newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(tra.from(), tra.to(), ""+tra.symbol()));
+        }
+        for(DFATransition tra: secondFA.getTransitions()){
+            newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(tra.from(), tra.to(), ""+tra.symbol()));
+        }
+
+        //neuen EZ
+        Set<Integer> newAcceptingStates = new HashSet<>();
+        newAcceptingStates.addAll(firstFA.acceptingStates);
+        newAcceptingStates.addAll(secondFA.acceptingStates);
+
+        //neues alphabet
+        Set<Character> newAlphabet = new HashSet<>();
+        newAlphabet.addAll(firstFA.characters);
+        newAlphabet.addAll(secondFA.getSymbols());
+
+        //neuen Startzustnd + 2 epsilon Uebergeange
+        newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(0, 1, ""));
+        newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(0, firstFA.getNumStates()+1, ""));
+
+        //neue numStates berechnen
+        int newNumStates = 1;
+        newNumStates += firstFA.numStates;
+        newNumStates += secondFA.getNumStates();
+
+        return new ab2.impl.PRUELLERRADLER.FA(newNumStates, newAlphabet, newAcceptingStates, newTransitions);
     }
 
     @Override

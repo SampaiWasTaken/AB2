@@ -1784,6 +1784,9 @@ public class Tests {
 		assertEquals(5, n10.union(n11).toRSA().minimize().getNumStates());
 		assertEquals(5, n11.union(n12).toRSA().minimize().getNumStates());
 
+
+
+
 		assertEquals(1, n1.concat(n2).toRSA().minimize().getNumStates());
 		assertEquals(2, n2.concat(n3).toRSA().minimize().getNumStates());
 		assertEquals(2, n3.concat(n4).toRSA().minimize().getNumStates());

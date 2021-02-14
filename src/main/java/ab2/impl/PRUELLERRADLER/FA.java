@@ -61,7 +61,7 @@ public class FA implements ab2.FA
     @Override
     public ab2.FA union(ab2.FA a)
     {
-        return null;
+        return this.toRSA().union(a);
     }
 
     @Override
@@ -172,18 +172,22 @@ public class FA implements ab2.FA
             }
 
 
-            for(EpsilonQuantity eq : epsiQuant){
-               System.out.println(eq);
-            }
+           // for(EpsilonQuantity eq : epsiQuant){
+             //  System.out.println(eq);
+           // }
 
             //finished calculating epsilon quantity
 
             Set<TransitionTable> tt = new HashSet<>();
             Set<TransitionTable> finaltt = new HashSet<>();
 
-            //startzustand hat immer index 0
+            //startzustand hat immer index 0 aber epsilon quantity davon
             Set<Integer> start = new HashSet<>();
-            start.add(0);
+            for(EpsilonQuantity eq : epsiQuant){
+                if(eq.getFrom() == 0){
+                    start.addAll(eq.getTo());
+                }
+            }
 
 
             int runtimeCounter = 0;
@@ -218,9 +222,9 @@ public class FA implements ab2.FA
                 }
                 t.setNextSteps(replaceArray);
 
-                for(TransitionTable finalttreplace : finaltt){
-                        finalttreplace.setNextSteps(replaceArray);
-                }
+                //for(TransitionTable finalttreplace : finaltt){
+               //         finalttreplace.setNextSteps(replaceArray);
+                //}
 
                // System.out.println(""+t);
                 //1rst replace done
@@ -256,7 +260,7 @@ public class FA implements ab2.FA
                         }
                     }
                 }
-                System.out.println("##########!!!!!" + currenttt);
+              //  System.out.println("##########!!!!!" + currenttt);
 
                 ArrayList<Set<Integer>> replaceArray = currenttt.getNextSteps();
                 for(int i = 0; i < replaceArray.size(); i++){
@@ -304,16 +308,16 @@ public class FA implements ab2.FA
 
             ArrayList<TransitionTable> FinalTransitionTable = new ArrayList<>();
 
-            for(TransitionTable t : finaltt){
-                t.calculateSteps(transitions, characters);
+            for(TransitionTable t : finaltt) {
+                    t.calculateSteps(transitions, characters);
                 FinalTransitionTable.add(t);
                 //BRUHHHHHHHHHHHHHHHHHHHHHH HIER GEHÖREN DIE ZUSTÄNDE NOCH AUF DIE DER EPSILON MENGE GEÄNDERT
                 ArrayList<Set<Integer>> replaceArray = t.getNextSteps();
-                for(int i = 0; i < replaceArray.size(); i++){
+                for (int i = 0; i < replaceArray.size(); i++) {
                     Set<Integer> replaceInt = new HashSet<>();
-                    for(Integer y : replaceArray.get(i)){
-                        for(EpsilonQuantity eq : epsiQuant){
-                            if(y ==  eq.getFrom()){
+                    for (Integer y : replaceArray.get(i)) {
+                        for (EpsilonQuantity eq : epsiQuant) {
+                            if (y == eq.getFrom()) {
                                 replaceInt.addAll(eq.getTo());
                             }
                         }
@@ -321,7 +325,7 @@ public class FA implements ab2.FA
                     replaceArray.set(i, replaceInt);
                 }
                 t.setNextSteps(replaceArray);
-               // System.out.println(t.toString());
+                // System.out.println(t.toString());
             }
 
             //checks if a "FRESSZUSTAND" is needed
@@ -343,9 +347,16 @@ public class FA implements ab2.FA
             //in this for() i add the currentStates with a new number to a new TransitionTable
             for(int i = 0; i < FinalTransitionTable.size(); i++){
                 Set<Integer> zeroSet = new HashSet<>();
-                zeroSet.add(0);
+                Set<Integer> zeroAddSet = new HashSet<>();
+                zeroAddSet.add(0);
+                for(EpsilonQuantity eq : epsiQuant){
+                    if(eq.getFrom() == 0){
+                        zeroSet.addAll(eq.getTo());
+                    }
+                }
+
                 if(FinalTransitionTable.get(i).getCurrentState().equals(zeroSet)){
-                    newFinalTT.add(new TransitionTable(zeroSet));
+                    newFinalTT.add(new TransitionTable(zeroAddSet));
                     for(Integer acptdState : acceptingStates){
                        // System.out.println("acptdState   " + acptdState);
                         if(FinalTransitionTable.get(i).getCurrentState().contains(acptdState)){
@@ -476,6 +487,15 @@ public class FA implements ab2.FA
         }
         else
         {
+            if(this.numStates == 1 && this.transitions.size() == 0 && this.acceptingStates.size() == 0){
+                Set<ab2.DFATransition> newtransitio = new HashSet<>();
+                for(Character c : this.characters){
+                    newtransitio.add(new DFATransition(0,0, c));
+                }
+                Set<Integer> acceptn1 = new TreeSet<>();
+                return new ab2.impl.PRUELLERRADLER.RSA(1, characters, acceptn1, newtransitio);
+            }
+
             //doing simple RSA convertion without epsilon quantity
 
             Set<TransitionTable> tt = new HashSet<>();
@@ -629,11 +649,7 @@ public class FA implements ab2.FA
           //  System.out.println("size FinalTransitionTable : " + FinalTransitionTable.size());
             //creating RSA
             Set<ab2.DFATransition> finalRsaTransitions = new HashSet<>();
-            if(fresszustand){
-                for(Character cha : characters){
-                    finalRsaTransitions.add(new DFATransition(FinalTransitionTable.size(), FinalTransitionTable.size(), cha));
-                }
-            }
+
 
             for(TransitionTable t : newFinalTT){
                 int i = 0;
@@ -653,6 +669,18 @@ public class FA implements ab2.FA
                     i++;
                 }
             }
+            fresszustand = false;
+            for(ab2.DFATransition trans : finalRsaTransitions){
+                if(trans.to() == FinalTransitionTable.size()){
+                    fresszustand = true;
+                }
+            }
+            if(fresszustand){
+                for(Character cha : characters){
+                    finalRsaTransitions.add(new DFATransition(FinalTransitionTable.size(), FinalTransitionTable.size(), cha));
+                }
+            }
+
 
             //neue transitions und enzusteande sind fertig.
             if(fresszustand) {
@@ -897,6 +925,18 @@ public class FA implements ab2.FA
             }
         }
         return false || reached;
+    }
+
+    @Override
+    public String toString() {
+        String returnString =  "FA{" +
+                "numStates=" + numStates +
+                ", characters=" + characters +
+                ", acceptingStates=" + acceptingStates;
+        for(ab2.FATransition tra : transitions){
+            returnString += ""+tra;
+        }
+        return returnString;
     }
 }
 

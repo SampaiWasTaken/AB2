@@ -1,5 +1,6 @@
 package ab2.impl.PRUELLERRADLER;
 
+import ab2.DFATransition;
 import ab2.FATransition;
 import ab2.Factory;
 import ab2.RSA;
@@ -43,10 +44,18 @@ public class Main
         transitions.add(factory.createTransition(3, 1, ""));
         transitions.add(factory.createTransition(4, 2, ""));
 
-        ab2.FA n1 = new FA(2, chars, accept, transitions);
+        Set<Integer> acceptn1 = new TreeSet<>();
+        Set<Character> charsn1 = new HashSet<>();
+        charsn1.add('a');
+        charsn1.add('b');
+        charsn1.add('c');
+
+        ab2.FA n1 = new FA(1, charsn1, acceptn1, Collections.emptySet());
         RSA RSAn1 = n1.toRSA();
-        System.out.println(RSAn1);
+        System.out.println("RSAn1 test"+RSAn1);
         RSAn1.minimize();
+        System.out.println("RSAn1 minimized test"+RSAn1);
+
 
 
 
@@ -162,6 +171,59 @@ public class Main
         System.out.print(RSAn9);
         System.out.println(RSAn9.acceptsNothing());
         System.out.println(RSAn9.accepts("bcbab"));
+        System.out.println(RSAn9);
+       Set<ab2.DFATransition> transitionsRSAn9 = RSAn9.getTransitions();
+        System.out.println("number of transitions RSAn9 " + transitionsRSAn9.size());
+
+
+        Set<Integer> acceptn2 = new TreeSet<>();
+        accept.add(0);
+
+        Set<FATransition> transitionsn2 = new HashSet<>();
+
+        transitionsn2.add(factory.createTransition(1, 2, "a"));
+        transitionsn2.add(factory.createTransition(2, 3, "a"));
+        transitionsn2.add(factory.createTransition(3, 4, "a"));
+        transitionsn2.add(factory.createTransition(4, 0, "a"));
+
+        Set<Character> charsn2 = new HashSet<>();
+        charsn2.add('a');
+        charsn2.add('b');
+        charsn2.add('c');
+
+        FA FAn2 = new FA(5, charsn2, acceptn2, transitionsn2);
+
+
+        FA test = (FA) RSAn1.union(FAn2);
+        System.out.println("RSAn1 num state "+RSAn1.getNumStates() + "    FAn2 " + FAn2.getNumStates());
+        System.out.println("FA union TEST");
+        System.out.println(test);
+        System.out.println("number of states minimized" +test.toRSA().minimize().getNumStates());
+        System.out.println(test.toRSA().minimize());
+        int i = n1.union(FAn2).toRSA().minimize().getNumStates();
+        System.out.println("DER SHIT DER NIT GEHT " + i);
+        
+        //n4
+        Set<Integer> accept4 = new TreeSet<>();
+        accept.add(0);
+        Set<FATransition> transitions4 = new HashSet<>();
+        transitions4.add(factory.createTransition(0, 0, "a"));
+        transitions4.add(factory.createTransition(0, 0, "b"));
+        ab2.FA n4 = new FA(5, charsn2, accept, transitions4);
+
+        //n5
+        Set<Integer> accept5 = new TreeSet<>();
+        accept5.add(0);
+        accept5.add(1);
+        Set<FATransition> transitions5 = new HashSet<>();
+        transitions5.add(factory.createTransition(0, 0, "a"));
+        transitions5.add(factory.createTransition(0, 0, "b"));
+        transitions5.add(factory.createTransition(1, 1, "c"));
+        transitions5.add(factory.createTransition(0, 1, ""));
+        ab2.FA n5 = new FA(2, charsn2, accept5, transitions5);
+        n5.toRSA(); // sollte 3 zustände haben
+
+        System.out.println(n4.union(n5).toRSA().minimize().getNumStates());
 
 /*
         Set<FATransition> tests = (Set<FATransition>) n2.getTransitions();
@@ -207,26 +269,9 @@ public class Main
         ab2.FA n33 = new FA(1, chars, accept33, transitions33);
         n33.toRSA();
 
-        //n4
-        Set<Integer> accept4 = new TreeSet<>();
-        accept.add(0);
-        Set<FATransition> transitions4 = new HashSet<>();
-        transitions4.add(factory.createTransition(0, 0, "a"));
-        transitions4.add(factory.createTransition(0, 0, "b"));
-        ab2.FA n4 = new FA(5, chars, accept, transitions4);
-        n4.toRSA();
 
-        //n5
-        Set<Integer> accept5 = new TreeSet<>();
-        accept.add(0);
-        accept.add(1);
-        Set<FATransition> transitions5 = new HashSet<>();
-        transitions5.add(factory.createTransition(0, 0, "a"));
-        transitions5.add(factory.createTransition(0, 0, "b"));
-        transitions5.add(factory.createTransition(1, 1, "c"));
-        transitions5.add(factory.createTransition(0, 1, ""));
-        ab2.FA n5 = new FA(2, chars, accept, transitions5);
-        n5.toRSA();
+
+
 
 
 
