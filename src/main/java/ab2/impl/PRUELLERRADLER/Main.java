@@ -104,6 +104,7 @@ public class Main
         transitions3.add(factory.createTransition(0, 0, "a"));
 
         FA n3 = (FA) factory.createFA(1, charsn3, accept3, transitions3);
+        System.out.println("##########################################123#  "+n3.acceptsEpsilonOnly());
         RSA RSAn3 = n3.toRSA();
         RSAn3 = RSAn3.minimize();
         //System.out.println(RSAn3.acceptsNothing());
@@ -224,6 +225,7 @@ public class Main
         n5.toRSA(); // sollte 3 zustände haben
 
         System.out.println(n4.union(n5).toRSA().minimize().getNumStates());
+
 
 /*
         Set<FATransition> tests = (Set<FATransition>) n2.getTransitions();

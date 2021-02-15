@@ -8,6 +8,7 @@ import ab2.IllegalCharacterException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class RSA implements ab2.RSA
@@ -682,7 +683,11 @@ public class RSA implements ab2.RSA
     {
         if (acceptingStates.contains(0))
             return true;
-        else return false;
+        else{
+            return false;
+        }
+
+
     }
 
     @Override
@@ -720,6 +725,31 @@ public class RSA implements ab2.RSA
     {
         boolean infinite = false;
         boolean loop = false;
+        Set<Integer> possibleFroms = new HashSet<>();
+        for (FATransition tr : transitions)
+            if (reaches(tr.from(), tr.from(), new HashSet<>(), false, 0)){
+                possibleFroms.add(tr.from());
+            }
+
+        //now checking if possibleFroms are reachable from 0 State
+        Set<Integer> possibleFromsfrom0 = new HashSet<>();
+        for (Integer i : possibleFroms)
+            if (reaches(0, i, new HashSet<>(), false, 0)){
+                possibleFromsfrom0.add(i);
+            }
+
+        //now checks if possibleFromsfrom0 can reach a accepting state
+        for (Integer i : possibleFromsfrom0){
+            for(Integer acceptingState : acceptingStates){
+                if (reaches(i, acceptingState, new HashSet<>(), false, 0)){
+                    infinite = true;
+                }
+            }
+        }
+        return infinite;
+        /* OLD SHITTY IS INFINITE
+        boolean infinite = false;
+        boolean loop = false;
         for (FATransition tr : transitions)
         {
             for (FATransition _tr : transitions)
@@ -735,6 +765,8 @@ public class RSA implements ab2.RSA
                     infinite = true;
         }
         return infinite;
+
+         */
     }
 
     @Override

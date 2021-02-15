@@ -766,6 +766,8 @@ public class FA implements ab2.FA
     @Override
     public boolean acceptsEpsilonOnly()
     {
+        return this.toRSA().acceptsEpsilonOnly();
+        /*
         if (!acceptsEpsilon())
             return false;
         if (acceptsNothing())
@@ -791,14 +793,18 @@ public class FA implements ab2.FA
         }
 
         return true;
+
+         */
     }
 
     @Override
     public boolean acceptsEpsilon()
     {
-        if (acceptingStates.contains(0))
-            return true;
-        else return false;
+        RSA someRandomRSA = this.toRSA();
+        return someRandomRSA.acceptsEpsilon();
+       // if (acceptingStates.contains(0))
+       //     return true;
+      //  else return false;
     }
 
     @Override
@@ -806,6 +812,29 @@ public class FA implements ab2.FA
     {
         boolean infinite = false;
         boolean loop = false;
+        Set<Integer> possibleFroms = new HashSet<>();
+        for (FATransition tr : transitions)
+            if (reaches(tr.from(), tr.from(), new HashSet<>(), false, 0)){
+                possibleFroms.add(tr.from());
+            }
+
+        //now checking if possibleFroms are reachable from 0 State
+        Set<Integer> possibleFromsfrom0 = new HashSet<>();
+        for (Integer i : possibleFroms)
+            if (reaches(0, i, new HashSet<>(), false, 0)){
+                possibleFromsfrom0.add(i);
+            }
+
+        //now checks if possibleFromsfrom0 can reach a accepting state
+        for (Integer i : possibleFromsfrom0){
+            for(Integer acceptingState : acceptingStates){
+                if (reaches(i, acceptingState, new HashSet<>(), false, 0)){
+                    infinite = true;
+                }
+            }
+        }
+        return infinite;
+        /*  old isFinit Methode which didnt detect
         for (FATransition tr : transitions)
         {
             for (FATransition _tr : transitions)
@@ -820,7 +849,9 @@ public class FA implements ab2.FA
                 if (reaches(0, i, new HashSet<>(), false, 0))
                     infinite = true;
         }
-        return infinite;
+
+         */
+
     }
 
     @Override
