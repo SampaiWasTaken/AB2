@@ -1,5 +1,9 @@
 package ab2.impl.PRUELLERRADLER;
 
+import ab2.PDATransition;
+
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
@@ -24,35 +28,7 @@ public class PDA implements ab2.PDA
     @Override
     public boolean accepts(String input) throws IllegalArgumentException, IllegalStateException
     {
-        stack = new Stack<>();
-        char[] characters = input.toCharArray();
-        int currentState = 0;
-        boolean wordRead = false;
-
-        for (int i = 0; i < characters.length; i++)
-        {
-            for (ab2.PDATransition tr : transitions)
-            {
-                if(tr.symbolRead() == characters[i] && !stack.empty() && tr.symbolStackRead() == stack.peek())
-                {
-                    stack.pop();
-                    stack.push(tr.symbolStackWrite());
-                    currentState = tr.to();
-                    break;
-                }
-                else if (tr.symbolRead() == characters[i] && tr.symbolStackRead() == null)
-                {
-                    stack.push(tr.symbolStackWrite());
-                    currentState = tr.to();
-                    break;
-                }
-            }
-        }
-
-        if (acceptingStates.contains(currentState) && stack.isEmpty() && wordRead)
-            return true;
-        else
-            return false;
+        return false;
     }
 
     @Override
@@ -71,5 +47,78 @@ public class PDA implements ab2.PDA
     public boolean isDPDA() throws IllegalStateException
     {
         return false;
+    }
+
+    public PDA simplify()
+    {
+        int acceptingState = 0;
+        Set<Integer> newAccept = new HashSet<>();
+
+
+        if (acceptingStates.size() == 1) { }
+        else
+        {
+            for (int i : acceptingStates)
+            {
+                transitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(i, numStates, null, null, null));
+            }
+            acceptingStates.clear();
+            acceptingStates.add(numStates);
+            acceptingState = acceptingStates.iterator().next();
+            numStates++;
+        }
+
+        for (char c : stackSymbols)
+        {
+            transitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(acceptingState, acceptingState, null, c, null));
+        }
+
+        for (PDATransition tr : transitions)
+        {
+            if (tr.symbolStackRead() != null && tr.symbolStackWrite() != null)
+            {
+                transitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(tr.from(), ++numStates, tr.symbolRead(), null, tr.symbolStackWrite()));
+                transitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(numStates, tr.to(), tr.symbolRead(), tr.symbolStackRead(), null));
+                transitions.remove(tr);
+            }
+        }
+
+        transitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(acceptingState, numStates++, null, null, null));
+        acceptingStates.clear();
+        acceptingStates.add(numStates-1);
+        acceptingState = acceptingStates.iterator().next();
+
+        System.out.println("# States: " + numStates + " | Accepting: " + acceptingState + " | " +  transitions.size() + " | " + Arrays.deepToString(transitions.toArray()));
+        return new PDA(numStates, inputSymbols, stackSymbols, acceptingStates, transitions);
+    }
+
+    public Stack<Character> getStack()
+    {
+        return stack;
+    }
+
+    public int getNumStates()
+    {
+        return numStates;
+    }
+
+    public Set<Character> getInputSymbols()
+    {
+        return inputSymbols;
+    }
+
+    public Set<Character> getStackSymbols()
+    {
+        return stackSymbols;
+    }
+
+    public Set<Integer> getAcceptingStates()
+    {
+        return acceptingStates;
+    }
+
+    public Set<PDATransition> getTransitions()
+    {
+        return transitions;
     }
 }
