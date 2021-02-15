@@ -227,6 +227,8 @@ public class Main
         System.out.println(n4.union(n5).toRSA().minimize().getNumStates());
 
 
+
+
 /*
         Set<FATransition> tests = (Set<FATransition>) n2.getTransitions();
         for(FATransition t : tests){

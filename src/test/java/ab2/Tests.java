@@ -1799,6 +1799,19 @@ public class Tests {
 		assertEquals(8, n10.concat(n11).toRSA().minimize().getNumStates());
 		assertEquals(8, n11.concat(n12).toRSA().minimize().getNumStates());
 
+		assertEquals(1, n1.complement().toRSA().minimize().getNumStates());
+		assertEquals(2, n2.complement().toRSA().minimize().getNumStates());
+		assertEquals(2, n3.complement().toRSA().minimize().getNumStates());
+		assertEquals(2, n4.complement().toRSA().minimize().getNumStates());
+		assertEquals(3, n5.complement().toRSA().minimize().getNumStates());
+		assertEquals(1, n6.complement().toRSA().minimize().getNumStates());
+		assertEquals(7, n7.complement().toRSA().minimize().getNumStates());
+		assertEquals(6, n8.complement().toRSA().minimize().getNumStates());
+		assertEquals(24, n9.complement().toRSA().minimize().getNumStates());
+		assertEquals(5, n10.complement().toRSA().minimize().getNumStates());
+		assertEquals(5, n11.complement().toRSA().minimize().getNumStates());
+		assertEquals(5, n12.complement().toRSA().minimize().getNumStates());
+
 		assertEquals(1, n1.intersection(n2).toRSA().minimize().getNumStates());
 		assertEquals(2, n2.intersection(n3).toRSA().minimize().getNumStates());
 		assertEquals(2, n3.intersection(n4).toRSA().minimize().getNumStates());
@@ -1849,18 +1862,7 @@ public class Tests {
 		assertEquals(4, n11.kleeneStar().toRSA().minimize().getNumStates());
 		assertEquals(4, n12.kleeneStar().toRSA().minimize().getNumStates());
 
-		assertEquals(1, n1.complement().toRSA().minimize().getNumStates());
-		assertEquals(2, n2.complement().toRSA().minimize().getNumStates());
-		assertEquals(2, n3.complement().toRSA().minimize().getNumStates());
-		assertEquals(2, n4.complement().toRSA().minimize().getNumStates());
-		assertEquals(3, n5.complement().toRSA().minimize().getNumStates());
-		assertEquals(1, n6.complement().toRSA().minimize().getNumStates());
-		assertEquals(7, n7.complement().toRSA().minimize().getNumStates());
-		assertEquals(6, n8.complement().toRSA().minimize().getNumStates());
-		assertEquals(24, n9.complement().toRSA().minimize().getNumStates());
-		assertEquals(5, n10.complement().toRSA().minimize().getNumStates());
-		assertEquals(5, n11.complement().toRSA().minimize().getNumStates());
-		assertEquals(5, n12.complement().toRSA().minimize().getNumStates());
+
 
 
 		pts++;

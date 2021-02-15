@@ -67,25 +67,25 @@ public class FA implements ab2.FA
     @Override
     public ab2.FA intersection(ab2.FA a)
     {
-        return null;
+        return this.toRSA().intersection(a);
     }
 
     @Override
     public ab2.FA minus(ab2.FA a)
     {
-        return null;
+        return this.toRSA().minus(a);
     }
 
     @Override
     public ab2.FA concat(ab2.FA a)
     {
-        return null;
+        return this.toRSA().concat(a);
     }
 
     @Override
     public ab2.FA complement()
     {
-        return null;
+        return this.toRSA().complement();
     }
 
     @Override
@@ -106,7 +106,6 @@ public class FA implements ab2.FA
         for (int i : acceptingStates)
         {
             transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
-            numStates++;
         }
 
         return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);

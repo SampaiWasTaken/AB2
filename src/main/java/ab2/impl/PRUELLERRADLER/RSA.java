@@ -104,8 +104,6 @@ public class RSA implements ab2.RSA
     @Override
     public ab2.RSA minimize()
     {
-        Set<Set<Integer>> minimizeTable = new HashSet<>(); // so nit
-
         //getting all the states that aren't accepting states
         Set<Integer> notAcceptingStates = new HashSet<>();
         for(ab2.DFATransition trans : transitions){
@@ -137,10 +135,7 @@ public class RSA implements ab2.RSA
                 if(combination.size()!=1 && combination.size() < 3)allCombinations.add(combination);
             }
         }
-
-
-
-       // System.out.println("accapting states " + acceptingStates);
+               // System.out.println("accapting states " + acceptingStates);
        // System.out.println("not accapting states "+notAcceptingStates);
       //  System.out.println(allCombinations);
 
@@ -566,25 +561,77 @@ public class RSA implements ab2.RSA
     @Override
     public FA intersection(FA a)
     {
-        return null;
+        return this.complement().union(a.complement()).complement();
     }
 
     @Override
     public FA minus(FA a)
     {
-        return null;
+        return this.intersection(a.complement());
     }
 
     @Override
     public FA concat(FA a)
     {
-        return null;
+        RSA secondFA = (RSA)a.toRSA().minimize();
+        RSA firstFA = (RSA)this.minimize();
+        secondFA = secondFA.reOrderRSA_States(firstFA.getNumStates());
+
+
+        //neue transitions
+        Set<FATransition> newTransitions = new HashSet<>();
+        for(DFATransition tra: firstFA.transitions){
+            newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(tra.from(), tra.to(), ""+tra.symbol()));
+        }
+        for(DFATransition tra: secondFA.getTransitions()){
+            newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(tra.from(), tra.to(), ""+tra.symbol()));
+        }
+
+        //neuen EZ
+        Set<Integer> newAcceptingStates = new HashSet<>();
+        newAcceptingStates.addAll(secondFA.acceptingStates);
+
+        //neues alphabet
+        Set<Character> newAlphabet = new HashSet<>();
+        newAlphabet.addAll(firstFA.characters);
+        newAlphabet.addAll(secondFA.getSymbols());
+
+        //neuen Startzustnd + 2 epsilon Uebergeange
+        for(Integer acceptingState : firstFA.acceptingStates){
+            newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(acceptingState, firstFA.numStates, ""));
+        }
+
+
+        //neue numStates berechnen
+        int newNumStates = 0;
+        newNumStates += firstFA.numStates;
+        newNumStates += secondFA.getNumStates();
+
+
+        return new ab2.impl.PRUELLERRADLER.FA(newNumStates, newAlphabet, newAcceptingStates, newTransitions);
     }
 
     @Override
     public FA complement()
     {
-        return null;
+        //creating new Accepting States
+        Set<Integer> newAcceptingStates = new HashSet<>();
+        for(DFATransition tr : transitions){
+            if(!acceptingStates.contains(tr.from())){
+                newAcceptingStates.add(tr.from());
+            }
+            if(!acceptingStates.contains(tr.to())){
+                newAcceptingStates.add(tr.to());
+            }
+        }
+
+        //create new Transitions which are FATransitions
+        Set<FATransition> newTransitions = new HashSet<>();
+        for(ab2.DFATransition tr : transitions){
+            newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(tr.from(), tr.to(),""+tr.symbol()));
+        }
+
+        return new ab2.impl.PRUELLERRADLER.FA(this.numStates, this.characters, newAcceptingStates, newTransitions);
     }
 
     @Override
