@@ -55,11 +55,6 @@ public class PatternMatcher
             if (!tokens[i].isBlank())
                 brackets.add(tokens[i]);
 
-
-        //iterate through tokens and do something with kleene stars...
-       // for (int j = 0; j < tokens.length; j++)
-       // {
-            //tokens = word.split("((?<=\\*))");
             for (String s : brackets)
             {
                 if (s.matches("[\\w]*[\\.]*[\\*]{1}"))
@@ -74,8 +69,6 @@ public class PatternMatcher
                 else
                     parts.add(s);
             }
-    //    }
-
         ArrayList<String> stringList = new ArrayList<>();
         for (String s : parts)
         {
