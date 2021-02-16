@@ -1,10 +1,10 @@
 package ab2.impl.PRUELLERRADLER;
 
-import ab2.DFA;
 import ab2.DFATransition;
 import ab2.FA;
 import ab2.FATransition;
 import ab2.IllegalCharacterException;
+import ab2.Transition;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -637,6 +637,24 @@ public class RSA implements ab2.RSA
     @Override
     public ab2.FA kleeneStar()
     {
+        RSA firstRSA = this.reOrderRSA_States(1);
+        Set<ab2.FATransition> newTransitions = new HashSet<>();
+        for(DFATransition tr : firstRSA.transitions){
+            newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(tr.from(), tr.to(), ""+tr.symbol()));
+        }
+        for(Integer i : firstRSA.acceptingStates){
+            newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 1, ""));
+        }
+
+        newTransitions.add(new ab2.impl.PRUELLERRADLER.FATransition(0, 1, ""));
+
+        Set<Integer> newAcceptingStates = new HashSet<>();
+        newAcceptingStates.addAll(firstRSA.acceptingStates);
+        newAcceptingStates.add(0);
+
+
+        return new ab2.impl.PRUELLERRADLER.FA(this.numStates+1,characters, newAcceptingStates, newTransitions);
+        /*
         Set<ab2.FATransition> _transitions = new HashSet<>();
         for (int i : acceptingStates)
         {
@@ -645,19 +663,28 @@ public class RSA implements ab2.RSA
         }
         this.acceptingStates.add(0);
         return new ab2.impl.PRUELLERRADLER.FA(this.numStates, this.characters, this.acceptingStates, _transitions);
+
+         */
     }
 
     @Override
     public ab2.FA plus()
     {
+        //turn this.concat(this.kleeneStar());
+
         Set<ab2.FATransition> _transitions = new HashSet<>();
         for (int i : acceptingStates)
         {
             _transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
-            numStates++;
+        }
+
+        for(DFATransition tr: transitions){
+            _transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(tr.from(), tr.to(), ""+tr.symbol()));
         }
 
         return new ab2.impl.PRUELLERRADLER.FA(this.numStates, this.characters, this.acceptingStates, _transitions);
+
+
     }
 
     //rsa to rsa? na echt nit XD
@@ -713,7 +740,7 @@ public class RSA implements ab2.RSA
             return true;
         for (int i : acceptingStates)
         {
-            Set<DFATransition> trans = new HashSet<>();
+            Set<ab2.impl.PRUELLERRADLER.DFATransition> trans = new HashSet<>();
             if (reaches(0, i, trans, false, 0))
             {
                 accepting = false;
@@ -773,10 +800,16 @@ public class RSA implements ab2.RSA
         boolean infinite = false;
         boolean loop = false;
         Set<Integer> possibleFroms = new HashSet<>();
-        for (FATransition tr : transitions)
-            if (reaches(tr.from(), tr.from(), new HashSet<>(), false, 0)){
-                possibleFroms.add(tr.from());
+        Set<Integer> alreadyREACHED = new HashSet<>();
+        for (FATransition tr : transitions) {
+            if(!alreadyREACHED.contains(tr.from())){
+                alreadyREACHED.add(tr.from());
+                if (reaches(tr.from(), tr.from(), new HashSet<>(), false, 0)) {
+                    possibleFroms.add(tr.from());
+                }
             }
+
+        }
 
         //now checking if possibleFroms are reachable from 0 State
         Set<Integer> possibleFromsfrom0 = new HashSet<>();
@@ -789,11 +822,11 @@ public class RSA implements ab2.RSA
         for (Integer i : possibleFromsfrom0){
             for(Integer acceptingState : acceptingStates){
                 if (reaches(i, acceptingState, new HashSet<>(), false, 0)){
-                    infinite = true;
+                    return true;
                 }
             }
         }
-        return infinite;
+        return false;
         /* OLD SHITTY IS INFINITE
         boolean infinite = false;
         boolean loop = false;
@@ -835,37 +868,128 @@ public class RSA implements ab2.RSA
     }
 
     @Override
-    public boolean equalTo(FA b)
-    {
+    public boolean equalTo(FA b) {
+        RSA firstRSA = (RSA) this.minimize();
+        RSA secondRSA = (RSA) b.toRSA().minimize();
+
+        if (firstRSA.numStates != secondRSA.numStates) return false;
+        if (firstRSA.acceptingStates.size() != secondRSA.acceptingStates.size()) return false;
+        if (firstRSA.isFinite() != secondRSA.isFinite()) return false;
+        if(!firstRSA.characters.equals(secondRSA.characters)) return false;
+        if(firstRSA.transitions.size() != secondRSA.transitions.size()) return false;
+
+        ArrayList<ab2.DFATransition> firstTransitions = new ArrayList<>();
+        ArrayList<ab2.DFATransition> secondTransitions = new ArrayList<>();
+        Set<TransitionRename> transRenam = new HashSet<>();
+        /*
+        for(DFATransition trans : firstRSA.transitions){
+            boolean inside = false;
+            for(DFATransition trans2 : secondRSA.transitions){
+                    if(trans.equals(trans2)){
+                        inside = true;
+                    }
+            }
+            if(!inside)return false;
+        }
         return true;
+         */
+        //first add 0 states
+
+
+        transRenam.add(new TransitionRename(0, 0));
+        boolean grabbingRenames = true;
+        while (grabbingRenames) {
+            Set<TransitionRename> oldTransR = new HashSet<>();
+            oldTransR.addAll(transRenam);
+            int oldRenameCount = oldTransR.size();
+            for (int i = 0; i < firstRSA.numStates; i++) {
+                for (char c : characters) {
+                    for (ab2.DFATransition trans : firstRSA.transitions) {
+                        if (trans.from() == i && trans.symbol() == c) {
+                            for (ab2.DFATransition trans2 : secondRSA.transitions) {
+                                for (TransitionRename tr : oldTransR) {
+                                    if (tr.getFrom() == i && tr.getTo() == trans2.from() && trans.symbol() == c && trans2.symbol() == c) {
+                                        if(trans.from() == trans.to() && trans2.from() == trans.from()){
+                                            if(trans2.from() != trans2.to())return false;
+                                        }
+                                        if(trans.from() != trans.to() && trans2.from() == trans.from()){
+                                            if(trans2.from() == trans2.to())return false;
+                                        }
+                                        transRenam.add(new TransitionRename(trans.to(), trans2.to()));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (oldRenameCount == transRenam.size()) {
+                grabbingRenames = false;
+            }
+        }
+
+        //Transition Rename Set finished
+        //generating new RSA with the newly named transitions
+
+        Set<DFATransition> newtransi = new HashSet<>();
+        for(DFATransition transi : secondRSA.getTransitions()){
+            int from = 0;
+            int to = 0;
+            for(TransitionRename tr : transRenam){
+                if(transi.from() == tr.getFrom()){
+                    from = tr.getTo();
+                }
+                if(transi.to() == tr.getFrom()){
+                    to = tr.getTo();
+                }
+            }
+            newtransi.add(new ab2.impl.PRUELLERRADLER.DFATransition(from, to, transi.symbol()));
+        }
+
+        boolean allTransitionsTheSame = true;
+        for(DFATransition transi : firstRSA.transitions){
+            boolean singleTransi = false;
+            for(DFATransition transi2 : newtransi){
+                if(transi.from() == transi2.from() && transi.to() == transi2.to() && transi.symbol() == transi2.symbol())singleTransi = true;
+            }
+            allTransitionsTheSame = allTransitionsTheSame || singleTransi;
+        }
+        if(allTransitionsTheSame)return true; else return false;
+
+
+
+
+
     }
 
     @Override
     public Boolean equalsPlusAndStar()
     {
-        return null;
+
+        return this.plus().toRSA().equalTo(this.kleeneStar());
     }
 
-    public boolean reaches(int from, int to, Set<ab2.DFATransition> prevState, boolean reached, int count)
+    public boolean reaches(int from, int to, Set<ab2.impl.PRUELLERRADLER.DFATransition> prevState, boolean reached, int count)
     {
-        Set<ab2.DFATransition> copiedTransitions = new HashSet<>();
+        Set<ab2.impl.PRUELLERRADLER.DFATransition> copiedTransitions = new HashSet<>();
+        if(count > 20)return false;
         for(DFATransition tra : prevState){
-            copiedTransitions.add(tra);
+            copiedTransitions.add((ab2.impl.PRUELLERRADLER.DFATransition) tra);
         }
         for (DFATransition tr : transitions)
         {
-            if (reached)
+            if (reached || count > 200)
                 break;
             else if (tr.from() == from && tr.to() == to)
             {
                 //System.out.println(tr.toString());
-                reached = true;
+                return true;
             }
             else if (tr.from() == from && !copiedTransitions.contains(tr))
             {
                 //System.out.println(tr.toString());
                 count ++;
-                copiedTransitions.add(tr);
+                copiedTransitions.add((ab2.impl.PRUELLERRADLER.DFATransition) tr);
                 reached = reaches(tr.to(), to, copiedTransitions, reached, count);
             }
         }

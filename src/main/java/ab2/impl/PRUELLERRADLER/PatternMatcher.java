@@ -178,8 +178,8 @@ public class PatternMatcher
 
         for (RSA rsa : RSAList)
         {
-            if (!rsa.equals(RSAList.get(0)))
-                finalRSA = finalRSA.concat(rsa);
+            //if (!rsa.equals(RSAList.get(0)))
+               // finalRSA = finalRSA.concat(rsa);
         }
 
         return finalRSA;
