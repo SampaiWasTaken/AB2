@@ -1,6 +1,7 @@
 package ab2.impl.PRUELLERRADLER;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,12 +22,26 @@ public class PatternMatcher
     private final String dot = ".";
     private final String star = "*";
 
+    public PatternMatcher(String pattern)
+    {
+        this.pattern = pattern;
+    }
+
+    public boolean checkString(String word)
+    {
+        if (word.matches("[\\w\\.\\*\\(\\)]*"))
+            return true;
+        return false;
+    }
+
     //(ab)*a
     public ArrayList<String> prepString(String word)
     {
         ArrayList<String> parts = new ArrayList<>();
+        ArrayList<String> brackets = new ArrayList<>();
 
-        String[] tokens = word.split("[\\(\\)]");
+        String[] tokens;
+        tokens = word.split("[\\(\\)]");
 
         for (int i = 0; i < tokens.length; i++)
         {
@@ -38,9 +53,29 @@ public class PatternMatcher
         }
         for (int i = 0; i < tokens.length; i++)
             if (!tokens[i].isBlank())
-                parts.add(tokens[i]);
+                brackets.add(tokens[i]);
 
-        return parts;
+            for (String s : brackets)
+            {
+                if (s.matches("[\\w]*[\\.]*[\\*]{1}"))
+                    parts.add(s);
+                else if (s.contains("*"))
+                {
+                    parts.add(s.substring(0, s.indexOf("*") - 1));
+                    parts.add(s.substring(s.indexOf("*") - 1, s.indexOf("*") + 1));
+                    parts.add(s.substring(s.indexOf("*") + 1));
+                    parts.remove(s);
+                }
+                else
+                    parts.add(s);
+            }
+        ArrayList<String> stringList = new ArrayList<>();
+        for (String s : parts)
+        {
+            if (!s.isBlank())
+                stringList.add(s);
+        }
+        return stringList;
     }
 
     public RSA toRSA(ArrayList<String> parts, Set<Character> chars)
@@ -53,6 +88,7 @@ public class PatternMatcher
         int fress = 1;
         char[] _tokens;
         ArrayList<RSA> RSAList = new ArrayList<>();
+        boolean kleeneStarOneChar = false;
 
         for (String s : parts)
         {
@@ -62,52 +98,66 @@ public class PatternMatcher
             currentState = 0;
             fress = 1;
             _tokens = s.toCharArray();
+            kleeneStarOneChar = false;
             if (s.endsWith("*"))
             {
                 //Kleene-Star
-                s = s.substring(0, s.length()-1);
+                s = s.substring(0, s.length() - 1);
                 _tokens = s.toCharArray();
-                numstates = s.length()+1;
-                fress = numstates-1;
+                numstates = s.length() + 1;
+                fress = numstates - 1;
                 acceptingStates.add(0);
                 //z.B ab
-                for (int i = 0; i < _tokens.length; i++)
+                if (s.length() == 1)
                 {
-                    if (_tokens[i] == '.')
+                    numstates = 1;
+                    fress = 1;
+                    kleeneStarOneChar = true;
+                    for (char c : chars)
                     {
-                        for (char c : chars)
+                        transitions.add(new DFATransition(0, 0, c));
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < _tokens.length; i++)
+                    {
+                        if (_tokens[i] == '.')
+                        {
+                            for (char c : chars)
+                            {
+                                if (i < _tokens.length - 1)
+                                {
+                                    prevState = currentState;
+                                    transitions.add(new DFATransition(currentState, currentState + 1, c));
+                                }
+                                //last state wraps back to 1st
+                                else
+                                {
+                                    prevState = currentState;
+                                    transitions.add(new DFATransition(currentState, 0, c));
+                                }
+                            }
+                            currentState++;
+                        }
+                        else
                         {
                             if (i < _tokens.length - 1)
                             {
                                 prevState = currentState;
-                                transitions.add(new DFATransition(currentState, currentState + 1, c));
+                                transitions.add(new DFATransition(currentState, ++currentState, _tokens[i]));
                             }
                             //last state wraps back to 1st
                             else
                             {
                                 prevState = currentState;
-                                transitions.add(new DFATransition(currentState, 0, c));
+                                transitions.add(new DFATransition(currentState, 0, _tokens[i]));
                             }
-                        }
-                            currentState++;
-                    }
-                    else
-                    {
-                        if (i < _tokens.length - 1)
-                        {
-                            prevState = currentState;
-                            transitions.add(new DFATransition(currentState, ++currentState, _tokens[i]));
-                        }
-                        //last state wraps back to 1st
-                        else
-                        {
-                            prevState = currentState;
-                            transitions.add(new DFATransition(currentState, 0, _tokens[i]));
-                        }
-                        for (char c : chars)
-                        {
-                            if (c != _tokens[i])
-                                transitions.add(new DFATransition(prevState, -1, c));
+                            for (char c : chars)
+                            {
+                                if (c != _tokens[i])
+                                    transitions.add(new DFATransition(prevState, -1, c));
+                            }
                         }
                     }
                 }
@@ -127,7 +177,7 @@ public class PatternMatcher
                             transitions.add(new DFATransition(currentState, currentState + 1, c));
                             acceptingStates.clear();
                         }
-                            acceptingStates.add(currentState++);
+                        acceptingStates.add(++currentState);
                     }
                     else
                     {
@@ -140,60 +190,62 @@ public class PatternMatcher
                         for (char c : chars)
                         {
                             if (c != _tokens[i])
+                            {
                                 transitions.add(new DFATransition(prevState, -1, c));
+                            }
                         }
                     }
                 }
             }
-
-            for (char c : chars)
+            if (!kleeneStarOneChar)
             {
-                transitions.add(new DFATransition(-1, -1, c));
-            }
-        }
-        if (numstates > 0)
-        {
-            //concat RSA's somehow
-            Set<ab2.DFATransition> copyTrans = new HashSet<>();
-            for (ab2.DFATransition tr : transitions)
-                copyTrans.add(tr);
-
-            for (ab2.DFATransition tr : transitions)
-            {
-                if (tr.from() == -1 && tr.to() == -1)
+                for (char c : chars)
                 {
-                    copyTrans.add(new DFATransition(fress, fress, tr.symbol()));
-                    copyTrans.remove(tr);
-                }
-                else if (tr.to() == -1)
-                {
-                    copyTrans.add(new DFATransition(tr.from(), fress, tr.symbol()));
-                    copyTrans.remove(tr);
+                    transitions.add(new DFATransition(-1, -1, c));
+                    for (int i : acceptingStates)
+                        transitions.add(new DFATransition(i, -1, c));
                 }
             }
-            RSAList.add(new RSA(numstates, chars, acceptingStates, copyTrans));
+            if (numstates > 0)
+            {
+                //concat RSA's somehow
+                Set<ab2.DFATransition> copyTrans = new HashSet<>();
+                for (ab2.DFATransition tr : transitions)
+                    copyTrans.add(tr);
+
+                for (ab2.DFATransition tr : transitions)
+                {
+                    if (tr.from() == -1 && tr.to() == -1)
+                    {
+                        copyTrans.add(new DFATransition(fress, fress, tr.symbol()));
+                        copyTrans.remove(tr);
+                    }
+                    else if (tr.to() == -1)
+                    {
+                        copyTrans.add(new DFATransition(tr.from(), fress, tr.symbol()));
+                        copyTrans.remove(tr);
+                    }
+                }
+                RSAList.add(new RSA(numstates, chars, acceptingStates, copyTrans));
+               // System.out.println(new RSA(numstates, chars, acceptingStates, copyTrans));
+            }
         }
-        System.out.println(RSAList.toString());
         RSA finalRSA = RSAList.get(0);
-
-        for (RSA rsa : RSAList)
+        for (int i = 1; i < RSAList.size(); i++)
         {
-            //if (!rsa.equals(RSAList.get(0)))
-               // finalRSA = finalRSA.concat(rsa);
+            finalRSA = finalRSA.concat((RSA) RSAList.get(i).minimize());
         }
-
-        return finalRSA;
+        return (RSA) finalRSA.minimize();
     }
-
 
     public static void main(String[] args)
     {
-        PatternMatcher pm = new PatternMatcher();
+        PatternMatcher pm = new PatternMatcher("a.*a");
         Set<Character> chars = new HashSet<>();
         chars.add('a');
         chars.add('b');
 
-        //System.out.println(pm.prepString("((ab)*a)(ab.)*"));
-        pm.toRSA(pm.prepString("(a.b.)*"), chars);
+        System.out.println(pm.prepString("a.b.."));
+        System.out.println(pm.toRSA(pm.prepString("ab.b.."), chars));
     }
 }

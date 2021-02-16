@@ -8,11 +8,11 @@ import ab2.FATransition;
 import ab2.RSA;
 import ab2.Transition;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class FactoryImpl implements Factory
 {
-
 
     @Override
     public FATransition createTransition(int from, int to, String symbols)
@@ -23,7 +23,7 @@ public class FactoryImpl implements Factory
     @Override
     public PDATransition createTransition(int from, int to, Character read, Character readStack, Character writeStack)
     {
-        return null;
+        return new PDATransition(from, to, read, readStack, writeStack);
     }
 
     @Override
@@ -47,14 +47,26 @@ public class FactoryImpl implements Factory
     @Override
     public RSA createPatternMatcher(String pattern)
     {
-        return null;
+        Set<Character> chars = new HashSet<>();
+        chars.add('a');
+        chars.add('b');
+  //      chars.add('c');
+//        char[] tokens = pattern.toCharArray();
+//        for (char c : tokens)
+//            if (c != '.' && c != '*' && c != ')' && c != '(')
+//            {
+//                chars.add(c);
+//            }
+        PatternMatcher pm = new PatternMatcher(pattern);
+        pm.prepString(pattern);
+        return pm.toRSA(pm.prepString(pattern), chars);
     }
 
     @Override
-    public ab2.PDA createPDA(int numStates, Set<Character> inputSymbols, Set<Character> stackSymbols, Set<Integer> acceptingStates, Set<ab2.PDATransition> transitions) {
-        return null;
+    public PDA createPDA(int numStates, Set<Character> inputSymbols, Set<Character> stackSymbols, Set<Integer> acceptingStates, Set<ab2.PDATransition> transitions)
+    {
+        return new ab2.impl.PRUELLERRADLER.PDA(numStates, inputSymbols, stackSymbols, acceptingStates, transitions);
     }
-
 
     @Override
     public PDA getPDAFromCFG(char startSymbol, Set<String> rules)

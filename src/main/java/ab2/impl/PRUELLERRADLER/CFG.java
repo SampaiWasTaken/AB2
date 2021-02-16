@@ -3,11 +3,12 @@ package ab2.impl.PRUELLERRADLER;
 import ab2.PDATransition;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 public class CFG
 {
-    private final String CFG_DELIMITER1 = " → ";
+    private final String CFG_DELIMITER1 = "→";
     private final String CFG_DELIMITER2 = " | ";
     private final String EPSILON = "";
 
@@ -71,4 +72,28 @@ public class CFG
 
 
     }
+
+    public PDA toPDA(Set<String> rules, String startSymbol)
+    {
+        Set<String> splitRules = new HashSet<>();
+        Set<Character> stackSymbols = new HashSet<>();
+        Set<ab2.PDATransition> transitions = new HashSet<>();
+        for (String s : rules)
+        {
+            String prefix = s.substring(0, 1) + CFG_DELIMITER1;
+            String[] _rules = s.split("\\|");
+            for (String rule : _rules)
+            {
+                if (!rule.contains(prefix.strip()))
+                    splitRules.add(prefix+rule);
+                else
+                    splitRules.add(rule);
+            }
+        }
+
+        System.out.println(Arrays.deepToString(splitRules.toArray()));
+
+        return new PDA(2, terminals, stackSymbols, new HashSet<>(Arrays.asList(1)), transitions);
+    }
+
 }

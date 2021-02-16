@@ -1,5 +1,6 @@
 package ab2.impl.PRUELLERRADLER;
 
+import ab2.DFATransition;
 import ab2.PDATransition;
 
 import java.util.*;
