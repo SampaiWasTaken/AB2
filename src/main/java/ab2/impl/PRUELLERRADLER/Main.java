@@ -3,15 +3,17 @@ package ab2.impl.PRUELLERRADLER;
 import ab2.DFATransition;
 import ab2.FATransition;
 import ab2.Factory;
+import ab2.PDATransition;
 import ab2.RSA;
 
 import java.util.*;
 
 public class Main
 {
+
+
     public static void main(String[] args)
     {
-
         Factory factory = new FactoryImpl();
 
 
@@ -23,8 +25,9 @@ public class Main
         Set<Character> chars = new HashSet<>();
         chars.add('a');
         chars.add('b');
-        //chars.add('c');
+        chars.add('c');
 
+        /*
         Set<Integer> accept = new TreeSet<>();
         accept.add(4);
         accept.add(3);
@@ -229,7 +232,7 @@ public class Main
 
 
 
-/*
+
         Set<FATransition> tests = (Set<FATransition>) n2.getTransitions();
         for(FATransition t : tests){
             System.out.println(t.from() + " : "+t.symbols() +" : "+ t.to());
@@ -263,6 +266,13 @@ public class Main
         RSA testRSA2 = n1.toRSA();
         System.out.println("testRSA2   "+testRSA2);
 
+        Set<PDATransition> PDAtransitions = new HashSet<>();
+        PDAtransitions.add(factory.createTransition(0, 0, 'a', null, 'a'));
+        PDAtransitions.add(factory.createTransition(0, 0, 'b', null, 'b'));
+        PDAtransitions.add(factory.createTransition(0, 0, 'c', null, 'c'));
+        PDAtransitions.add(factory.createTransition(0, 0, 'a', 'a', null));
+        PDAtransitions.add(factory.createTransition(0, 0, 'b', 'b', null));
+        PDAtransitions.add(factory.createTransition(0, 0, 'c', 'c', null));
 
         Set<Integer> accept33 = new TreeSet<>();
         accept.add(0);
@@ -296,8 +306,17 @@ public class Main
         //System.out.println(RSAn6);
        // RSAn6.minimize();
  */
+        Set<Character> terminals = new HashSet<>();
+        Set<String> nonTerminals = new HashSet<>();
+        Set<String> rules = new HashSet<>();
 
+        Set<PDATransition> PDAtransitions = new HashSet<>();
+        PDA PDA = new PDA(1, chars, chars, new HashSet<>(Arrays.asList(0)), PDAtransitions);
 
+        CFG CFG = new CFG(terminals, nonTerminals, rules);
+        PDA = PDA.simplify();
+        CFG.convert(PDA);
+        Pathfinding.parse("abccba", CFG);
     }
 
 

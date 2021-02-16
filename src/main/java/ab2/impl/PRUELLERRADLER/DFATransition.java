@@ -61,5 +61,15 @@ public class DFATransition implements ab2.DFATransition
     public int hashCode() {
         return Objects.hash(from, to, symbol);
     }
+
+    public void setFrom(int from)
+    {
+        this.from = from;
+    }
+
+    public void setTo(int to)
+    {
+        this.to = to;
+    }
 }
 
