@@ -91,6 +91,8 @@ public class FA implements ab2.FA
     @Override
     public ab2.FA kleeneStar()
     {
+        return this.toRSA().kleeneStar();
+        /*
         for (int i : acceptingStates)
         {
             transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
@@ -98,17 +100,23 @@ public class FA implements ab2.FA
         }
         this.acceptingStates.add(0);
         return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
+
+         */
     }
 
     @Override
     public ab2.FA plus()
     {
+        return this.toRSA().plus();
+        /*
         for (int i : acceptingStates)
         {
             transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
         }
 
         return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
+
+         */
     }
 
     public static Set<Integer> getEpsilonQuant(int from, Set<FATransition> transitions){
@@ -714,6 +722,8 @@ public class FA implements ab2.FA
     @Override
     public boolean accepts(String w) throws IllegalCharacterException
     {
+        return this.toRSA().accepts(w);
+        /*
         if (w.contains("\\.[]{}()<>*+-=!?^$|"))
             throw new IllegalCharacterException();
 
@@ -740,6 +750,8 @@ public class FA implements ab2.FA
         if (acceptingStates.contains(currentState))
             return true;
         return false;
+
+         */
     }
 
     @Override
@@ -809,10 +821,15 @@ public class FA implements ab2.FA
     @Override
     public boolean isInfinite()
     {
+       // if(acceptsNothing()) return false;
+        if(acceptsEpsilonOnly())return false;
         boolean infinite = false;
         boolean loop = false;
         Set<Integer> possibleFroms = new HashSet<>();
-        for (FATransition tr : transitions)
+        //RSA newRSA = this.toRSA().minimize();
+       // return newRSA.isInfinite();
+
+        for (FATransition tr : this.getTransitions())
             if (reaches(tr.from(), tr.from(), new HashSet<>(), false, 0)){
                 possibleFroms.add(tr.from());
             }
@@ -826,13 +843,14 @@ public class FA implements ab2.FA
 
         //now checks if possibleFromsfrom0 can reach a accepting state
         for (Integer i : possibleFromsfrom0){
-            for(Integer acceptingState : acceptingStates){
+            for(int acceptingState : acceptingStates){
                 if (reaches(i, acceptingState, new HashSet<>(), false, 0)){
-                    infinite = true;
+                    return true;
                 }
             }
         }
-        return infinite;
+
+        return false;
         /*  old isFinit Methode which didnt detect
         for (FATransition tr : transitions)
         {
@@ -874,15 +892,13 @@ public class FA implements ab2.FA
     @Override
     public boolean equalTo(ab2.FA b)
     {
-        if (b == this)
-            return true;
-        return false;
+        return this.toRSA().equalTo(b);
     }
 
     @Override
     public Boolean equalsPlusAndStar()
     {
-        return null;
+        return this.toRSA().minimize().equalsPlusAndStar();
     }
 
     public void splitTransition()
@@ -933,10 +949,20 @@ public class FA implements ab2.FA
     //checks if one state reaches another, breaks if loop detected and returns falsee
     public boolean reaches(int from, int to, Set<FATransition> prevState, boolean reached, int count)
     {
+        if(reached)return true;
+        if(count > 40) return false;
         Set<FATransition> copiedTransitions = new HashSet<>();
         for(FATransition tra : prevState){
             copiedTransitions.add(tra);
         }
+
+        boolean isOK = false;
+        for(FATransition tr : transitions){
+            if(tr.to() == to) isOK = true;
+            if(tr.from() == from && tr.to() == to)return true;
+        }
+        if(!isOK) return false;
+
         for (FATransition tr : transitions)
         {
             if (reached)
@@ -944,7 +970,7 @@ public class FA implements ab2.FA
             else if (tr.from() == from && tr.to() == to)
             {
                 //System.out.println(tr.toString());
-                reached = true;
+                return true;
             }
             else if (tr.from() == from && !copiedTransitions.contains(tr))
             {
@@ -954,7 +980,7 @@ public class FA implements ab2.FA
                 reached = reaches(tr.to(), to, copiedTransitions, reached, count);
             }
         }
-        return false || reached;
+        return reached;
     }
 
     @Override
