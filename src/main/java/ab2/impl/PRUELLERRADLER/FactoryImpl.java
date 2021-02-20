@@ -70,6 +70,10 @@ public class FactoryImpl implements Factory
     @Override
     public PDA getPDAFromCFG(char startSymbol, Set<String> rules)
     {
-        return null;
+        Set<Character> terminals= new HashSet<>();
+        Set<String> nonTerminals= new HashSet<>();
+        CFG CFG = new CFG(terminals, nonTerminals, rules);
+
+        return CFG.toPDA(rules, startSymbol);
     }
 }

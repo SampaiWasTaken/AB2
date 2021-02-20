@@ -11,7 +11,7 @@ public class PDA implements ab2.PDA
     private Stack<Character> stack = new Stack<>();
     private int numStates;
     private final Set<Character> inputSymbols;
-    private final java.util.Set<Character> stackSymbols;
+    private final Set<Character> stackSymbols;
     private final Set<Integer> acceptingStates;
     private final Set<ab2.PDATransition> transitions;
 
@@ -237,8 +237,7 @@ public class PDA implements ab2.PDA
     }
 
     //counter set to word.length at init to avoid complications as input gets changed within method and called with differen input ever time
-    public boolean accepts(String input, int currentState, int counter, List<PDATransition> newTransitions,
-                           boolean accepted, Stack<Character> stack1)
+    public boolean accepts(String input, int currentState, int counter, List<PDATransition> newTransitions, boolean accepted, Stack<Character> stack1)
     {
 
         Stack<Character> newStack = new Stack<>();
