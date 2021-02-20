@@ -111,7 +111,7 @@ public class CFG
 
             for (char c : _tokens)
             {
-                //newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, ++countState, null, null, c));
+                //newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, ++countState, null, null, c));asd
             }
         }
             //Abbau
