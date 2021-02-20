@@ -55,6 +55,7 @@ public class PDATransition implements ab2.PDATransition
         return "[from: " + from + " | to: " + to + " | with: " + symbolRead() + " | read from Stack: " + readStack + " | write on Stack: " + writeStack + "]";
     }
 
+
     @Override
     public boolean equals(Object o)
     {
@@ -73,4 +74,5 @@ public class PDATransition implements ab2.PDATransition
     {
         return Objects.hash(from, to, read, readStack, writeStack);
     }
+
 }

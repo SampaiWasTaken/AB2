@@ -27,28 +27,145 @@ public class PDA implements ab2.PDA
     @Override
     public boolean accepts(String input) throws IllegalArgumentException, IllegalStateException
     {
-        TreeSet<PDATransition> newTrans = new TreeSet<>();
+        if (!input.matches("[\\w]*"))
+            throw new IllegalArgumentException();
+        if (numStates == 0 || stackSymbols == null || input == null)
+            throw new IllegalStateException();
+        List<ab2.PDATransition> newTrans = new ArrayList<>();
         newTrans.addAll(transitions);
 
         return accepts(input, 0, input.length(), newTrans, false, new Stack<>());
     }
 
+    /**
+     * Erzeugt einen neuen PDA, indem an den PDA (this) der überegebene PDA
+     * angehängt wird, sodass die akzeptierte Sprache des zurückgegebenen PDAs der
+     * Konkatenation der Sprachen der beiden PDAs entspricht. Keiner der beiden PDAs
+     * darf verändert werden. es muss ein neuer PDA erzeugt werden.
+     */
     @Override
     public ab2.PDA append(ab2.PDA pda) throws IllegalArgumentException, IllegalStateException
     {
-        return null;
+        PDA parsePDA = (PDA) pda;
+
+        if (parsePDA.getNumStates() == 0 || parsePDA.getInputSymbols() == null || parsePDA.getStackSymbols() == null)
+            throw new IllegalArgumentException();
+        if (this.numStates == 0 || this.inputSymbols == null || this.stackSymbols == null)
+            throw new IllegalStateException();
+        Set<Integer> newAcc = new HashSet<>();
+        Set<PDATransition> newTrans = new HashSet<>();
+        int pda2start = this.numStates;
+
+        int newNumstates = this.numStates + parsePDA.getNumStates();
+
+        for (int i : parsePDA.getAcceptingStates())
+        {
+            newAcc.add(i + pda2start);
+        }
+        newTrans.addAll(this.transitions);
+        newTrans.add(new ab2.impl.PRUELLERRADLER.PDATransition(this.numStates - 1, pda2start, null, null, null));
+
+        for (ab2.PDATransition tr : parsePDA.getTransitions())
+        {
+            newTrans.add(new ab2.impl.PRUELLERRADLER.PDATransition(tr.from() + pda2start, tr.to() + pda2start, tr.symbolRead(), tr.symbolStackRead(), tr.symbolStackWrite()));
+        }
+
+        return new PDA(newNumstates, inputSymbols, stackSymbols, newAcc, newTrans);
     }
 
+    /**
+     * Erzeugt einen neuen PDA, indem der PDA (this) und der überegebene PDA
+     * vereinigt werden. Die Sprache des zurückgegebenen PDAs entspricht der
+     * Vereinigung der Sprachen der beiden PDAs. Keiner der beiden PDAs darf
+     * verändert werden. es muss ein neuer PDA erzeugt werden.
+     *
+     * @throws IllegalArgumentException falls numStates, inputChars oder stackChars des übergebenen PDA nicht gesetzt wurden
+     * @throws IllegalStateException    falls numStates, inputChars oder stackChars nicht gesetzt wurden
+     */
     @Override
     public ab2.PDA union(ab2.PDA pda) throws IllegalArgumentException, IllegalStateException
     {
-        return null;
+        PDA parsePDA = (PDA) pda;
+
+        if (parsePDA.getNumStates() == 0 || parsePDA.getInputSymbols() == null || parsePDA.getStackSymbols() == null)
+            throw new IllegalArgumentException();
+        if (this.numStates == 0 || this.inputSymbols == null || this.stackSymbols == null)
+            throw new IllegalStateException();
+
+        Set<Integer> newAcc = new HashSet<>();
+        Set<PDATransition> newTrans = new HashSet<>();
+        int pda2start = this.numStates + 1;
+        int pdastart = 1;
+        int newNumstates = this.numStates + parsePDA.getNumStates() + 1;
+
+        for (int i : acceptingStates)
+            newAcc.add(i + pdastart);
+
+        for (int i : parsePDA.getAcceptingStates())
+            newAcc.add(i + pda2start);
+
+        newTrans.add(new ab2.impl.PRUELLERRADLER.PDATransition(0, pda2start, null, null, null));
+        newTrans.add(new ab2.impl.PRUELLERRADLER.PDATransition(0, pdastart, null, null, null));
+
+        for (ab2.PDATransition tr : transitions)
+            newTrans.add(new ab2.impl.PRUELLERRADLER.PDATransition(tr.from() + pdastart, tr.to() + pdastart, tr.symbolRead(), tr.symbolStackRead(), tr.symbolStackWrite()));
+
+        for (ab2.PDATransition tr : parsePDA.getTransitions())
+            newTrans.add(new ab2.impl.PRUELLERRADLER.PDATransition(tr.from() + pda2start, tr.to() + pda2start, tr.symbolRead(), tr.symbolStackRead(), tr.symbolStackWrite()));
+
+        return new PDA(newNumstates, inputSymbols, stackSymbols, newAcc, newTrans);
     }
 
     @Override
     public boolean isDPDA() throws IllegalStateException
     {
-        return false;
+        if (this.numStates == 0 || this.inputSymbols == null || this.stackSymbols == null)
+            throw new IllegalStateException();
+
+        boolean morethanone = false;
+        Stack<Character> stack = new Stack<>();
+        Set<Character> chars = new HashSet<>();
+        Set<PDATransition> possTrans = new HashSet<>();
+        chars.add('a');
+        chars.add('b');
+        chars.add('c');
+
+        for (char c : chars)
+        {
+            for (PDATransition tr : transitions)
+            {
+                if (tr.symbolRead() == c)
+                {
+                    for (char s : chars)
+                    {
+                        for (int i = 0; i < numStates; i++)
+                        {
+                            if (tr.symbolStackRead() == null)
+                            {
+                                if (transitions.contains(new ab2.impl.PRUELLERRADLER.PDATransition(tr.from(), i, c, s, c)) ||
+                                        transitions.contains(new ab2.impl.PRUELLERRADLER.PDATransition(tr.from(), i, c, s, null)) ||
+                                        transitions.contains(new ab2.impl.PRUELLERRADLER.PDATransition(tr.from(), i, c, null, null)))
+                                {
+                                    morethanone = true;
+                                }
+                            }
+
+                            else if (tr.symbolStackRead() == c)
+                            {
+                                if (transitions.contains(new ab2.impl.PRUELLERRADLER.PDATransition(tr.from(), i, null, s, c)) ||
+                                        transitions.contains(new ab2.impl.PRUELLERRADLER.PDATransition(tr.from(), i, null, s, null)) ||
+                                        transitions.contains(new ab2.impl.PRUELLERRADLER.PDATransition(tr.from(), i, c, null, null)))
+                                {
+                                    morethanone = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return !morethanone;
     }
 
     public PDA simplify()
@@ -120,7 +237,8 @@ public class PDA implements ab2.PDA
     }
 
     //counter set to word.length at init to avoid complications as input gets changed within method and called with differen input ever time
-    public boolean accepts(String input, int currentState, int counter, Set<PDATransition> newTransitions, boolean accepted, Stack<Character> stack1)
+    public boolean accepts(String input, int currentState, int counter, List<PDATransition> newTransitions,
+                           boolean accepted, Stack<Character> stack1)
     {
 
         Stack<Character> newStack = new Stack<>();
@@ -135,6 +253,17 @@ public class PDA implements ab2.PDA
                     accepted = true;
                     return true;
                 }
+                else
+                {
+                    for (PDATransition tr : newTransitions)
+                    {
+                        if (tr.equals(new ab2.impl.PRUELLERRADLER.PDATransition(currentState, i, null, null, null)))
+                        {
+                            accepted = true;
+                            return true;
+                        }
+                    }
+                }
         }
         else if (counter <= 0)
             return false;
@@ -145,26 +274,34 @@ public class PDA implements ab2.PDA
             newStack.addAll(stack1);
             if (accepted || counter == 0)
                 break;
-            if (input.charAt(0) == tr.symbolRead() && tr.from() == currentState)
+            if ((tr.symbolRead() == null || input.charAt(0) == tr.symbolRead()) && tr.from() == currentState)
             {
                 if (newStack.isEmpty())
                 {
                     if (tr.symbolStackRead() == null)
                     {
-                        if (tr.symbolStackWrite() != null)
-                            newStack.push(tr.symbolStackWrite());
-                        currentState = tr.to();
-                        accepted = accepts(input.substring(1), currentState, counter - 1, newTransitions, accepted, newStack);
+                        if (tr.symbolRead() == null)
+                            accepted = accepts(input, tr.to(), counter, newTransitions, accepted, newStack);
+                        else
+                        {
+                            if (tr.symbolStackWrite() != null)
+                                newStack.push(tr.symbolStackWrite());
+                            accepted = accepts(input.substring(1), tr.to(), counter - 1, newTransitions, accepted, newStack);
+                        }
                     }
                 }
-                else if ((tr.symbolStackRead() == null || newStack.peek() == tr.symbolStackRead()) && tr.symbolRead() == input.charAt(0))
+                else if ((tr.symbolStackRead() == null || newStack.peek() == tr.symbolStackRead()) && (tr.symbolRead() == null || tr.symbolRead() == input.charAt(0)))
                 {
-                    if (tr.symbolStackRead() != null)
-                        newStack.pop();
-                    if (tr.symbolStackWrite() != null)
-                        newStack.push(tr.symbolStackWrite());
-                    currentState = tr.to();
-                    accepted = accepts(input.substring(1), currentState, counter - 1, newTransitions, accepted, newStack);
+                    if (tr.symbolRead() == null)
+                        accepted = accepts(input, tr.to(), counter, newTransitions, accepted, newStack);
+                    else
+                    {
+                        if (tr.symbolStackRead() != null)
+                            newStack.pop();
+                        if (tr.symbolStackWrite() != null)
+                            newStack.push(tr.symbolStackWrite());
+                        accepted = accepts(input.substring(1), tr.to(), counter - 1, newTransitions, accepted, newStack);
+                    }
                 }
             }
             if (newStack.isEmpty() && input.isBlank())

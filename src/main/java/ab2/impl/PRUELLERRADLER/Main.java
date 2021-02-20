@@ -316,8 +316,8 @@ public class Main
         acc.add(1);
 
         PDA PDA = new PDA(2, readChars, writeChars, acc, PDAtransitions);
-        String test = "abcba";
-        String test1 = "abcacba";
+        String test = "abccba";
+        String test1 = "aa";
         System.out.println(PDA.accepts(test));
         System.out.println(PDA.accepts(test1));
 
