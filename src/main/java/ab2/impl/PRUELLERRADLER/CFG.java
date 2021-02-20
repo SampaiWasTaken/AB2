@@ -100,26 +100,44 @@ public class CFG
 
         //start
         newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(0, 1, null, null, startSymbol));
-        int countState = 0;
+        int countState = 1;
 
-        for (String s : rules)
+        for (String s : splitRules)
         {
             String[] tokens = s.split("→");
             char[] _tokens = tokens[1].toCharArray();
 
             //Aufbau
 
+            int counter = 1;
             for (char c : _tokens)
             {
-                //newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, ++countState, null, null, c));asd
+
+                if(counter == 1){
+                    newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, ++countState, null, tokens[0].charAt(0), c));
+                }else newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(countState, ++countState, null, null, c));
+                if(counter == _tokens.length){
+                    newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(countState, 1, null, null, null));
+                }
+                counter++;
             }
         }
+
+        countState++;
+        newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, countState, null, null, null));
+        for(String s : splitRules){
+            String[] tokens = s.split("→");
+            newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(countState, 1, null, tokens[0].charAt(0), tokens[0].charAt(0)));
+        }
+
             //Abbau
             for (char c : inputSymbols)
             {
-                newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, 1, c, c, null));
+                newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(countState, countState, c, c, null));
 
             }
+            acceptingStates.clear();
+            acceptingStates.add(countState);
 //        {
 //            newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, 1, null, A,A>x));
 //            newTransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, 1, a, a, null));
@@ -128,7 +146,7 @@ public class CFG
 
         System.out.println(Arrays.deepToString(splitRules.toArray()));
 
-        return new PDA(numstates, inputSymbols, stackSymbols, new HashSet<>(Arrays.asList(1)), newTransitions);
+        return new PDA(numstates, inputSymbols, stackSymbols, acceptingStates, newTransitions);
     }
 
 }

@@ -240,6 +240,9 @@ public class PDA implements ab2.PDA
     public boolean accepts(String input, int currentState, int counter, List<PDATransition> newTransitions, boolean accepted, Stack<Character> stack1)
     {
 
+        if(stack1.size() > input.length()){
+            return false;
+        }
         Stack<Character> newStack = new Stack<>();
         newStack.clear();
         newStack.addAll(stack1);
@@ -279,8 +282,15 @@ public class PDA implements ab2.PDA
                 {
                     if (tr.symbolStackRead() == null)
                     {
-                        if (tr.symbolRead() == null)
+                        if (tr.symbolRead() == null) {
+                            if (tr.symbolStackWrite() != null) {
+                                newStack.push(tr.symbolStackWrite());
+                            }
+                            if(tr.symbolRead()!=null){
+                                accepted = accepts(input.substring(1), tr.to(), counter - 1, newTransitions, accepted, newStack);
+                            }else
                             accepted = accepts(input, tr.to(), counter, newTransitions, accepted, newStack);
+                        }
                         else
                         {
                             if (tr.symbolStackWrite() != null)
@@ -291,8 +301,19 @@ public class PDA implements ab2.PDA
                 }
                 else if ((tr.symbolStackRead() == null || newStack.peek() == tr.symbolStackRead()) && (tr.symbolRead() == null || tr.symbolRead() == input.charAt(0)))
                 {
-                    if (tr.symbolRead() == null)
-                        accepted = accepts(input, tr.to(), counter, newTransitions, accepted, newStack);
+                    if (tr.symbolRead() == null) {
+                        if(tr.symbolStackRead() != null){
+                            newStack.pop();
+                        }
+                        if (tr.symbolStackWrite() != null) {
+                            newStack.push(tr.symbolStackWrite());
+                        }
+
+                        if(tr.symbolRead()!=null){
+                            accepted = accepts(input.substring(1), tr.to(), counter - 1, newTransitions, accepted, newStack);
+                        }else
+                            accepted = accepts(input, tr.to(), counter, newTransitions, accepted, newStack);
+                    }
                     else
                     {
                         if (tr.symbolStackRead() != null)
