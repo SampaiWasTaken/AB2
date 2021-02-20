@@ -12,9 +12,9 @@ public class CFG
     private final String CFG_DELIMITER2 = " | ";
     private final String EPSILON = "";
 
-    private Set<Character> terminals;
-    private Set<String> nonTerminals;
-    private Set<String> rules;
+    private final Set<Character> terminals;
+    private final Set<String> nonTerminals;
+    private final Set<String> rules;
     int acceptingState;
 
     public CFG(Set<Character> terminals, Set<String> nonTerminals, Set<String> rules)
@@ -38,26 +38,26 @@ public class CFG
             terminals.add(transition.symbolRead());
         }
 
-        for (int i = 0; i < PDA.getNumStates(); i++)
+        for (int p = 0; p < PDA.getNumStates(); p++)
         {
-            for (int j = 0; j < PDA.getNumStates(); j++)
+            for (int q = 0; q < PDA.getNumStates(); q++)
             {
-                nonTerminals.add("A" + i + j);
-                if (i == j)
+                nonTerminals.add("A" + p + q);
+                if (p == q)
                 {
-                    rules.add("A" + i + j + CFG_DELIMITER1 + EPSILON);
+                    String EPSILON = " ";
+                    rules.add("A" + p + q + CFG_DELIMITER1 + EPSILON);
                 }
-                for (int k = 0; k < PDA.getNumStates(); k++)
+                for (int r = 0; r < PDA.getNumStates(); r++)
                 {
-                    rules.add("A" + i + j + CFG_DELIMITER1 + "A" + i + k + "A" + k + j);
+                    rules.add("A" + p + q + CFG_DELIMITER1 + "A" + p + r + "A" + r + q);
                     for (int s = 0; s < PDA.getNumStates(); s++)
                     {
                         for (PDATransition tr : PDA.getTransitions())
                         {
-                            if (tr.from() == i && tr.to() == s)
+                            if (tr.from() == p && tr.to() == s)
                             {
-                                if (tr.symbolRead() != null)
-                                    rules.add("A" + i + s + CFG_DELIMITER1 + tr.symbolRead() + "A" + j + k + tr.symbolRead());
+                                 rules.add("A" + p + q + CFG_DELIMITER1 + " " + "A" + r + s + " ");
                             }
                         }
                     }
@@ -69,8 +69,6 @@ public class CFG
         {
             System.out.println(s);
         }
-
-
     }
 
     public PDA toPDA(Set<String> rules, String startSymbol)
@@ -85,7 +83,7 @@ public class CFG
             for (String rule : _rules)
             {
                 if (!rule.contains(prefix.strip()))
-                    splitRules.add(prefix+rule);
+                    splitRules.add(prefix + rule);
                 else
                     splitRules.add(rule);
             }
@@ -95,5 +93,4 @@ public class CFG
 
         return new PDA(2, terminals, stackSymbols, new HashSet<>(Arrays.asList(1)), transitions);
     }
-
 }

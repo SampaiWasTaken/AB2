@@ -6,7 +6,6 @@ import ab2.DFATransition;
 import ab2.FA;
 import ab2.FATransition;
 import ab2.RSA;
-import ab2.Transition;
 
 import java.util.HashSet;
 import java.util.Set;

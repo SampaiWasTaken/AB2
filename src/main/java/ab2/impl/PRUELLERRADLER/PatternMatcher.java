@@ -17,21 +17,17 @@ import java.util.Set;
  */
 public class PatternMatcher
 {
-    private String pattern;
 
     private final String dot = ".";
     private final String star = "*";
 
     public PatternMatcher(String pattern)
     {
-        this.pattern = pattern;
     }
 
     public boolean checkString(String word)
     {
-        if (word.matches("[\\w\\.\\*\\(\\)]*"))
-            return true;
-        return false;
+        return word.matches("[\\w\\.\\*\\(\\)]*");
     }
 
     //(ab)*a

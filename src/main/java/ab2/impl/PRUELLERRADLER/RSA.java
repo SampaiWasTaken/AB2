@@ -14,10 +14,10 @@ import java.util.Set;
 public class RSA implements ab2.RSA
 {
 
-    private int numStates;
-    private Set<Character> characters;
-    private Set<Integer> acceptingStates;
-    private Set<ab2.DFATransition> transitions;
+    private final int numStates;
+    private final Set<Character> characters;
+    private final Set<Integer> acceptingStates;
+    private final Set<ab2.DFATransition> transitions;
     private int currentState;
 
 
@@ -141,9 +141,7 @@ public class RSA implements ab2.RSA
 
         Set<Set<Integer>> oldAllcombinations = new HashSet<>();
         Set<Set<Integer>> newSimplifiedTable = new HashSet<>();
-        for(Set<Integer> i : allCombinations){
-            oldAllcombinations.add(i);
-        }
+        oldAllcombinations.addAll(allCombinations);
         boolean nothingToSimplify = false;
         while (!nothingToSimplify){
 
@@ -152,9 +150,7 @@ public class RSA implements ab2.RSA
                 nothingToSimplify =true;
             }else {
                 oldAllcombinations = new HashSet<>();
-                for(Set<Integer> i : newSimplifiedTable){
-                    oldAllcombinations.add(i);
-                }
+                oldAllcombinations.addAll(newSimplifiedTable);
             }
         }
 
@@ -253,8 +249,10 @@ public class RSA implements ab2.RSA
         //check if 0 state got renamed XD ufff
         boolean ZeroRenamedUfff = false;
         for(TransitionRename tr : renamedTransitions){
-            if(tr.getFrom() == 0){
+            if (tr.getFrom() == 0)
+            {
                 ZeroRenamedUfff = true;
+                break;
             }
         }
         if(ZeroRenamedUfff){
@@ -342,9 +340,7 @@ public class RSA implements ab2.RSA
 
         ArrayList<Set<Integer>> oldTableCopy = new ArrayList<>();
         Set<Set<Integer>> newFinalUltimateTable = new HashSet<>();
-        for(Set<Integer> content : oldTable){
-            oldTableCopy.add(content);
-        }
+        oldTableCopy.addAll(oldTable);
 
        // System.out.println("OLD TABLE   "+ oldTableCopy);
 
@@ -355,11 +351,7 @@ public class RSA implements ab2.RSA
                // System.out.println("dings da "+newTable.get(j));
                 ArrayList<Boolean> singlePartBoolean = new ArrayList<>();
                 for(Set<Integer> mainStateLeftFirstColumn : oldTableCopy){
-                        if((newTable.get(j).get(i).equals(mainStateLeftFirstColumn)) || newTable.get(j).get(i).size()==1){
-                            singlePartBoolean.add(true);
-                        }else {
-                            singlePartBoolean.add(false);
-                        }
+                    singlePartBoolean.add((newTable.get(j).get(i).equals(mainStateLeftFirstColumn)) || newTable.get(j).get(i).size() == 1);
                 }
                 boolean singlePartPart = false;
                 for(boolean Part : singlePartBoolean){
@@ -381,9 +373,7 @@ public class RSA implements ab2.RSA
        // System.out.println("old Table copy Final    "+newFinalUltimateTable);
 
         Set<Set<Integer>> resutlSetSet = new HashSet<>();
-        for(Set<Integer> i : newFinalUltimateTable){
-            resutlSetSet.add(i);
-        }
+        resutlSetSet.addAll(newFinalUltimateTable);
         return resutlSetSet;
     }
 
@@ -436,7 +426,11 @@ public class RSA implements ab2.RSA
         boolean charNotFound = true;
         for (Character ch : characters)
         {
-            if (ch.equals(c)) charNotFound = false;
+            if (ch.equals(c))
+            {
+                charNotFound = false;
+                break;
+            }
         }
         if (charNotFound) throw new IllegalCharacterException();
 
@@ -499,9 +493,7 @@ public class RSA implements ab2.RSA
         if (s > acceptingStates.size() - 1)
             throw new IllegalStateException("State does not exist.");
 
-        if (acceptingStates.contains(s))
-            return true;
-        return false;
+        return acceptingStates.contains(s);
     }
 
     /**
@@ -530,7 +522,7 @@ public class RSA implements ab2.RSA
         RSA firstFA = (RSA)this.minimize();
         secondFA = secondFA.reOrderRSA_States(firstFA.getNumStates()+1);
 
-        firstFA = (RSA)firstFA.reOrderRSA_States(1);
+        firstFA = firstFA.reOrderRSA_States(1);
 
         //neue transitions
         Set<FATransition> newTransitions = new HashSet<>();
@@ -705,7 +697,7 @@ public class RSA implements ab2.RSA
         if (w.contains("\\.[]{}()<>*+-=!?^$|"))
             throw new IllegalCharacterException();
 
-        if (w == "")
+        if (w.equals(""))
             return acceptsEpsilon();
 
         char[] word = w.toCharArray();
@@ -730,9 +722,7 @@ public class RSA implements ab2.RSA
             }
             if (charCounter == 0) return false;
         }
-        if (acceptingStates.contains(currentState))
-            return true;
-        return false;
+        return acceptingStates.contains(currentState);
     }
 
     @Override
@@ -760,11 +750,7 @@ public class RSA implements ab2.RSA
     @Override
     public boolean acceptsEpsilon()
     {
-        if (acceptingStates.contains(0))
-            return true;
-        else{
-            return false;
-        }
+        return acceptingStates.contains(0);
 
 
     }
@@ -863,12 +849,11 @@ public class RSA implements ab2.RSA
     @Override
     public boolean subSetOf(FA a)
     {
-        if (a.acceptsEpsilon())
-            return true;
-        if (a == this)
-            return true;
-        if (a.getTransitions().isEmpty() || this.transitions.isEmpty())
-            return true;
+        if (a.acceptsEpsilonOnly() || this.equalTo(a) || this.kleeneStar().equalTo(a) || this.plus().equalTo(a)) return true;
+
+        ab2.RSA rsa = this.union(a).toRSA().minimize();
+        if (rsa.equalTo(a.toRSA().minimize())) return true;
+
         return false;
     }
 
@@ -886,20 +871,6 @@ public class RSA implements ab2.RSA
         ArrayList<ab2.DFATransition> firstTransitions = new ArrayList<>();
         ArrayList<ab2.DFATransition> secondTransitions = new ArrayList<>();
         Set<TransitionRename> transRenam = new HashSet<>();
-        /*
-        for(DFATransition trans : firstRSA.transitions){
-            boolean inside = false;
-            for(DFATransition trans2 : secondRSA.transitions){
-                    if(trans.equals(trans2)){
-                        inside = true;
-                    }
-            }
-            if(!inside)return false;
-        }
-        return true;
-         */
-        //first add 0 states
-
 
         transRenam.add(new TransitionRename(0, 0));
         boolean grabbingRenames = true;
@@ -959,7 +930,7 @@ public class RSA implements ab2.RSA
             }
             allTransitionsTheSame = allTransitionsTheSame || singleTransi;
         }
-        if(allTransitionsTheSame)return true; else return false;
+        return allTransitionsTheSame;
 
 
 
@@ -977,13 +948,13 @@ public class RSA implements ab2.RSA
     public boolean reaches(int from, int to, Set<ab2.impl.PRUELLERRADLER.DFATransition> prevState, boolean reached, int count)
     {
         Set<ab2.impl.PRUELLERRADLER.DFATransition> copiedTransitions = new HashSet<>();
-        if(count > 20)return false;
+        if(count > 200)return false;
         for(DFATransition tra : prevState){
             copiedTransitions.add((ab2.impl.PRUELLERRADLER.DFATransition) tra);
         }
         for (DFATransition tr : transitions)
         {
-            if (reached || count > 200)
+            if (reached)
                 break;
             else if (tr.from() == from && tr.to() == to)
             {
@@ -992,7 +963,6 @@ public class RSA implements ab2.RSA
             }
             else if (tr.from() == from && !copiedTransitions.contains(tr))
             {
-                //System.out.println(tr.toString());
                 count ++;
                 copiedTransitions.add((ab2.impl.PRUELLERRADLER.DFATransition) tr);
                 reached = reaches(tr.to(), to, copiedTransitions, reached, count);

@@ -6,7 +6,7 @@ public class DFATransition implements ab2.DFATransition
 {
     private int from;
     private int to;
-    private char symbol;
+    private final char symbol;
 
     public DFATransition(int from, int to, char symbol)
     {

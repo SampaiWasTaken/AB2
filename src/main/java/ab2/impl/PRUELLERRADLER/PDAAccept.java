@@ -7,11 +7,10 @@ import java.util.*;
 
 public class PDAAccept
 {
-    private int numStates = 1;
-    private int currentState = 0;
-    private Set<Stack<Character>> possibleStacks = new HashSet<>();
-    private Set<Integer> possibleStates = new HashSet<>();
-    private Set<Set<PDATransition>> yikes = new HashSet<>();
+    private final int numStates = 1;
+    private final Set<Stack<Character>> possibleStacks = new HashSet<>();
+    private final Set<Integer> possibleStates = new HashSet<>();
+    private final Set<Set<PDATransition>> yikes = new HashSet<>();
 
     //give list of possible stacks. give list of transitions?????????????????????????????
     public void calcSteps(Set<ab2.PDATransition> transitions, Stack<Character> stack, String word, int charCounter)
@@ -60,6 +59,7 @@ public class PDAAccept
 
     public int getCurrentState()
     {
+        int currentState = 0;
         return currentState;
     }
 

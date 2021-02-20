@@ -266,13 +266,6 @@ public class Main
         RSA testRSA2 = n1.toRSA();
         System.out.println("testRSA2   "+testRSA2);
 
-        Set<PDATransition> PDAtransitions = new HashSet<>();
-        PDAtransitions.add(factory.createTransition(0, 0, 'a', null, 'a'));
-        PDAtransitions.add(factory.createTransition(0, 0, 'b', null, 'b'));
-        PDAtransitions.add(factory.createTransition(0, 0, 'c', null, 'c'));
-        PDAtransitions.add(factory.createTransition(0, 0, 'a', 'a', null));
-        PDAtransitions.add(factory.createTransition(0, 0, 'b', 'b', null));
-        PDAtransitions.add(factory.createTransition(0, 0, 'c', 'c', null));
 
         Set<Integer> accept33 = new TreeSet<>();
         accept.add(0);
@@ -307,16 +300,32 @@ public class Main
        // RSAn6.minimize();
  */
         Set<Character> terminals = new HashSet<>();
+        Set<PDATransition> PDAtransitions = new HashSet<>();
+        PDAtransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(0, 0, 'a', null, 'a'));
+        PDAtransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(0, 0, 'b', null, 'b'));
+        PDAtransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(0, 0, 'c', null, 'c'));
+        PDAtransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(0, 1, 'a', null, null));
+        PDAtransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(0, 1, 'b', null, null));
+        PDAtransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(0, 1, 'c', null, null));
+        PDAtransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, 1, 'a', 'a', null));
+        PDAtransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, 1, 'b', 'b', null));
+        PDAtransitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(1, 1, 'c', 'c', null));
         Set<String> nonTerminals = new HashSet<>();
         Set<String> rules = new HashSet<>();
+        Set<Integer> acc = new HashSet<>();
+        acc.add(1);
 
-        Set<PDATransition> PDAtransitions = new HashSet<>();
-        PDA PDA = new PDA(1, chars, chars, new HashSet<>(Arrays.asList(0)), PDAtransitions);
+        PDA PDA = new PDA(2, readChars, writeChars, acc, PDAtransitions);
+        String test = "abcba";
+        String test1 = "abcacba";
+        System.out.println(PDA.accepts(test));
+        System.out.println(PDA.accepts(test1));
 
-        CFG CFG = new CFG(terminals, nonTerminals, rules);
-        PDA = PDA.simplify();
-        CFG.convert(PDA);
-        Pathfinding.parse("abccba", CFG);
+//        CFG CFG = new CFG(terminals, nonTerminals, rules);
+//        PDA = PDA.simplify();
+//        CFG.convert(PDA);
+//        System.out.println(CFG.getRules());
+       // Pathfinding.parse("abccba", CFG);
     }
 
 
