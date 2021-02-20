@@ -1,20 +1,19 @@
 package ab2.impl.PRUELLERRADLER;
 
+import ab2.FATransition;
+import ab2.Factory;
 import ab2.PDATransition;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 public class PDA implements ab2.PDA
 {
-    private Stack<Character> stack;
+    private Stack<Character> stack = new Stack<>();
     private int numStates;
-    private Set<Character> inputSymbols;
-    private java.util.Set<Character> stackSymbols;
-    private Set<Integer> acceptingStates;
-    private Set<ab2.PDATransition> transitions;
+    private final Set<Character> inputSymbols;
+    private final java.util.Set<Character> stackSymbols;
+    private final Set<Integer> acceptingStates;
+    private final Set<ab2.PDATransition> transitions;
 
     public PDA(int numStates, Set<Character> inputSymbols, Set<Character> stackSymbols, Set<Integer> acceptingStates, Set<ab2.PDATransition> transitions)
     {
@@ -28,7 +27,10 @@ public class PDA implements ab2.PDA
     @Override
     public boolean accepts(String input) throws IllegalArgumentException, IllegalStateException
     {
-        return false;
+        TreeSet<PDATransition> newTrans = new TreeSet<>();
+        newTrans.addAll(transitions);
+
+        return accepts(input, 0, input.length(), newTrans, false, new Stack<>());
     }
 
     @Override
@@ -54,19 +56,14 @@ public class PDA implements ab2.PDA
         int acceptingState = 0;
         Set<Integer> newAccept = new HashSet<>();
 
-
-        if (acceptingStates.size() == 1) { }
-        else
+        for (int i : acceptingStates)
         {
-            for (int i : acceptingStates)
-            {
-                transitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(i, numStates, null, null, null));
-            }
-            acceptingStates.clear();
-            acceptingStates.add(numStates);
-            acceptingState = acceptingStates.iterator().next();
-            numStates++;
+            transitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(i, numStates, null, null, null));
         }
+        acceptingStates.clear();
+        acceptingStates.add(numStates);
+        acceptingState = acceptingStates.iterator().next();
+        numStates++;
 
         for (char c : stackSymbols)
         {
@@ -85,10 +82,10 @@ public class PDA implements ab2.PDA
 
         transitions.add(new ab2.impl.PRUELLERRADLER.PDATransition(acceptingState, numStates++, null, null, null));
         acceptingStates.clear();
-        acceptingStates.add(numStates-1);
+        acceptingStates.add(numStates - 1);
         acceptingState = acceptingStates.iterator().next();
 
-        System.out.println("# States: " + numStates + " | Accepting: " + acceptingState + " | " +  transitions.size() + " | " + Arrays.deepToString(transitions.toArray()));
+        System.out.println("# States: " + numStates + " | Accepting: " + acceptingState + " | " + transitions.size() + " | " + Arrays.deepToString(transitions.toArray()));
         return new PDA(numStates, inputSymbols, stackSymbols, acceptingStates, transitions);
     }
 
@@ -121,4 +118,99 @@ public class PDA implements ab2.PDA
     {
         return transitions;
     }
+
+    //counter set to word.length at init to avoid complications as input gets changed within method and called with differen input ever time
+    public boolean accepts(String input, int currentState, int counter, Set<PDATransition> newTransitions, boolean accepted, Stack<Character> stack1)
+    {
+
+        Stack<Character> newStack = new Stack<>();
+        newStack.clear();
+        newStack.addAll(stack1);
+        int newCounter = counter;
+        if (newStack.isEmpty() && input.isBlank())
+        {
+            for (int i : acceptingStates)
+                if (currentState == i)
+                {
+                    accepted = true;
+                    return true;
+                }
+        }
+        else if (counter <= 0)
+            return false;
+
+        for (PDATransition tr : newTransitions)
+        {
+            newStack.clear();
+            newStack.addAll(stack1);
+            if (accepted || counter == 0)
+                break;
+            if (input.charAt(0) == tr.symbolRead() && tr.from() == currentState)
+            {
+                if (newStack.isEmpty())
+                {
+                    if (tr.symbolStackRead() == null)
+                    {
+                        if (tr.symbolStackWrite() != null)
+                            newStack.push(tr.symbolStackWrite());
+                        currentState = tr.to();
+                        accepted = accepts(input.substring(1), currentState, counter - 1, newTransitions, accepted, newStack);
+                    }
+                }
+                else if ((tr.symbolStackRead() == null || newStack.peek() == tr.symbolStackRead()) && tr.symbolRead() == input.charAt(0))
+                {
+                    if (tr.symbolStackRead() != null)
+                        newStack.pop();
+                    if (tr.symbolStackWrite() != null)
+                        newStack.push(tr.symbolStackWrite());
+                    currentState = tr.to();
+                    accepted = accepts(input.substring(1), currentState, counter - 1, newTransitions, accepted, newStack);
+                }
+            }
+            if (newStack.isEmpty() && input.isBlank())
+            {
+                for (int i : acceptingStates)
+                    if (currentState == i)
+                    {
+                        accepted = true;
+                        return true;
+                    }
+            }
+        }
+        return accepted;
+    }
+
+//    public static Set<String> createTree(Set<String> rules, Set<String> possibleWords, int wordLength, int count)
+//    {
+//        Set<String> newPossWords = new HashSet<>();
+//        // newPossWords.addAll(possibleWords);
+//        String[] tokens = new String[2];
+//
+//        System.out.println(count);
+//        if (count == 7) return possibleWords;
+//
+//        for (String s : rules)
+//        {
+//            tokens = s.split("→");
+//            tokens = s.split("→");
+//            if (s.equals("S")) { }
+//            else
+//            {
+//                for (String words : possibleWords)
+//                {
+//                    if (words.contains(tokens[0]))
+//                    {
+//                        if (words.equals("S")) newPossWords.add(tokens[1]);
+//                        else
+//                        {
+//                            String nicerString = (words.substring(0, words.indexOf(tokens[0])) + tokens[1] + words.substring(words.indexOf(tokens[0]) + 3, words.length()));
+//                            newPossWords.add(nicerString);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return createTree(rules, newPossWords, wordLength, ++count);
+//    }
 }
+

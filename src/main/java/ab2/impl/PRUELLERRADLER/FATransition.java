@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class FATransition implements ab2.FATransition
 {
-    private int from;
-    private int to;
-    private String symbols;
+    private final int from;
+    private final int to;
+    private final String symbols;
 
     public FATransition(int from, int to, String symbols)
     {
