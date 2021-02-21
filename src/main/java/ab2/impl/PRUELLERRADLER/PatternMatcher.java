@@ -51,20 +51,20 @@ public class PatternMatcher
             if (!tokens[i].isBlank())
                 brackets.add(tokens[i]);
 
-            for (String s : brackets)
+        for (String s : brackets)
+        {
+            if (s.matches("[\\w]*[\\.]*[\\*]{1}"))
+                parts.add(s);
+            else if (s.contains("*"))
             {
-                if (s.matches("[\\w]*[\\.]*[\\*]{1}"))
-                    parts.add(s);
-                else if (s.contains("*"))
-                {
-                    parts.add(s.substring(0, s.indexOf("*") - 1));
-                    parts.add(s.substring(s.indexOf("*") - 1, s.indexOf("*") + 1));
-                    parts.add(s.substring(s.indexOf("*") + 1));
-                    parts.remove(s);
-                }
-                else
-                    parts.add(s);
+                parts.add(s.substring(0, s.indexOf("*") - 1));
+                parts.add(s.substring(s.indexOf("*") - 1, s.indexOf("*") + 1));
+                parts.add(s.substring(s.indexOf("*") + 1));
+                parts.remove(s);
             }
+            else
+                parts.add(s);
+        }
         ArrayList<String> stringList = new ArrayList<>();
         for (String s : parts)
         {
@@ -223,7 +223,7 @@ public class PatternMatcher
                     }
                 }
                 RSAList.add(new RSA(numstates, chars, acceptingStates, copyTrans));
-               // System.out.println(new RSA(numstates, chars, acceptingStates, copyTrans));
+                // System.out.println(new RSA(numstates, chars, acceptingStates, copyTrans));
             }
         }
         RSA finalRSA = RSAList.get(0);

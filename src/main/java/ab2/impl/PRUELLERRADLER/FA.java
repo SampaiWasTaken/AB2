@@ -876,7 +876,8 @@ public class FA implements ab2.FA
     @Override
     public boolean subSetOf(ab2.FA a)
     {
-        if (a.acceptsEpsilonOnly() || this.equalTo(a) || this.kleeneStar().equalTo(a) || this.plus().equalTo(a)) return true;
+        if (a.acceptsEpsilonOnly() || this.equalTo(a) || this.kleeneStar().equalTo(a) || this.plus().equalTo(a))
+            return true;
 
         ab2.RSA rsa = this.union(a).toRSA().minimize();
         if (rsa.equalTo(a.toRSA().minimize())) return true;

@@ -15,18 +15,15 @@ public class DFATransition implements ab2.DFATransition
         this.symbol = symbol;
     }
 
-
     public char symbol()
     {
         return symbol;
     }
 
-
     public int from()
     {
         return from;
     }
-
 
     public int to()
     {
@@ -34,12 +31,13 @@ public class DFATransition implements ab2.DFATransition
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "DFATransition{" +
                 "from=" + from +
                 ", to=" + to +
                 ", symbol=" + symbol +
-                '}'+"\n";
+                '}' + "\n";
     }
 
     public String symbols()
@@ -48,7 +46,8 @@ public class DFATransition implements ab2.DFATransition
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DFATransition that = (DFATransition) o;
@@ -58,7 +57,8 @@ public class DFATransition implements ab2.DFATransition
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(from, to, symbol);
     }
 

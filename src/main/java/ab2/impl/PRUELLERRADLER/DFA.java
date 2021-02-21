@@ -9,7 +9,8 @@ import ab2.RSA;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DFA implements ab2.DFA {
+public class DFA implements ab2.DFA
+{
 
     private int numStates;
     private final Set<Character> characters;
@@ -17,7 +18,8 @@ public class DFA implements ab2.DFA {
     private final Set<ab2.DFATransition> transitions;
     private int currentState;
 
-    public DFA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<DFATransition> transitions) {
+    public DFA(int numStates, Set<Character> characters, Set<Integer> acceptingStates, Set<DFATransition> transitions)
+    {
         this.numStates = numStates;
         this.characters = characters;
         this.acceptingStates = acceptingStates;
@@ -31,37 +33,44 @@ public class DFA implements ab2.DFA {
     }
 
     @Override
-    public int getActState() {
+    public int getActState()
+    {
         return currentState;
     }
 
     @Override
-    public int doStep(char c) throws IllegalArgumentException, IllegalStateException {
+    public int doStep(char c) throws IllegalArgumentException, IllegalStateException
+    {
         return 0;
     }
 
     @Override
-    public Integer getNextState(int s, char c) throws IllegalCharacterException, IllegalStateException {
+    public Integer getNextState(int s, char c) throws IllegalCharacterException, IllegalStateException
+    {
         return null;
     }
 
     @Override
-    public boolean isAcceptingState() {
+    public boolean isAcceptingState()
+    {
         return acceptingStates.contains(currentState);
     }
 
     @Override
-    public Set<Character> getSymbols() {
+    public Set<Character> getSymbols()
+    {
         return characters;
     }
 
     @Override
-    public Set<Integer> getAcceptingStates() {
+    public Set<Integer> getAcceptingStates()
+    {
         return acceptingStates;
     }
 
     @Override
-    public boolean isAcceptingState(int s) throws IllegalStateException {
+    public boolean isAcceptingState(int s) throws IllegalStateException
+    {
         if (s > acceptingStates.size() - 1)
             throw new IllegalStateException("State does not exist.");
 
@@ -69,37 +78,44 @@ public class DFA implements ab2.DFA {
     }
 
     @Override
-    public Set<ab2.DFATransition> getTransitions() {
+    public Set<ab2.DFATransition> getTransitions()
+    {
         return transitions;
     }
 
     @Override
-    public int getNumStates() {
+    public int getNumStates()
+    {
         return numStates;
     }
 
     @Override
-    public FA union(FA a) {
+    public FA union(FA a)
+    {
         return null;
     }
 
     @Override
-    public FA intersection(FA a) {
+    public FA intersection(FA a)
+    {
         return null;
     }
 
     @Override
-    public FA minus(FA a) {
+    public FA minus(FA a)
+    {
         return null;
     }
 
     @Override
-    public FA concat(FA a) {
+    public FA concat(FA a)
+    {
         return null;
     }
 
     @Override
-    public FA complement() {
+    public FA complement()
+    {
         return null;
     }
 
@@ -129,12 +145,14 @@ public class DFA implements ab2.DFA {
     }
 
     @Override
-    public RSA toRSA() {
+    public RSA toRSA()
+    {
         return null;
     }
 
     @Override
-    public boolean accepts(String w) throws IllegalCharacterException {
+    public boolean accepts(String w) throws IllegalCharacterException
+    {
         if (w.contains("\\.[]{}()<>*+-=!?^$|"))
             throw new IllegalCharacterException();
 
@@ -155,7 +173,6 @@ public class DFA implements ab2.DFA {
                     currentState = tr.to();
                     charCounter++;
                 }
-
             }
             if (charCounter == 0) return false;
         }
@@ -163,9 +180,10 @@ public class DFA implements ab2.DFA {
     }
 
     @Override
-    public boolean acceptsNothing() {
+    public boolean acceptsNothing()
+    {
         if (acceptingStates.isEmpty())
-        return true;
+            return true;
         for (int i : acceptingStates)
         {
             if (reaches(0, i))
@@ -175,17 +193,20 @@ public class DFA implements ab2.DFA {
     }
 
     @Override
-    public boolean acceptsEpsilonOnly() {
+    public boolean acceptsEpsilonOnly()
+    {
         return numStates == 1 && acceptingStates.contains(0);
     }
 
     @Override
-    public boolean acceptsEpsilon() {
+    public boolean acceptsEpsilon()
+    {
         return acceptingStates.contains(0);
     }
 
     @Override
-    public boolean isInfinite() {
+    public boolean isInfinite()
+    {
         boolean infinite = false;
         boolean loop = false;
         for (FATransition tr : transitions)
@@ -206,22 +227,26 @@ public class DFA implements ab2.DFA {
     }
 
     @Override
-    public boolean isFinite() {
+    public boolean isFinite()
+    {
         return !isInfinite();
     }
 
     @Override
-    public boolean subSetOf(FA a) {
+    public boolean subSetOf(FA a)
+    {
         return this.toRSA().subSetOf(a);
     }
 
     @Override
-    public boolean equalTo(FA b) {
+    public boolean equalTo(FA b)
+    {
         return this.toRSA().equalTo(b);
     }
 
     @Override
-    public Boolean equalsPlusAndStar() {
+    public Boolean equalsPlusAndStar()
+    {
         return this.toRSA().equalsPlusAndStar();
     }
 

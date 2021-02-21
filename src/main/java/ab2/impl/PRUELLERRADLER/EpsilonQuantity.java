@@ -3,44 +3,54 @@ package ab2.impl.PRUELLERRADLER;
 import java.util.Objects;
 import java.util.Set;
 
-public class EpsilonQuantity {
+public class EpsilonQuantity
+{
     private int from;
     private Set<Integer> to;
 
-    public EpsilonQuantity(int from, Set<Integer> to) {
+    public EpsilonQuantity(int from, Set<Integer> to)
+    {
         this.from = from;
         this.to = to;
     }
-    public EpsilonQuantity(int from) {
+
+    public EpsilonQuantity(int from)
+    {
         this.from = from;
     }
 
-    public int getFrom() {
+    public int getFrom()
+    {
         return from;
     }
 
-    public void setFrom(int from) {
+    public void setFrom(int from)
+    {
         this.from = from;
     }
 
-    public Set<Integer> getTo() {
+    public Set<Integer> getTo()
+    {
         return to;
     }
 
-    public void setTo(Set<Integer> to) {
+    public void setTo(Set<Integer> to)
+    {
         this.to = to;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "EpsilonQuantity{" +
-                 from +
+                from +
                 "-->" + to +
                 '}';
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EpsilonQuantity that = (EpsilonQuantity) o;
@@ -49,7 +59,8 @@ public class EpsilonQuantity {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(from, to);
     }
 }

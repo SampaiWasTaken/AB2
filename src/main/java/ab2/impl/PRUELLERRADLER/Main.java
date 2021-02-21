@@ -11,11 +11,9 @@ import java.util.*;
 public class Main
 {
 
-
     public static void main(String[] args)
     {
         Factory factory = new FactoryImpl();
-
 
         Set<FATransition> transitions = new HashSet<>();
 
@@ -325,8 +323,6 @@ public class Main
 //        PDA = PDA.simplify();
 //        CFG.convert(PDA);
 //        System.out.println(CFG.getRules());
-       // Pathfinding.parse("abccba", CFG);
+        // Pathfinding.parse("abccba", CFG);
     }
-
-
 }
