@@ -30,7 +30,6 @@ public class PatternMatcher
         return word.matches("[\\w\\.\\*\\(\\)]*");
     }
 
-    //(ab)*a
     public ArrayList<String> prepString(String word)
     {
         ArrayList<String> parts = new ArrayList<>();
@@ -97,13 +96,11 @@ public class PatternMatcher
             kleeneStarOneChar = false;
             if (s.endsWith("*"))
             {
-                //Kleene-Star
                 s = s.substring(0, s.length() - 1);
                 _tokens = s.toCharArray();
                 numstates = s.length() + 1;
                 fress = numstates - 1;
                 acceptingStates.add(0);
-                //z.B ab
                 if (s.length() == 1)
                 {
                     numstates = 1;
@@ -127,7 +124,6 @@ public class PatternMatcher
                                     prevState = currentState;
                                     transitions.add(new DFATransition(currentState, currentState + 1, c));
                                 }
-                                //last state wraps back to 1st
                                 else
                                 {
                                     prevState = currentState;
@@ -143,7 +139,6 @@ public class PatternMatcher
                                 prevState = currentState;
                                 transitions.add(new DFATransition(currentState, ++currentState, _tokens[i]));
                             }
-                            //last state wraps back to 1st
                             else
                             {
                                 prevState = currentState;
@@ -204,7 +199,6 @@ public class PatternMatcher
             }
             if (numstates > 0)
             {
-                //concat RSA's somehow
                 Set<ab2.DFATransition> copyTrans = new HashSet<>();
                 for (ab2.DFATransition tr : transitions)
                     copyTrans.add(tr);
@@ -223,7 +217,6 @@ public class PatternMatcher
                     }
                 }
                 RSAList.add(new RSA(numstates, chars, acceptingStates, copyTrans));
-                // System.out.println(new RSA(numstates, chars, acceptingStates, copyTrans));
             }
         }
         RSA finalRSA = RSAList.get(0);

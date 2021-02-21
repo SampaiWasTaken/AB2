@@ -49,13 +49,7 @@ public class FactoryImpl implements Factory
         Set<Character> chars = new HashSet<>();
         chars.add('a');
         chars.add('b');
-        //      chars.add('c');
-//        char[] tokens = pattern.toCharArray();
-//        for (char c : tokens)
-//            if (c != '.' && c != '*' && c != ')' && c != '(')
-//            {
-//                chars.add(c);
-//            }
+
         PatternMatcher pm = new PatternMatcher(pattern);
         pm.prepString(pattern);
         return pm.toRSA(pm.prepString(pattern), chars);

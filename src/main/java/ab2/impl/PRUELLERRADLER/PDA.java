@@ -164,7 +164,6 @@ public class PDA implements ab2.PDA
                 }
             }
         }
-
         return !morethanone;
     }
 
@@ -346,38 +345,5 @@ public class PDA implements ab2.PDA
         }
         return accepted;
     }
-
-//    public static Set<String> createTree(Set<String> rules, Set<String> possibleWords, int wordLength, int count)
-//    {
-//        Set<String> newPossWords = new HashSet<>();
-//        // newPossWords.addAll(possibleWords);
-//        String[] tokens = new String[2];
-//
-//        System.out.println(count);
-//        if (count == 7) return possibleWords;
-//
-//        for (String s : rules)
-//        {
-//            tokens = s.split("→");
-//            tokens = s.split("→");
-//            if (s.equals("S")) { }
-//            else
-//            {
-//                for (String words : possibleWords)
-//                {
-//                    if (words.contains(tokens[0]))
-//                    {
-//                        if (words.equals("S")) newPossWords.add(tokens[1]);
-//                        else
-//                        {
-//                            String nicerString = (words.substring(0, words.indexOf(tokens[0])) + tokens[1] + words.substring(words.indexOf(tokens[0]) + 3, words.length()));
-//                            newPossWords.add(nicerString);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return createTree(rules, newPossWords, wordLength, ++count);
-//    }
 }
 

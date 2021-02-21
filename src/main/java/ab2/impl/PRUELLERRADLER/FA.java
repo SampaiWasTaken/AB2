@@ -88,31 +88,12 @@ public class FA implements ab2.FA
     public ab2.FA kleeneStar()
     {
         return this.toRSA().kleeneStar();
-        /*
-        for (int i : acceptingStates)
-        {
-            transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
-            numStates++;
-        }
-        this.acceptingStates.add(0);
-        return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
-
-         */
     }
 
     @Override
     public ab2.FA plus()
     {
         return this.toRSA().plus();
-        /*
-        for (int i : acceptingStates)
-        {
-            transitions.add(new ab2.impl.PRUELLERRADLER.FATransition(i, 0, ""));
-        }
-
-        return new FA(this.numStates, this.characters, this.acceptingStates, this.transitions);
-
-         */
     }
 
     public static Set<Integer> getEpsilonQuant(int from, Set<FATransition> transitions)
@@ -158,7 +139,6 @@ public class FA implements ab2.FA
     {
         this.splitTransition();
 
-        //checks for epsilon transitions
         boolean hasEpsisonTransitions = false;
         for (ab2.FATransition trans : this.transitions)
         {
@@ -167,9 +147,6 @@ public class FA implements ab2.FA
 
         if (hasEpsisonTransitions)
         {
-            //doing RSA convertion with Epsilon quantity
-
-            //calculating Epsilon quantity
             Set<EpsilonQuantity> epsiQuant = new HashSet<>();
             for (FATransition tra : transitions)
             {
@@ -182,16 +159,9 @@ public class FA implements ab2.FA
                 eq.setTo(getEpsilonQuant(eq.getFrom(), transitions));
             }
 
-            // for(EpsilonQuantity eq : epsiQuant){
-            //  System.out.println(eq);
-            // }
-
-            //finished calculating epsilon quantity
-
             Set<TransitionTable> tt = new HashSet<>();
             Set<TransitionTable> finaltt = new HashSet<>();
 
-            //startzustand hat immer index 0 aber epsilon quantity davon
             Set<Integer> start = new HashSet<>();
             for (EpsilonQuantity eq : epsiQuant)
             {
@@ -222,7 +192,6 @@ public class FA implements ab2.FA
                         }
                     }
                 }
-                //replace calculated steps with steps from epsilon quantity
                 ArrayList<Set<Integer>> replaceArray = t.getNextSteps();
                 for (int i = 0; i < replaceArray.size(); i++)
                 {
@@ -240,16 +209,6 @@ public class FA implements ab2.FA
                     replaceArray.set(i, replaceInt);
                 }
                 t.setNextSteps(replaceArray);
-
-                //for(TransitionTable finalttreplace : finaltt){
-                //         finalttreplace.setNextSteps(replaceArray);
-                //}
-
-                // System.out.println(""+t);
-                //1rst replace done
-
-                // System.out.println("----------"+finaltt);
-
                 ArrayList<Set<Integer>> tra = t.getNextSteps();
                 for (int i = 0; i < tra.size(); i++)
                 {
@@ -260,10 +219,8 @@ public class FA implements ab2.FA
                     }
                 }
             }
-            //System.out.println(",,,,,,,,"+tt);
             tt.remove(new TransitionTable(start));
 
-            //System.out.println(".............." + tt);
 
             int j = finaltt.size();
             Iterator it = tt.iterator();
@@ -273,7 +230,7 @@ public class FA implements ab2.FA
                 currenttt.calculateSteps(transitions, characters);
                 ArrayList<Set<Integer>> errorCorrection = currenttt.getNextSteps();
                 for (Set<Integer> i : errorCorrection)
-                { //das is neu
+                {
                     if (i.size() == 0)
                     {
                         for (FATransition trans : transitions)
@@ -285,7 +242,6 @@ public class FA implements ab2.FA
                         }
                     }
                 }
-                //  System.out.println("##########!!!!!" + currenttt);
 
                 ArrayList<Set<Integer>> replaceArray = currenttt.getNextSteps();
                 for (int i = 0; i < replaceArray.size(); i++)
@@ -304,9 +260,6 @@ public class FA implements ab2.FA
                     replaceArray.set(i, replaceInt);
                 }
                 currenttt.setNextSteps(replaceArray);
-                // System.out.println("RRRRRRRRRRRRRRRREEEEEEEEEEEEEE     "+replaceArray);
-                // System.out.println(currenttt);
-                // System.out.println(currenttt.getNextSteps());
 
                 ArrayList<Set<Integer>> tra = currenttt.getNextSteps();
                 for (int i = 0; i < tra.size(); i++)
@@ -326,7 +279,6 @@ public class FA implements ab2.FA
                         {
                             tt.add(new TransitionTable(tra.get(i)));
                             finaltt.add(new TransitionTable(tra.get(i)));
-                            // System.out.println("FINAAAAAAAAALLLLLLLL           "+finaltt);
                             j++;
                         }
                     }
@@ -342,7 +294,6 @@ public class FA implements ab2.FA
             {
                 t.calculateSteps(transitions, characters);
                 FinalTransitionTable.add(t);
-                //BRUHHHHHHHHHHHHHHHHHHHHHH HIER GEHÖREN DIE ZUSTÄNDE NOCH AUF DIE DER EPSILON MENGE GEÄNDERT
                 ArrayList<Set<Integer>> replaceArray = t.getNextSteps();
                 for (int i = 0; i < replaceArray.size(); i++)
                 {
@@ -360,10 +311,8 @@ public class FA implements ab2.FA
                     replaceArray.set(i, replaceInt);
                 }
                 t.setNextSteps(replaceArray);
-                // System.out.println(t.toString());
             }
 
-            //checks if a "FRESSZUSTAND" is needed
             boolean fresszustand = false;
             for (TransitionTable t : FinalTransitionTable)
             {
@@ -386,7 +335,6 @@ public class FA implements ab2.FA
             ArrayList<TransitionTable> newFinalTT = new ArrayList<>();
             int stateNumber = 1;
 
-            //in this for() i add the currentStates with a new number to a new TransitionTable
             for (int i = 0; i < FinalTransitionTable.size(); i++)
             {
                 Set<Integer> zeroSet = new HashSet<>();
@@ -405,17 +353,14 @@ public class FA implements ab2.FA
                     newFinalTT.add(new TransitionTable(zeroAddSet));
                     for (Integer acptdState : acceptingStates)
                     {
-                        // System.out.println("acptdState   " + acptdState);
                         if (FinalTransitionTable.get(i).getCurrentState().contains(acptdState))
                         {
-                            // System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " + "[0]");
                             finalacceptedStates.add(0);
                         }
                     }
                 }
                 else
                 {
-                    //keine ahnung wie gerade sonst ein set erstellen
                     Set<Integer> numberSet = new HashSet<>();
                     numberSet.add(stateNumber);
                     newFinalTT.add(new TransitionTable(numberSet));
@@ -423,7 +368,6 @@ public class FA implements ab2.FA
                     {
                         if (FinalTransitionTable.get(i).getCurrentState().contains(acptdState))
                         {
-                            // System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " +numberSet);
                             finalacceptedStates.add(stateNumber);
                         }
                     }
@@ -432,14 +376,6 @@ public class FA implements ab2.FA
                 }
             }
 
-            //System.out.println("YAAAAAAYEEEEEEEEEEEEEEEEEET final table");
-
-            // for(TransitionTable t: finaltt){
-            //System.out.println(t);
-            // }
-            // System.out.println();
-
-            //now i add the nextSteps with the correct new number
             for (int i = 0; i < FinalTransitionTable.size(); i++)
             {
                 ArrayList<Set<Integer>> nextStepsArray = FinalTransitionTable.get(i).getNextSteps();
@@ -470,19 +406,9 @@ public class FA implements ab2.FA
                     }
                     charCounter++;
                 }
-                //System.out.println(finalNextStep);
                 newFinalTT.get(i).setNextSteps(finalNextStep);
             }
 
-            //System.out.println("TEST");
-            //for(TransitionTable t : newFinalTT){
-            //   System.out.println(t);
-            // }
-
-            //BIS HIER PASST ALLES !!!!!!!!!!!!!!!!!!!! BEIM ERSTELLEN DER TRANSITIONS PASST NOCH WAS NICHT
-
-            // System.out.println("size FinalTransitionTable : " + FinalTransitionTable.size());
-            //creating RSA
             Set<ab2.DFATransition> finalRsaTransitions = new HashSet<>();
 
             for (TransitionTable t : newFinalTT)
@@ -492,10 +418,6 @@ public class FA implements ab2.FA
                 {
                     if (i >= characters.size()) i = 0;
                     ArrayList<Set<Integer>> nextStates = t.getNextSteps();
-                    // System.out.println("####################################");
-                    // System.out.println(t);
-
-                    //AHHAAHHAHAHHAH HIEEER IST DER FEHLER BEIM EINFÜGEN AHAHAHAHAHA FIXED!!!!!!!!!!
 
                     if (nextStates.get(i).size() != 0)
                     {
@@ -532,7 +454,6 @@ public class FA implements ab2.FA
                 }
             }
 
-            //neue transitions und enzusteande sind fertig.
             if (fresszustand)
             {
                 return new ab2.impl.PRUELLERRADLER.RSA(FinalTransitionTable.size() + 1, characters, finalacceptedStates, finalRsaTransitions);
@@ -554,13 +475,9 @@ public class FA implements ab2.FA
                 Set<Integer> acceptn1 = new TreeSet<>();
                 return new ab2.impl.PRUELLERRADLER.RSA(1, characters, acceptn1, newtransitio);
             }
-
-            //doing simple RSA convertion without epsilon quantity
-
             Set<TransitionTable> tt = new HashSet<>();
             Set<TransitionTable> finaltt = new HashSet<>();
 
-            //startzustand hat immer index 0
             Set<Integer> start = new HashSet<>();
             start.add(0);
 
@@ -622,10 +539,8 @@ public class FA implements ab2.FA
             {
                 t.calculateSteps(transitions, characters);
                 FinalTransitionTable.add(t);
-                // System.out.println(t.toString());
             }
 
-            //checks if a "FRESSZUSTAND" is needed
             boolean fresszustand = false;
             for (TransitionTable t : FinalTransitionTable)
             {
@@ -647,7 +562,6 @@ public class FA implements ab2.FA
             //remap states
             ArrayList<TransitionTable> newFinalTT = new ArrayList<>();
             int stateNumber = 1;
-            //in this for() i add the currentStates with a new number to a new TransitionTable
             for (int i = 0; i < FinalTransitionTable.size(); i++)
             {
                 Set<Integer> zeroSet = new HashSet<>();
@@ -659,14 +573,12 @@ public class FA implements ab2.FA
                     {
                         if (FinalTransitionTable.get(i).getCurrentState().contains(acptdState))
                         {
-                            //  System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " + "[0]");
                             finalacceptedStates.add(0);
                         }
                     }
                 }
                 else
                 {
-                    //keine ahnung wie gerade sonst ein set erstellen
                     Set<Integer> numberSet = new HashSet<>();
                     numberSet.add(stateNumber);
                     newFinalTT.add(new TransitionTable(numberSet));
@@ -674,7 +586,6 @@ public class FA implements ab2.FA
                     {
                         if (FinalTransitionTable.get(i).getCurrentState().contains(acptdState))
                         {
-                            // System.out.println(FinalTransitionTable.get(i).getCurrentState() +" --> " +numberSet);
                             finalacceptedStates.add(stateNumber);
                         }
                     }
@@ -683,7 +594,6 @@ public class FA implements ab2.FA
                 }
             }
 
-            //now i add the nextSteps with the correct new number
             for (int i = 0; i < FinalTransitionTable.size(); i++)
             {
                 ArrayList<Set<Integer>> nextStepsArray = FinalTransitionTable.get(i).getNextSteps();
@@ -716,14 +626,6 @@ public class FA implements ab2.FA
                 }
                 newFinalTT.get(i).setNextSteps(finalNextStep);
             }
-
-            // System.out.println("TEST");
-            // for(TransitionTable t : newFinalTT){
-            //    System.out.println(t);
-            // }
-
-            //  System.out.println("size FinalTransitionTable : " + FinalTransitionTable.size());
-            //creating RSA
             Set<ab2.DFATransition> finalRsaTransitions = new HashSet<>();
 
             for (TransitionTable t : newFinalTT)
@@ -831,13 +733,10 @@ public class FA implements ab2.FA
     @Override
     public boolean isInfinite()
     {
-        // if(acceptsNothing()) return false;
         if (acceptsEpsilonOnly()) return false;
         boolean infinite = false;
         boolean loop = false;
         Set<Integer> possibleFroms = new HashSet<>();
-        //RSA newRSA = this.toRSA().minimize();
-        // return newRSA.isInfinite();
 
         for (FATransition tr : this.getTransitions())
             if (reaches(tr.from(), tr.from(), new HashSet<>(), false, 0))
@@ -936,7 +835,6 @@ public class FA implements ab2.FA
         this.transitions = newTrans;
     }
 
-    //checks if one state reaches another, breaks if loop detected and returns falsee
     public boolean reaches(int from, int to, Set<FATransition> prevState, boolean reached, int count)
     {
         if (reached) return true;
@@ -958,12 +856,10 @@ public class FA implements ab2.FA
                 break;
             else if (tr.from() == from && tr.to() == to)
             {
-                //System.out.println(tr.toString());
                 return true;
             }
             else if (tr.from() == from && !copiedTransitions.contains(tr))
             {
-                //System.out.println(tr.toString());
                 count++;
                 copiedTransitions.add(tr);
                 reached = reaches(tr.to(), to, copiedTransitions, reached, count);
